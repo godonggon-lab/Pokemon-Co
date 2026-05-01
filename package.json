@@ -1,0 +1,42 @@
+{
+  "name": "dongjun-codedex",
+  "version": "0.1.0",
+  "private": true,
+  "description": "포켓몬 도감 컨셉의 BOJ 코딩테스트 학습 사이트 (하네스 엔지니어링 적용)",
+  "scripts": {
+    "data:boj": "node scripts/index-boj.mjs",
+    "data:pokedex": "node scripts/build-pokedex.mjs",
+    "data:map": "node scripts/build-monster-map.mjs",
+    "data:all": "npm run data:boj && npm run data:pokedex && npm run data:map",
+    "dev": "next dev",
+    "build": "npm run data:all && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "judge:dev": "python judge/server.py",
+    "harness:test": "python -m pytest harness/tests -q",
+    "e2e": "playwright test",
+    "e2e:install": "playwright install --with-deps chromium"
+  },
+  "dependencies": {
+    "@monaco-editor/react": "^4.6.0",
+    "better-sqlite3": "^12.9.0",
+    "clsx": "^2.1.1",
+    "next": "^14.2.35",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.47.0",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^20.14.0",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.7",
+    "typescript": "5.5.4"
+  },
+  "engines": {
+    "node": ">=18.18"
+  }
+}

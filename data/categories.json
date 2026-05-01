@@ -1,0 +1,156 @@
+[
+  {
+    "slug": "implementation",
+    "name_ko": "구현",
+    "name_en": "implementation",
+    "type": "bug",
+    "problemCount": 26
+  },
+  {
+    "slug": "graph_traversal",
+    "name_ko": "그래프 탐색",
+    "name_en": "graph_traversal",
+    "type": "flying",
+    "problemCount": 34
+  },
+  {
+    "slug": "greedy",
+    "name_ko": "그리디",
+    "name_en": "greedy",
+    "type": "fire",
+    "problemCount": 23
+  },
+  {
+    "slug": "prefix_sum",
+    "name_ko": "누적합",
+    "name_en": "prefix_sum",
+    "type": "ground",
+    "problemCount": 13
+  },
+  {
+    "slug": "string",
+    "name_ko": "문자열",
+    "name_en": "string",
+    "type": "normal",
+    "problemCount": 22
+  },
+  {
+    "slug": "backtracking",
+    "name_ko": "백트래킹",
+    "name_en": "backtracking",
+    "type": "ghost",
+    "problemCount": 26
+  },
+  {
+    "slug": "disjoint_set",
+    "name_ko": "분리집합",
+    "name_en": "disjoint_set",
+    "type": "poison",
+    "problemCount": 8
+  },
+  {
+    "slug": "divide_and_conquer",
+    "name_ko": "분할정복",
+    "name_en": "divide_and_conquer",
+    "type": "dark",
+    "problemCount": 10
+  },
+  {
+    "slug": "math",
+    "name_ko": "수학",
+    "name_en": "math",
+    "type": "steel",
+    "problemCount": 20
+  },
+  {
+    "slug": "simulation",
+    "name_ko": "시뮬레이션",
+    "name_en": "simulation",
+    "type": "water",
+    "problemCount": 13
+  },
+  {
+    "slug": "brute_force",
+    "name_ko": "완전탐색",
+    "name_en": "brute_force",
+    "type": "fighting",
+    "problemCount": 31
+  },
+  {
+    "slug": "binary_search",
+    "name_ko": "이분탐색",
+    "name_en": "binary_search",
+    "type": "ice",
+    "problemCount": 18
+  },
+  {
+    "slug": "data_structure",
+    "name_ko": "자료구조 I",
+    "name_en": "data_structure",
+    "type": "rock",
+    "problemCount": 22
+  },
+  {
+    "slug": "data_structure2",
+    "name_ko": "자료구조 II",
+    "name_en": "data_structure2",
+    "type": "rock",
+    "problemCount": 14
+  },
+  {
+    "slug": "shortest_path",
+    "name_ko": "최단경로",
+    "name_en": "shortest_path",
+    "type": "electric",
+    "problemCount": 2
+  },
+  {
+    "slug": "two_pointer",
+    "name_ko": "투 포인터",
+    "name_en": "two_pointer",
+    "type": "dragon",
+    "problemCount": 9
+  },
+  {
+    "slug": "trie",
+    "name_ko": "트라이",
+    "name_en": "trie",
+    "type": "grass",
+    "problemCount": 1
+  },
+  {
+    "slug": "tree",
+    "name_ko": "트리",
+    "name_en": "tree",
+    "type": "grass",
+    "problemCount": 6
+  },
+  {
+    "slug": "dynamic_programming_on_trees",
+    "name_ko": "트리 DP",
+    "name_en": "dynamic_programming_on_trees",
+    "type": "psychic",
+    "problemCount": 6
+  },
+  {
+    "slug": "dynamic_programming_1",
+    "name_ko": "DP I",
+    "name_en": "dynamic_programming_1",
+    "type": "psychic",
+    "problemCount": 32
+  },
+  {
+    "slug": "dynamic_programming_2",
+    "name_ko": "DP II",
+    "name_en": "dynamic_programming_2",
+    "type": "psychic",
+    "problemCount": 14
+  },
+  {
+    "slug": "minimum_spanning_tree",
+    "name_ko": "MST",
+    "name_en": "minimum_spanning_tree",
+    "type": "fairy",
+    "problemCount": 12
+  }
+]
