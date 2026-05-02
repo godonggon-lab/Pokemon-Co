@@ -17,6 +17,7 @@ Runner 인터페이스:
 서버는 사용자 코드 = DockerRunner / oracle = LocalRunner 로 분리해 호출한다.
 """
 from __future__ import annotations
+import json
 import os
 import shutil
 import subprocess
@@ -24,6 +25,7 @@ import tempfile
 import time
 import uuid
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Literal, Protocol
 
 Lang = Literal["python", "cpp", "javascript", "java"]
@@ -107,9 +109,12 @@ class DockerRunner:
         if shutil.which("docker") is None:
             return RunResult(False, "", "docker not installed on judge host", 0, False, False)
 
-        host_dir = tempfile.mkdtemp(prefix="cr-")
+        tmp_root = Path(os.environ.get("CODERUNNER_TMPDIR", Path.cwd() / ".data" / "runner-tmp"))
+        tmp_root.mkdir(parents=True, exist_ok=True)
+        host_dir = tempfile.mkdtemp(prefix="cr-", dir=str(tmp_root))
         fname = {"python":"main.py","javascript":"main.js","cpp":"main.cpp","java":"Main.java"}[lang]
         with open(os.path.join(host_dir, fname), "w", encoding="utf-8") as h: h.write(code)
+        host_mount = str(Path(host_dir).resolve()).replace("\\", "/")
 
         cname = f"cr-{uuid.uuid4().hex[:10]}"
         # 컨테이너 내부 timeout 을 정확한 ms 로 강제. 외부 subprocess 타임아웃은
@@ -121,12 +126,15 @@ class DockerRunner:
             "--name", cname,
             "--network", "none",
             "--read-only",
-            "--tmpfs", "/work:exec,size=64m",
+            "--cap-drop", "ALL",
+            "--security-opt", "no-new-privileges",
+            "--tmpfs", "/work:exec,size=64m,mode=1777",
             "--memory", f"{memory_mb}m",
+            "--memory-swap", f"{memory_mb}m",
             "--cpus", "1.0",
             "--pids-limit", "128",
             "--ulimit", "nofile=64:64",
-            "-v", f"{host_dir}:/code:ro",
+            "-v", f"{host_mount}:/code:ro",
             "-e", f"LANG_NAME={lang}",
             "-e", f"TIME_LIMIT_MS={time_limit_ms}",
             self.IMAGE
@@ -179,6 +187,49 @@ class CaseResult:
     duration_ms: int = 0
 
 
+@dataclass
+class JudgeCase:
+    input: str
+    kind: str  # "sample" | "fuzz"
+    expected: str | None = None
+
+
+def _problem_id_from_slug(problem_slug: str) -> str | None:
+    tail = problem_slug.rsplit("-", 1)[-1]
+    return tail if tail.isdigit() else None
+
+
+def _load_sample_cases(problem_slug: str, *, max_samples: int = 3) -> list[JudgeCase]:
+    problem_id = _problem_id_from_slug(problem_slug)
+    if not problem_id:
+        return []
+
+    path = Path(__file__).resolve().parent.parent / "data" / "problems-statements.json"
+    if not path.exists():
+        return []
+
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+
+    statement = data.get(problem_id)
+    if not isinstance(statement, dict) or statement.get("_failed"):
+        return []
+
+    cases: list[JudgeCase] = []
+    for sample in statement.get("samples") or []:
+        if not isinstance(sample, dict):
+            continue
+        stdin = sample.get("in")
+        expected = sample.get("out")
+        if isinstance(stdin, str) and isinstance(expected, str):
+            cases.append(JudgeCase(input=stdin, kind="sample", expected=expected))
+        if len(cases) >= max_samples:
+            break
+    return cases
+
+
 def judge(*,
           problem_slug: str,
           category_slug: str,
@@ -192,19 +243,48 @@ def judge(*,
           time_limit_s: float = 2.0,
           memory_limit_mb: int = 256) -> dict:
     from .generators import generate
-    inputs = generate(problem_slug, category_slug, count=case_count)
+    try:
+        sample_cases = _load_sample_cases(problem_slug)
+        fuzz_cases = [
+            JudgeCase(input=stdin, kind="fuzz")
+            for stdin in generate(problem_slug, category_slug, count=case_count)
+        ]
+    except Exception as e:
+        return {
+            "status": "ERR",
+            "message": f"generator failed: {e}",
+            "durationMs": 0
+        }
+    judge_cases = sample_cases + fuzz_cases
 
     cases: list[CaseResult] = []
     passed = 0
     t0 = time.perf_counter()
 
-    for i, stdin in enumerate(inputs):
-        # 1) Oracle 실행
-        oracle = oracle_runner.run(oracle_lang, oracle_code, stdin,
-                                   time_limit_s=time_limit_s * 2, memory_mb=512)
-        if not oracle.ok:
-            # Oracle 자체가 실패하면 해당 케이스는 스킵 (생성기 결함 가능)
-            continue
+    for i, jc in enumerate(judge_cases):
+        stdin = jc.input
+        expected = jc.expected
+        if expected is None:
+            # 1) Oracle 실행
+            oracle = oracle_runner.run(oracle_lang, oracle_code, stdin,
+                                       time_limit_s=time_limit_s * 2, memory_mb=512)
+            if not oracle.ok:
+                if oracle.compile_error:
+                    reason = "compile error"
+                elif oracle.timed_out:
+                    reason = "time limit"
+                elif oracle.oom_killed:
+                    reason = "memory limit"
+                else:
+                    reason = f"exit code {oracle.exit_code}"
+                return {
+                    "status": "ERR",
+                    "message": f"oracle failed on {jc.kind} case #{i}: {reason}\n{oracle.stderr}".strip(),
+                    "cases": [c.__dict__ for c in cases],
+                    "durationMs": int((time.perf_counter() - t0) * 1000)
+                }
+            expected = oracle.stdout
+
         # 2) 사용자 실행
         user = user_runner.run(user_lang, user_code, stdin,
                                time_limit_s=time_limit_s, memory_mb=memory_limit_mb)
@@ -212,20 +292,20 @@ def judge(*,
             return {"status": "CE", "message": user.stderr,
                     "durationMs": int((time.perf_counter() - t0) * 1000)}
         if user.timed_out:
-            cases.append(CaseResult(i, stdin, oracle.stdout, "<TLE>", False, "fuzz",
+            cases.append(CaseResult(i, stdin, expected, "<TLE>", False, jc.kind,
                                     verdict="TLE", duration_ms=user.duration_ms))
             continue
         if user.oom_killed:
-            cases.append(CaseResult(i, stdin, oracle.stdout, "<MLE>", False, "fuzz",
+            cases.append(CaseResult(i, stdin, expected, "<MLE>", False, jc.kind,
                                     verdict="MLE", duration_ms=user.duration_ms))
             continue
         if not user.ok:
-            cases.append(CaseResult(i, stdin, oracle.stdout, user.stderr or "<RE>", False, "fuzz",
+            cases.append(CaseResult(i, stdin, expected, user.stderr or "<RE>", False, jc.kind,
                                     verdict="RE", duration_ms=user.duration_ms))
             continue
-        ok = _normalize(user.stdout) == _normalize(oracle.stdout)
+        ok = _normalize(user.stdout) == _normalize(expected)
         if ok: passed += 1
-        cases.append(CaseResult(i, stdin, oracle.stdout, user.stdout, ok, "fuzz",
+        cases.append(CaseResult(i, stdin, expected, user.stdout, ok, jc.kind,
                                 verdict="AC" if ok else "WA", duration_ms=user.duration_ms))
 
     total = len(cases)

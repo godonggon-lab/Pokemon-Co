@@ -6,7 +6,7 @@
 #   - judge_core.DockerRunner 는 124/137 을 TLE/MLE 로 분류한다.
 set -u
 
-cp -r /code/* /work/ 2>/dev/null || true
+cp -r /code/* /work/
 cd /work || exit 1
 
 # 시간 제한 (초) — TIME_LIMIT_MS 환경변수에서 환산. 미지정 시 제한 없음.

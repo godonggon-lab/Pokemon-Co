@@ -13,7 +13,7 @@
     "start": "next start",
     "lint": "next lint",
     "judge:dev": "python judge/server.py",
-    "harness:test": "python -m pytest harness/tests -q",
+    "harness:test": "python -m unittest discover -s harness/tests -p \"test_*.py\"",
     "e2e": "playwright test",
     "e2e:install": "playwright install --with-deps chromium"
   },

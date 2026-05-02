@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Problem, Source, Category } from "@/lib/types";
 import { useTrainer } from "./TrainerProvider";
 import { applyOutcome } from "@/lib/rating";
@@ -24,6 +24,15 @@ type JudgeStatus = "AC" | "WA" | "TLE" | "MLE" | "RE" | "CE" | "ERR";
 type JudgeVerdict =
   | { status: "AC" | "WA" | "TLE" | "MLE" | "RE"; passed: number; total: number; cases: CaseResult[]; durationMs: number }
   | { status: "CE" | "ERR"; message: string; cases?: CaseResult[]; durationMs?: number };
+type RunStatus = "OK" | "TLE" | "MLE" | "RE" | "CE" | "ERR";
+type RunVerdict = {
+  status: RunStatus;
+  stdout?: string;
+  stderr?: string;
+  message?: string;
+  durationMs?: number;
+  exitCode?: number;
+};
 
 const STARTER: Record<string, string> = {
   python:     "import sys\ninput = sys.stdin.readline\n\n# 여기에 풀이를 작성하세요\n",
@@ -44,15 +53,49 @@ export default function ProblemPlayground({
   const [lang, setLang] = useState<Source["lang"]>("python");
   const [code, setCode] = useState<string>(STARTER["python"] ?? "");
   const [submitting, setSubmitting] = useState(false);
+  const [running, setRunning] = useState(false);
   const [verdict, setVerdict] = useState<JudgeVerdict | null>(null);
+  const [runVerdict, setRunVerdict] = useState<RunVerdict | null>(null);
   const [showOracle, setShowOracle] = useState(false);
   const [capture, setCapture] = useState<CaptureEvent | null>(null);
+  const [customInput, setCustomInput] = useState("");
+  const [draftStatus, setDraftStatus] = useState<"loaded" | "saved" | "">("");
+  const submitRef = useRef<() => void>(() => {});
 
   const { profile, ready, applyWin, applyLoss, bumpAttempt } = useTrainer();
+  const draftKey = useMemo(() => `codedex:draft:${problem.slug}:${lang}`, [problem.slug, lang]);
+  const inputKey = useMemo(() => `codedex:stdin:${problem.slug}`, [problem.slug]);
+  const flavorLimits = useMemo(() => {
+    const monsterEntry = getMonsterEntry(problem.slug);
+    return monsterEntry
+      ? buildFlavor(problem, monsterEntry, getProblemMeta(problem.id)).limits
+      : undefined;
+  }, [problem]);
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem(draftKey);
+    setCode(saved ?? STARTER[lang] ?? "");
+    setDraftStatus(saved ? "loaded" : "");
+  }, [draftKey, lang]);
+
+  useEffect(() => {
+    const savedInput = window.localStorage.getItem(inputKey);
+    setCustomInput(savedInput ?? "");
+  }, [inputKey]);
+
+  useEffect(() => {
+    window.localStorage.setItem(draftKey, code);
+    setDraftStatus("saved");
+  }, [code, draftKey]);
+
+  useEffect(() => {
+    window.localStorage.setItem(inputKey, customInput);
+  }, [customInput, inputKey]);
 
   function onLangChange(next: Source["lang"]) {
     setLang(next);
-    setCode(STARTER[next] ?? "");
+    setVerdict(null);
+    setRunVerdict(null);
   }
 
   async function submit() {
@@ -63,16 +106,12 @@ export default function ProblemPlayground({
     const attemptsBefore = (profile.attempts[problem.slug] ?? 0) + 1;
 
     try {
-      const monsterEntry = getMonsterEntry(problem.slug);
-      const flavor = monsterEntry
-        ? buildFlavor(problem, monsterEntry, getProblemMeta(problem.id))
-        : null;
       const r = await fetch("/api/judge", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
           problemSlug: problem.slug, lang, code,
-          limits: flavor?.limits
+          limits: flavorLimits
         })
       });
       const j: JudgeVerdict = await r.json();
@@ -108,8 +147,36 @@ export default function ProblemPlayground({
     }
   }
 
+  submitRef.current = submit;
+
+  async function runCustomInput() {
+    setRunning(true);
+    setRunVerdict(null);
+    try {
+      const r = await fetch("/api/judge", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          mode: "run",
+          problemSlug: problem.slug,
+          lang,
+          code,
+          stdin: customInput,
+          limits: flavorLimits
+        })
+      });
+      const j: RunVerdict = await r.json();
+      setRunVerdict(j);
+    } catch (e: any) {
+      setRunVerdict({ status: "ERR", message: e?.message ?? "network error" });
+    } finally {
+      setRunning(false);
+    }
+  }
+
   const oracleSrc = problem.sources.find((s) => s.lang === lang) ?? problem.sources[0];
   const disabled = submitting || !ready || !profile;
+  const runDisabled = running || submitting;
 
   return (
     <>
@@ -134,6 +201,10 @@ export default function ProblemPlayground({
               {submitting ? "전투 중..." : "⚔️ 도전!"}
             </button>
           </div>
+          <div className="flex justify-between text-[11px] text-zinc-500">
+            <span>{draftStatus === "loaded" ? "저장된 코드를 불러왔습니다." : draftStatus === "saved" ? "자동 저장됨" : "새 풀이"}</span>
+            <span>Ctrl/Cmd + Enter 제출</span>
+          </div>
           <div className="overflow-hidden rounded-xl border border-white/10">
             <Editor
               height="520px"
@@ -142,6 +213,30 @@ export default function ProblemPlayground({
               value={code}
               onChange={(v) => setCode(v ?? "")}
               options={{ minimap: { enabled: false }, fontSize: 14, tabSize: 4 }}
+              onMount={(editor, monaco) => {
+                editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter, () => {
+                  submitRef.current();
+                });
+              }}
+            />
+          </div>
+          <div className="rounded-xl border border-white/10 bg-zinc-900/60 p-3">
+            <div className="mb-2 flex items-center gap-2">
+              <label className="text-xs font-semibold text-zinc-300">직접 실행 입력</label>
+              <button
+                className="ml-auto rounded-md bg-zinc-700 px-3 py-1.5 text-xs font-bold text-zinc-100 hover:bg-zinc-600 disabled:opacity-50"
+                disabled={runDisabled}
+                onClick={runCustomInput}
+              >
+                {running ? "실행 중..." : "실행"}
+              </button>
+            </div>
+            <textarea
+              className="h-28 w-full resize-y rounded-lg border border-white/10 bg-black/30 p-2 font-mono text-xs text-zinc-100 outline-none focus:border-amber-400"
+              value={customInput}
+              onChange={(e) => setCustomInput(e.target.value)}
+              spellCheck={false}
+              placeholder="여기에 직접 테스트할 입력을 넣으세요."
             />
           </div>
           <button
@@ -158,10 +253,60 @@ export default function ProblemPlayground({
         </div>
 
         <div className="space-y-3">
+          <RunPanel result={runVerdict} />
           <VerdictPanel verdict={verdict} />
         </div>
       </div>
     </>
+  );
+}
+
+function RunPanel({ result }: { result: RunVerdict | null }) {
+  if (!result) {
+    return (
+      <div className="rounded-xl border border-dashed border-white/15 p-4 text-sm text-zinc-400">
+        직접 실행 결과가 없습니다.
+      </div>
+    );
+  }
+  const style: Record<RunStatus, { bg: string; label: string }> = {
+    OK: { bg: "bg-emerald-500", label: "실행 완료" },
+    TLE: { bg: "bg-amber-500", label: "시간 초과" },
+    MLE: { bg: "bg-orange-600", label: "메모리 초과" },
+    RE: { bg: "bg-fuchsia-600", label: "런타임 에러" },
+    CE: { bg: "bg-zinc-600", label: "컴파일 에러" },
+    ERR: { bg: "bg-red-700", label: "실행기 오류" }
+  };
+  const s = style[result.status] ?? style.ERR;
+  return (
+    <div className="rounded-xl border border-white/10 bg-zinc-900 p-4">
+      <div className="flex items-center gap-3">
+        <span className={`pill text-white ${s.bg}`}>{result.status}</span>
+        <span className="text-sm font-bold text-zinc-100">{s.label}</span>
+        {result.durationMs != null && (
+          <span className="ml-auto text-xs text-zinc-500">{result.durationMs} ms</span>
+        )}
+      </div>
+      {result.message && (
+        <pre className="mt-3 max-h-32 overflow-auto rounded-lg bg-black/50 p-3 text-xs text-rose-300">
+          {result.message}
+        </pre>
+      )}
+      <div className="mt-3 grid grid-cols-1 gap-2 md:grid-cols-2">
+        <div>
+          <div className="mb-1 text-[10px] text-zinc-500">stdout</div>
+          <pre className="min-h-20 max-h-56 overflow-auto rounded bg-black/40 p-2 font-mono text-xs text-zinc-100">
+            {result.stdout || ""}
+          </pre>
+        </div>
+        <div>
+          <div className="mb-1 text-[10px] text-zinc-500">stderr</div>
+          <pre className="min-h-20 max-h-56 overflow-auto rounded bg-black/40 p-2 font-mono text-xs text-rose-200">
+            {result.stderr || ""}
+          </pre>
+        </div>
+      </div>
+    </div>
   );
 }
 

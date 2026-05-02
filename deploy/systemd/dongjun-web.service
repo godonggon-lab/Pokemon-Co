@@ -1,0 +1,16 @@
+[Unit]
+Description=DongJun CodeDex Next.js web
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/dongjun
+EnvironmentFile=/opt/dongjun/.env
+ExecStart=/usr/bin/npm run start
+Restart=always
+RestartSec=5
+User=dongjun
+Group=dongjun
+
+[Install]
+WantedBy=multi-user.target

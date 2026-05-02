@@ -1,0 +1,17 @@
+[Unit]
+Description=DongJun CodeDex judge server
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/dongjun
+EnvironmentFile=/opt/dongjun/.env
+ExecStart=/usr/bin/python3 judge/server.py
+Restart=always
+RestartSec=5
+User=dongjun
+Group=docker
+
+[Install]
+WantedBy=multi-user.target

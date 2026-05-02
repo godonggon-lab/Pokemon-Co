@@ -9,6 +9,7 @@ import sys, os, unittest
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 from harness.judge_core import judge, LocalRunner
+import harness.generators as generators
 
 ORACLE_2798 = """\
 import sys
@@ -26,6 +27,18 @@ print(MAX)
 
 
 class JudgeTests(unittest.TestCase):
+    def test_samples_run_before_fuzz_cases(self):
+        r = judge(
+            problem_slug="brute_force-2798", category_slug="brute_force",
+            user_lang="python", user_code=ORACLE_2798,
+            oracle_lang="python", oracle_code=ORACLE_2798,
+            user_runner=LocalRunner(), oracle_runner=LocalRunner(),
+            case_count=2,
+        )
+        self.assertEqual(r["status"], "AC", msg=r)
+        self.assertEqual([c["kind"] for c in r["cases"][:2]], ["sample", "sample"])
+        self.assertEqual([c["kind"] for c in r["cases"][2:]], ["fuzz", "fuzz"])
+
     def test_correct_solution_AC(self):
         # itertools 기반 동치 풀이 → AC 기대
         user = """\
@@ -66,6 +79,39 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
         # 적어도 한 케이스는 실패해야 의미 있음 (override 의 케이스가 도와줌)
         # 결정적 보장이 어려우므로 status 만 확인하지 않고 케이스 결과 존재 확인
         self.assertGreater(r["total"], 0)
+
+    def test_oracle_failure_returns_ERR(self):
+        bad_oracle = "raise RuntimeError('broken oracle')\n"
+        r = judge(
+            problem_slug="no_samples-999999", category_slug="brute_force",
+            user_lang="python", user_code=ORACLE_2798,
+            oracle_lang="python", oracle_code=bad_oracle,
+            user_runner=LocalRunner(), oracle_runner=LocalRunner(),
+            case_count=1,
+        )
+        self.assertEqual(r["status"], "ERR", msg=r)
+        self.assertIn("oracle failed", r["message"])
+
+    def test_generator_failure_returns_ERR(self):
+        original_generate = generators.generate
+
+        def broken_generate(*args, **kwargs):
+            raise RuntimeError("broken generator")
+
+        generators.generate = broken_generate
+        try:
+            r = judge(
+                problem_slug="no_samples-999999", category_slug="brute_force",
+                user_lang="python", user_code=ORACLE_2798,
+                oracle_lang="python", oracle_code=ORACLE_2798,
+                user_runner=LocalRunner(), oracle_runner=LocalRunner(),
+                case_count=1,
+            )
+        finally:
+            generators.generate = original_generate
+
+        self.assertEqual(r["status"], "ERR", msg=r)
+        self.assertIn("generator failed", r["message"])
 
 
 if __name__ == "__main__":

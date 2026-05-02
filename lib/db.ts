@@ -24,6 +24,7 @@ function db(): Database.Database {
   if (_db) return _db;
   const d = new Database(DB_PATH);
   d.pragma("journal_mode = WAL");
+  d.pragma("busy_timeout = 5000");
   d.pragma("foreign_keys = ON");
   d.exec(`
     CREATE TABLE IF NOT EXISTS trainers (
