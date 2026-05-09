@@ -1,14 +1,31 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useTrainer } from "@/components/TrainerProvider";
 import { categories, problems, getProblem } from "@/lib/dataset";
 import { buildMonster } from "@/lib/characters";
 import Sprite from "@/components/Sprite";
 import { badgeOf, nextBadge, BADGES } from "@/lib/rating";
 
+type LinkedAccount = {
+  provider: "kakao" | "naver";
+  providerUserId: string;
+  email: string | null;
+  displayName: string | null;
+};
+
 export default function ProfilePage() {
   const { profile, ready, resetTrainer, needsOnboarding } = useTrainer();
+  const [accounts, setAccounts] = useState<LinkedAccount[]>([]);
+
+  useEffect(() => {
+    if (!profile) return;
+    fetch("/api/auth/accounts", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((j) => setAccounts(j.accounts ?? []))
+      .catch(() => setAccounts([]));
+  }, [profile]);
 
   if (!ready) return <div className="text-zinc-400">로딩 중...</div>;
   if (needsOnboarding || !profile) {
@@ -67,6 +84,40 @@ export default function ProfilePage() {
             </div>
           </div>
         )}
+      </section>
+
+      <section className="rounded-2xl border border-amber-400/20 bg-amber-400/5 p-4">
+        <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h2 className="text-lg font-bold text-amber-100">기록 보관</h2>
+            <p className="mt-1 text-sm text-zinc-300">
+              카카오나 네이버 계정을 연결하면 새 기기에서도 같은 트레이너 기록을 이어갈 수 있습니다.
+            </p>
+            {accounts.length > 0 && (
+              <div className="mt-2 flex flex-wrap gap-2 text-xs">
+                {accounts.map((a) => (
+                  <span key={`${a.provider}:${a.providerUserId}`} className="rounded bg-emerald-500/15 px-2 py-1 text-emerald-200">
+                    {a.provider === "kakao" ? "카카오" : "네이버"} 연결됨
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <Link
+              href="/api/auth/kakao/start"
+              className="rounded-md bg-[#FEE500] px-3 py-2 text-sm font-bold text-zinc-950 hover:brightness-95"
+            >
+              카카오로 기록 보관하기
+            </Link>
+            <Link
+              href="/api/auth/naver/start"
+              className="rounded-md bg-[#03C75A] px-3 py-2 text-sm font-bold text-white hover:brightness-110"
+            >
+              네이버로 기록 보관하기
+            </Link>
+          </div>
+        </div>
       </section>
 
       <section>

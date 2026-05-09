@@ -25,6 +25,20 @@ for i in range(len(arr)):
 print(MAX)
 """
 
+SOLUTION_5597 = """\
+student = []
+
+for i in range(1, 31):
+    student.append(i)
+
+for _ in range(0, 28):
+    n = int(input())
+    student.remove(n)
+
+print(min(student))
+print(max(student))
+"""
+
 
 class JudgeTests(unittest.TestCase):
     def test_samples_run_before_fuzz_cases(self):
@@ -83,7 +97,7 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="no_samples-999999", category_slug="brute_force",
+            problem_slug="brute_force-2798", category_slug="brute_force",
             user_lang="python", user_code=ORACLE_2798,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
@@ -112,6 +126,57 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
 
         self.assertEqual(r["status"], "ERR", msg=r)
         self.assertIn("generator failed", r["message"])
+
+    def test_5597_override_matches_problem_input_shape(self):
+        r = judge(
+            problem_slug="implementation-5597", category_slug="implementation",
+            user_lang="python", user_code=SOLUTION_5597,
+            oracle_lang="python", oracle_code=SOLUTION_5597,
+            user_runner=LocalRunner(), oracle_runner=LocalRunner(),
+            case_count=6,
+        )
+        self.assertEqual(r["status"], "AC", msg=r)
+        for case in r["cases"]:
+            if case["kind"] not in {"edge", "fuzz"}:
+                continue
+            lines = case["input"].strip().splitlines()
+            self.assertEqual(len(lines), 28, msg=case["input"])
+            self.assertTrue(all(line.isdigit() for line in lines), msg=case["input"])
+        self.assertIn("edge", [case["kind"] for case in r["cases"]], msg=r)
+
+    def test_generic_fuzz_is_disabled_by_default(self):
+        generated = generators.generate("implementation-999999", "implementation", count=3)
+        self.assertEqual(generated, [])
+
+    def test_presentation_error_when_tokens_match_but_layout_differs(self):
+        one_line = """\
+student = []
+for i in range(1, 31):
+    student.append(i)
+for _ in range(28):
+    student.remove(int(input()))
+print(min(student), max(student))
+"""
+        r = judge(
+            problem_slug="implementation-5597", category_slug="implementation",
+            user_lang="python", user_code=one_line,
+            oracle_lang="python", oracle_code=SOLUTION_5597,
+            user_runner=LocalRunner(), oracle_runner=LocalRunner(),
+            case_count=1,
+        )
+        self.assertEqual(r["status"], "PE", msg=r)
+
+    def test_output_limit_exceeded_returns_OLE(self):
+        too_much_output = "print('x' * 2048)\n"
+        r = judge(
+            problem_slug="brute_force-2798", category_slug="brute_force",
+            user_lang="python", user_code=too_much_output,
+            oracle_lang="python", oracle_code=ORACLE_2798,
+            user_runner=LocalRunner(), oracle_runner=LocalRunner(),
+            case_count=1,
+            max_output_bytes=64,
+        )
+        self.assertEqual(r["status"], "OLE", msg=r)
 
 
 if __name__ == "__main__":

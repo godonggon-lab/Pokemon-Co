@@ -16,15 +16,15 @@ const Editor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
 
 type CaseResult = {
   idx: number; input: string; expected: string; actual: string;
-  ok: boolean; kind: "sample" | "fuzz";
-  verdict?: "AC" | "WA" | "TLE" | "MLE" | "RE";
+  ok: boolean; kind: "sample" | "edge" | "stress" | "fuzz";
+  verdict?: "AC" | "WA" | "PE" | "TLE" | "MLE" | "OLE" | "RE";
   duration_ms?: number;
 };
-type JudgeStatus = "AC" | "WA" | "TLE" | "MLE" | "RE" | "CE" | "ERR";
+type JudgeStatus = "AC" | "WA" | "PE" | "TLE" | "MLE" | "OLE" | "RE" | "CE" | "ERR";
 type JudgeVerdict =
-  | { status: "AC" | "WA" | "TLE" | "MLE" | "RE"; passed: number; total: number; cases: CaseResult[]; durationMs: number }
+  | { status: "AC" | "WA" | "PE" | "TLE" | "MLE" | "OLE" | "RE"; passed: number; total: number; cases: CaseResult[]; durationMs: number }
   | { status: "CE" | "ERR"; message: string; cases?: CaseResult[]; durationMs?: number };
-type RunStatus = "OK" | "TLE" | "MLE" | "RE" | "CE" | "ERR";
+type RunStatus = "OK" | "TLE" | "MLE" | "OLE" | "RE" | "CE" | "ERR";
 type RunVerdict = {
   status: RunStatus;
   stdout?: string;
@@ -137,7 +137,7 @@ export default function ProblemPlayground({
           newTR: delta.nextTR,
           firstCapture: res.firstCapture
         });
-      } else if (j.status === "WA" || j.status === "TLE" || j.status === "MLE" || j.status === "RE") {
+      } else if (j.status === "WA" || j.status === "PE" || j.status === "TLE" || j.status === "MLE" || j.status === "OLE" || j.status === "RE") {
         applyLoss(problem.slug, delta);
       }
     } catch (e: any) {
@@ -273,6 +273,7 @@ function RunPanel({ result }: { result: RunVerdict | null }) {
     OK: { bg: "bg-emerald-500", label: "실행 완료" },
     TLE: { bg: "bg-amber-500", label: "시간 초과" },
     MLE: { bg: "bg-orange-600", label: "메모리 초과" },
+    OLE: { bg: "bg-sky-600", label: "출력 초과" },
     RE: { bg: "bg-fuchsia-600", label: "런타임 에러" },
     CE: { bg: "bg-zinc-600", label: "컴파일 에러" },
     ERR: { bg: "bg-red-700", label: "실행기 오류" }
@@ -324,8 +325,10 @@ function VerdictPanel({ verdict }: { verdict: JudgeVerdict | null }) {
   const STATUS_STYLE: Record<JudgeStatus, { bg: string; label: string; emoji: string }> = {
     AC:  { bg: "bg-emerald-500",        label: "맞았습니다!!", emoji: "\uD83C\uDFC6" },
     WA:  { bg: "bg-rose-500",           label: "틀렸습니다",   emoji: "\u274C"   },
+    PE:  { bg: "bg-pink-500",           label: "출력 형식 오류", emoji: "\uD83D\uDCDD" },
     TLE: { bg: "bg-amber-500",          label: "시간 초과",    emoji: "\u23F1\uFE0F" },
     MLE: { bg: "bg-orange-600",         label: "메모리 초과",  emoji: "\uD83E\uDDE0" },
+    OLE: { bg: "bg-sky-600",            label: "출력 초과",    emoji: "\uD83D\uDCE4" },
     RE:  { bg: "bg-fuchsia-600",        label: "런타임 에러",  emoji: "\uD83D\uDCA5" },
     CE:  { bg: "bg-zinc-600",           label: "컴파일 에러",  emoji: "\u26A0\uFE0F" },
     ERR: { bg: "bg-red-700",            label: "채점기 오류",  emoji: "\uD83D\uDED1" }
@@ -355,8 +358,8 @@ function VerdictPanel({ verdict }: { verdict: JudgeVerdict | null }) {
           {verdict.cases.slice(0, 6).map((c) => {
             const v = c.verdict ?? (c.ok ? "AC" : "WA");
             const vColor: Record<string, string> = {
-              AC: "text-emerald-400", WA: "text-rose-400",
-              TLE: "text-amber-400", MLE: "text-orange-400", RE: "text-fuchsia-400"
+              AC: "text-emerald-400", WA: "text-rose-400", PE: "text-pink-400",
+              TLE: "text-amber-400", MLE: "text-orange-400", OLE: "text-sky-400", RE: "text-fuchsia-400"
             };
             return (
             <li key={c.idx} className="rounded-lg border border-white/5 bg-black/30 p-2">

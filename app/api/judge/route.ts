@@ -14,6 +14,7 @@ const JUDGE_URL = process.env.JUDGE_URL ?? "http://127.0.0.1:5050/judge";
 const JUDGE_RUN_URL = process.env.JUDGE_RUN_URL ?? JUDGE_URL.replace(/\/judge$/, "/run");
 const MAX_CODE_BYTES = intEnv("JUDGE_MAX_CODE_BYTES", 64 * 1024);
 const MAX_STDIN_BYTES = intEnv("JUDGE_MAX_STDIN_BYTES", 64 * 1024);
+const MAX_OUTPUT_BYTES = intEnv("JUDGE_MAX_OUTPUT_BYTES", 64 * 1024 * 1024);
 const RATE_LIMIT_WINDOW_MS = intEnv("JUDGE_RATE_LIMIT_WINDOW_MS", 60_000);
 const RATE_LIMIT_MAX = intEnv("JUDGE_RATE_LIMIT_MAX", 20);
 
@@ -91,8 +92,9 @@ export async function POST(req: Request) {
   try {
     const normalizedLimits = (limits && typeof limits === "object") ? {
       timeLimitMs:  Math.max(500, Math.min(10000, Number(limits.timeLimitMs)  || 2000)),
-      memoryLimitMb: Math.max(64,  Math.min(1024,  Number(limits.memoryLimitMb)|| 256))
-    } : undefined;
+      memoryLimitMb: Math.max(64,  Math.min(1024,  Number(limits.memoryLimitMb)|| 256)),
+      maxOutputBytes: MAX_OUTPUT_BYTES
+    } : { maxOutputBytes: MAX_OUTPUT_BYTES };
 
     const res = await fetch(mode === "run" ? JUDGE_RUN_URL : JUDGE_URL, {
       method: "POST",

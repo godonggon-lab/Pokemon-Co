@@ -14,6 +14,12 @@
     "lint": "next lint",
     "judge:dev": "python judge/server.py",
     "harness:test": "python -m unittest discover -s harness/tests -p \"test_*.py\"",
+    "judge:audit": "node scripts/audit-judge-cases.mjs",
+    "judge:coverage": "node scripts/audit-judge-coverage.mjs",
+    "judge:lang-audit": "node scripts/audit-language-support.mjs",
+    "judge:verify-overrides": "python scripts/verify-judge-overrides.py",
+    "ops:check-env": "node --env-file=.env scripts/check-env.mjs",
+    "ops:check-env:example": "node --env-file=.env.example scripts/check-env.mjs",
     "e2e": "playwright test",
     "e2e:install": "playwright install --with-deps chromium"
   },

@@ -34,6 +34,7 @@ USE_DOCKER = os.environ.get("JUDGE_USE_DOCKER", "1") == "1"
 MAX_BODY = int(os.environ.get("JUDGE_MAX_BODY_BYTES", str(256 * 1024)))
 MAX_CONCURRENT_JOBS = int(os.environ.get("JUDGE_MAX_CONCURRENT_JOBS", "3"))
 JOB_ACQUIRE_TIMEOUT_S = float(os.environ.get("JUDGE_JOB_ACQUIRE_TIMEOUT_S", "2.0"))
+MAX_OUTPUT_BYTES = int(os.environ.get("JUDGE_MAX_OUTPUT_BYTES", str(64 * 1024 * 1024)))
 JOB_SEMAPHORE = threading.BoundedSemaphore(MAX_CONCURRENT_JOBS)
 STARTED_AT = None
 
@@ -81,6 +82,7 @@ class Handler(BaseHTTPRequestHandler):
             limits = data.get("limits") or {}
             tl_s = float(limits.get("timeLimitMs", 2000)) / 1000.0
             ml_mb = int(limits.get("memoryLimitMb", 256))
+            out_bytes = int(limits.get("maxOutputBytes", MAX_OUTPUT_BYTES))
             if self.path == "/run":
                 result = user_runner.run(
                     data["lang"],
@@ -88,6 +90,7 @@ class Handler(BaseHTTPRequestHandler):
                     str(data.get("stdin", "")),
                     time_limit_s=tl_s,
                     memory_mb=ml_mb,
+                    max_output_bytes=out_bytes,
                 )
                 if result.compile_error:
                     return self._send(200, {
@@ -96,7 +99,9 @@ class Handler(BaseHTTPRequestHandler):
                         "stderr": result.stderr,
                         "durationMs": result.duration_ms,
                     })
-                if result.timed_out:
+                if result.output_exceeded:
+                    status = "OLE"
+                elif result.timed_out:
                     status = "TLE"
                 elif result.oom_killed:
                     status = "MLE"
@@ -123,6 +128,7 @@ class Handler(BaseHTTPRequestHandler):
                 oracle_runner  = LocalRunner(),
                 time_limit_s   = tl_s,
                 memory_limit_mb= ml_mb,
+                max_output_bytes= out_bytes,
             )
             self._send(200, result)
         except KeyError as e:

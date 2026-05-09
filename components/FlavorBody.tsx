@@ -109,12 +109,29 @@ function renderInline(s: string) {
 
 function renderMarkdown(md: string) {
   // 1) 수식·엔티티 전처리 → HTML 이스케이프 → 단락 분리
-  const escaped = escapeHtml(preprocessMath(md));
+  const escaped = escapeHtml(preprocessMath(md).replace(/\r\n?/g, "\n"));
   const blocks = escaped.split(/\n\s*\n+/);
   const out: string[] = [];
+  let pendingGridRows: string[] = [];
+  const flushGrid = () => {
+    if (pendingGridRows.length === 0) return;
+    out.push(`<pre class="my-3 overflow-x-auto rounded bg-black/40 p-3 font-mono text-xs leading-5 text-zinc-100">${pendingGridRows.join("\n")}</pre>`);
+    pendingGridRows = [];
+  };
+
+  const isVerticalGridRow = (lines: string[]) =>
+    lines.length >= 3 &&
+    lines.every((line) => /^[.#OX01-]$/.test(line.trim()));
+
   for (const block of blocks) {
-    const lines = block.split("\n").map(l => l.replace(/\s+$/, "")).filter(l => l.length > 0);
+    const lines = block.split("\n").map(l => l.trim()).filter(l => l.length > 0);
     if (lines.length === 0) continue;
+
+    if (isVerticalGridRow(lines)) {
+      pendingGridRows.push(lines.join(" "));
+      continue;
+    }
+    flushGrid();
 
     // 2) 한 단락 내부: 줄별로 처리하되 이미지·인용은 별도 블록으로 분리
     let buffer: string[] = [];
@@ -141,6 +158,7 @@ function renderMarkdown(md: string) {
     }
     flushPara();
   }
+  flushGrid();
   return out.join("");
 }
 

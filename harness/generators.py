@@ -18,9 +18,10 @@ from pathlib import Path
 from typing import Callable, List
 
 OVERRIDES_DIR = Path(__file__).parent / "overrides"
+ENABLE_GENERIC_FUZZ = os.environ.get("JUDGE_ENABLE_GENERIC_FUZZ", "0") == "1"
 
 
-def _load_override(problem_slug: str) -> Callable[[int], List[str]] | None:
+def _load_override_module(problem_slug: str):
     f = OVERRIDES_DIR / f"{problem_slug}.py"
     if not f.exists():
         return None
@@ -29,8 +30,24 @@ def _load_override(problem_slug: str) -> Callable[[int], List[str]] | None:
         return None
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)  # type: ignore[union-attr]
+    return mod
+
+
+def _load_override(problem_slug: str) -> Callable[[int], List[str]] | None:
+    mod = _load_override_module(problem_slug)
+    if mod is None:
+        return None
     fn = getattr(mod, "gen_inputs", None)
     return fn if callable(fn) else None
+
+
+def has_override(problem_slug: str) -> bool:
+    return (OVERRIDES_DIR / f"{problem_slug}.py").exists()
+
+
+def replaces_samples(problem_slug: str) -> bool:
+    mod = _load_override_module(problem_slug)
+    return bool(getattr(mod, "REPLACE_SAMPLES", False)) if mod is not None else False
 
 
 # ---- 카테고리별 일반 입력 템플릿 -----------------------------------------------
@@ -119,6 +136,9 @@ def generate(problem_slug: str, category_slug: str, *, count: int = 6, seed: str
     override = _load_override(problem_slug)
     if override is not None:
         return list(override(0))[:count]
+
+    if not ENABLE_GENERIC_FUZZ:
+        return []
 
     tmpl = _TEMPLATES.get(category_slug, _arr_N)
     seed_str = seed or problem_slug

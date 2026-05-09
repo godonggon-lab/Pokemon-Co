@@ -41,7 +41,7 @@ case "${LANG_NAME}" in
     run ./a.out
     ;;
   java)
-    if ! javac Main.java 2> compile.err; then
+    if ! javac -encoding UTF-8 Main.java 2> compile.err; then
       cat compile.err >&2
       exit 100
     fi
