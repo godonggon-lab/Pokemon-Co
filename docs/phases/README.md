@@ -22,7 +22,9 @@
 | 05 | [phase-05-nginx-deploy.md](./phase-05-nginx-deploy.md) | Nginx/systemd 단일 서버 배포 준비 | 완료 |
 | 06 | [phase-06-scale-up.md](./phase-06-scale-up.md) | 계정 연결, 환경 점검, 확장 구조 준비 | 진행 중 |
 | 07 | [phase-07-judge-edge-and-stress.md](./phase-07-judge-edge-and-stress.md) | missing case 제거와 edge/stress 기반 마련 | 진행 중 |
-| 08 | [phase-08-sample-only-coverage.md](./phase-08-sample-only-coverage.md) | 예제만 있는 고위험 문제를 우선순위대로 보강 | 진행 중 |
+| 08 | [phase-08-sample-only-coverage.md](./phase-08-sample-only-coverage.md) | 예제만 있는 고위험 문제를 우선순위대로 보강 | 완료 |
+| 09 | [phase-09-language-runtime-coverage.md](./phase-09-language-runtime-coverage.md) | Python/C++ 실행 환경과 Docker runner 검증 | 완료 |
+| 10 | [phase-10-post-override-validation-plan.md](./phase-10-post-override-validation-plan.md) | 전체 override 검증 이후 운영화 계획 | 계획 |
 
 ## 진행 원칙
 

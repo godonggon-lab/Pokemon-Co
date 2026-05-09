@@ -1414,3 +1414,45 @@ npm run judge:lang-audit
 - 전체 362문제 모두 override 또는 sample case를 통해 judge 가능하다.
 - sample-only 문제는 0개다.
 - 운영에서 C++ 제출까지 실제 실행하려면 `JUDGE_USE_DOCKER=1`과 C++ 컴파일러가 포함된 coderunner Docker image가 필요하다.
+
+## Docker 실제 실행 검증
+
+Docker Desktop 데몬을 실행한 뒤 coderunner 이미지를 빌드했다.
+
+```txt
+docker build -t dongjun-coderunner:latest judge
+-> OK
+```
+
+1차 전체 검증에서 6개 문제가 실패했다.
+
+```txt
+brute_force-13140        PE
+disjoint_set-17352       WA
+divide_and_conquer-2448  PE
+implementation-16926     WA
+implementation-20546     WA
+math-1990                WA
+```
+
+수정 내용:
+
+- `brute_force-13140`: 저장된 sample expected의 leading space 차이 때문에 `REPLACE_SAMPLES = True` 적용.
+- `disjoint_set-17352`: 여러 정답이 가능한 문제라 저장된 sample expected와 기준 소스 출력이 달라 `REPLACE_SAMPLES = True` 적용.
+- `divide_and_conquer-2448`: 저장된 sample expected 포맷이 기준 출력과 달라 `REPLACE_SAMPLES = True` 적용.
+- `implementation-16926`: invalid stress case(`min(N, M)` 홀수)를 valid case로 교체하고, 중앙값 보존을 위해 출력 배열 초기값을 원본 배열 복사로 변경.
+- `implementation-20546`: 저장된 기준 C++ 소스의 BNP 누적 매수와 TIMING 매도 로직을 문제 규칙에 맞게 수정.
+- `math-1990`: 저장된 기준 Java 소스가 1을 소수로 처리하던 문제를 수정.
+
+최종 검증:
+
+```txt
+npm run judge:verify-overrides
+-> OK: 362 override files self-judged successfully.
+```
+
+검증 환경:
+
+- Docker Desktop 실행
+- `dongjun-coderunner:latest`
+- Python, C++, Java 제출 소스 모두 실제 runner 경로로 실행

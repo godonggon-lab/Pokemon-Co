@@ -10,7 +10,7 @@ def expected(stdin: str) -> str:
     n, m, r = nums[0], nums[1], nums[2]
     vals = nums[3:]
     arr = [vals[i * m:(i + 1) * m] for i in range(n)]
-    out = [[0] * m for _ in range(n)]
+    out = [row[:] for row in arr]
     layers = min(n, m) // 2
     for layer in range(layers):
         cells = []
@@ -37,6 +37,6 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "4 4 2\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16\n",
         "2 4 3\n1 2 3 4\n5 6 7 8\n",
         "4 2 5\n1 2\n3 4\n5 6\n7 8\n",
-        "5 6 7\n1 2 3 4 5 6\n7 8 9 10 11 12\n13 14 15 16 17 18\n19 20 21 22 23 24\n25 26 27 28 29 30\n",
+        "6 6 7\n1 2 3 4 5 6\n7 8 9 10 11 12\n13 14 15 16 17 18\n19 20 21 22 23 24\n25 26 27 28 29 30\n31 32 33 34 35 36\n",
     ]
     return [edge(stdin, expected(stdin)) for stdin in inputs[:-1]] + [stress(inputs[-1], expected(inputs[-1]))]

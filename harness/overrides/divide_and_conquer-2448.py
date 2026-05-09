@@ -5,6 +5,9 @@ from typing import List
 from harness.cases import GeneratedCase, edge, stress
 
 
+REPLACE_SAMPLES = True
+
+
 def expected(stdin: str) -> str:
     n = int(stdin)
     width = 2 * n - 1

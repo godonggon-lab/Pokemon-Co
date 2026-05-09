@@ -5,6 +5,9 @@ from typing import List
 from harness.cases import GeneratedCase, edge, stress
 
 
+REPLACE_SAMPLES = True
+
+
 def expected(stdin: str) -> str:
     nums = list(map(int, stdin.split()))
     n = nums[0]

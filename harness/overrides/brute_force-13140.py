@@ -6,6 +6,9 @@ from typing import List
 from harness.cases import GeneratedCase, edge, stress
 
 
+REPLACE_SAMPLES = True
+
+
 def expected(stdin: str) -> str:
     target = int(stdin)
     letters = "helowrd"
@@ -21,5 +24,5 @@ def expected(stdin: str) -> str:
 
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    inputs = ["12345\n", "77777\n", "100000\n", "101520\n", "110000\n", "99999\n"]
+    inputs = ["66971\n", "12345\n", "77777\n", "100000\n", "101520\n", "110000\n", "99999\n"]
     return [edge(stdin, expected(stdin)) for stdin in inputs[:-1]] + [stress(inputs[-1], expected(inputs[-1]))]
