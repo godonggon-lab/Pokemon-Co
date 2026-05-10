@@ -20,7 +20,11 @@ export async function GET(
     return NextResponse.redirect(new URL(`/profile?auth_error=${provider}_not_configured`, _req.url));
   }
 
-  const res = NextResponse.redirect(url);
+  const target = process.env.E2E_MOCK_OAUTH === "1"
+    ? new URL(`/api/auth/${provider}/callback?code=mock-${Date.now()}&state=${state}`, _req.url)
+    : url;
+
+  const res = NextResponse.redirect(target);
   res.cookies.set(authStateCookie(provider), state, {
     httpOnly: true,
     sameSite: "lax",

@@ -28,13 +28,14 @@ export async function GET(
 
   const code = url.searchParams.get("code");
   const state = url.searchParams.get("state");
+  const mockOAuth = process.env.E2E_MOCK_OAUTH === "1" && code?.startsWith("mock-");
   const savedState = req.headers.get("cookie")
     ?.split(";")
     .map((v) => v.trim())
     .find((v) => v.startsWith(`${authStateCookie(provider)}=`))
     ?.split("=")[1];
 
-  if (!code || !state || !savedState || state !== savedState) {
+  if (!code || (!mockOAuth && (!state || !savedState || state !== savedState))) {
     redirect.searchParams.set("auth_error", "invalid_state");
     return NextResponse.redirect(redirect);
   }

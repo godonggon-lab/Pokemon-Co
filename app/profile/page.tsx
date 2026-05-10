@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import { useTrainer } from "@/components/TrainerProvider";
 import { categories, problems, getProblem } from "@/lib/dataset";
 import { buildMonster } from "@/lib/characters";
@@ -16,8 +17,19 @@ type LinkedAccount = {
 };
 
 export default function ProfilePage() {
+  return (
+    <Suspense fallback={<div className="text-zinc-400">로딩 중...</div>}>
+      <ProfileContent />
+    </Suspense>
+  );
+}
+
+function ProfileContent() {
   const { profile, ready, resetTrainer, needsOnboarding } = useTrainer();
   const [accounts, setAccounts] = useState<LinkedAccount[]>([]);
+  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+  const searchParams = useSearchParams();
+  const authSignal = searchParams.toString();
 
   useEffect(() => {
     if (!profile) return;
@@ -25,7 +37,7 @@ export default function ProfilePage() {
       .then((r) => r.json())
       .then((j) => setAccounts(j.accounts ?? []))
       .catch(() => setAccounts([]));
-  }, [profile]);
+  }, [profile, authSignal]);
 
   if (!ready) return <div className="text-zinc-400">로딩 중...</div>;
   if (needsOnboarding || !profile) {
@@ -89,36 +101,80 @@ export default function ProfilePage() {
       <section className="rounded-2xl border border-amber-400/20 bg-amber-400/5 p-4">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
-            <h2 className="text-lg font-bold text-amber-100">기록 보관</h2>
+            <div className="flex flex-wrap items-center gap-2">
+              <h2 className="text-lg font-bold text-amber-100">기록 보관</h2>
+              {accounts.length === 0 ? (
+                <span data-testid="guest-status" className="rounded bg-zinc-800 px-2 py-1 text-xs font-bold text-amber-200">
+                  Guest · 체험 중
+                </span>
+              ) : (
+                <span data-testid="auth-status" className="rounded bg-emerald-500/15 px-2 py-1 text-xs font-bold text-emerald-200">
+                  로그인됨
+                </span>
+              )}
+            </div>
             <p className="mt-1 text-sm text-zinc-300">
               카카오나 네이버 계정을 연결하면 새 기기에서도 같은 트레이너 기록을 이어갈 수 있습니다.
             </p>
             {accounts.length > 0 && (
-              <div className="mt-2 flex flex-wrap gap-2 text-xs">
+              <div data-testid="linked-accounts" className="mt-2 flex flex-wrap gap-2 text-xs">
                 {accounts.map((a) => (
                   <span key={`${a.provider}:${a.providerUserId}`} className="rounded bg-emerald-500/15 px-2 py-1 text-emerald-200">
                     {a.provider === "kakao" ? "카카오" : "네이버"} 연결됨
+                    {a.displayName ? ` · ${a.displayName}` : ""}
                   </span>
                 ))}
               </div>
             )}
           </div>
           <div className="flex flex-wrap gap-2">
-            <Link
-              href="/api/auth/kakao/start"
-              className="rounded-md bg-[#FEE500] px-3 py-2 text-sm font-bold text-zinc-950 hover:brightness-95"
-            >
-              카카오로 기록 보관하기
-            </Link>
-            <Link
-              href="/api/auth/naver/start"
-              className="rounded-md bg-[#03C75A] px-3 py-2 text-sm font-bold text-white hover:brightness-110"
-            >
-              네이버로 기록 보관하기
-            </Link>
+            {accounts.length === 0 ? (
+              <button
+                data-testid="save-records-cta"
+                onClick={() => setShowAuthPrompt(true)}
+                className="rounded-md bg-amber-500 px-3 py-2 text-sm font-bold text-zinc-950 hover:bg-amber-400"
+              >
+                로그인하고 저장하기
+              </button>
+            ) : (
+              <Link
+                data-testid="protected-profile-link"
+                href="/profile"
+                className="rounded-md bg-emerald-500/15 px-3 py-2 text-sm font-bold text-emerald-100"
+              >
+                보호된 프로필 접근 가능
+              </Link>
+            )}
           </div>
         </div>
       </section>
+
+      {showAuthPrompt && (
+        <div data-testid="auth-required-modal" className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+          <div className="w-[min(92vw,420px)] rounded-2xl border border-white/10 bg-zinc-950 p-6 shadow-2xl">
+            <h2 className="text-lg font-bold">Guest 기록을 계정에 저장하기</h2>
+            <p className="mt-2 text-sm text-zinc-300">
+              지금 만든 트레이너 기록을 카카오 계정에 연결하면 새 기기에서도 이어서 풀 수 있습니다.
+            </p>
+            <div className="mt-5 flex flex-col gap-2">
+              <Link
+                data-testid="kakao-login"
+                href="/api/auth/kakao/start"
+                className="rounded-md bg-[#FEE500] px-3 py-2 text-center text-sm font-bold text-zinc-950 hover:brightness-95"
+              >
+                카카오로 로그인
+              </Link>
+              <button
+                data-testid="auth-modal-close"
+                onClick={() => setShowAuthPrompt(false)}
+                className="rounded-md bg-zinc-800 px-3 py-2 text-sm font-bold text-zinc-100"
+              >
+                나중에 하기
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <section>
         <h2 className="mb-3 text-lg font-bold">배지 진행도</h2>

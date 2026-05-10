@@ -4,6 +4,7 @@
 // 온보딩이 필요하면 이름 입력 모달을 띄운다.
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useTrainer } from "./TrainerProvider";
 import { badgeOf, nextBadge } from "@/lib/rating";
@@ -12,12 +13,17 @@ import { problems } from "@/lib/dataset";
 export default function TrainerHUD() {
   const { profile, ready, needsOnboarding, createTrainer } = useTrainer();
   const [name, setName] = useState("");
+  const pathname = usePathname();
 
   if (!ready) {
     return <div className="h-9 w-40 animate-pulse rounded-md bg-white/5" />;
   }
 
   if (needsOnboarding) {
+    if (pathname === "/login") {
+      return <div data-testid="guest-required" className="text-xs text-zinc-400">Guest 시작 전</div>;
+    }
+
     return (
       <>
         <div className="text-xs text-zinc-400">트레이너 등록 필요</div>

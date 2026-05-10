@@ -72,6 +72,15 @@ export async function exchangeCodeForProfile(
   provider: AuthProvider,
   code: string
 ): Promise<SocialProfile> {
+  if (process.env.E2E_MOCK_OAUTH === "1") {
+    return {
+      provider,
+      providerUserId: `e2e-${provider}-${code}`,
+      email: `${provider}-${code}@example.test`,
+      displayName: provider === "kakao" ? "E2E 카카오 사용자" : "E2E 네이버 사용자"
+    };
+  }
+
   const cfg = providerConfig(provider);
   if (!cfg) throw new Error(`${providerLabel(provider)} 로그인 환경변수가 설정되지 않았습니다.`);
 
