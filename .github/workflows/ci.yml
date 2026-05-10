@@ -35,5 +35,8 @@ jobs:
       - name: Check override quality metadata
         run: npm run judge:quality
 
+      - name: Build coderunner image
+        run: docker build -t dongjun-coderunner:latest judge
+
       - name: Run harness tests
         run: npm run harness:test
