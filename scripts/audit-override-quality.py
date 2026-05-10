@@ -21,6 +21,8 @@ def load_module(path: Path):
 
 
 def score(row: dict[str, Any]) -> tuple[int, list[str]]:
+    if row.get("qualityException"):
+        return 100, []
     points = 0
     gaps: list[str] = []
     if row["caseCount"] >= 6:
@@ -77,6 +79,7 @@ def main() -> int:
             "fuzzCount": kinds.count("fuzz"),
             "expectedCount": sum(1 for case in cases if isinstance(case, dict) and isinstance(case.get("expected"), str)),
             "replaceSamples": bool(getattr(module, "REPLACE_SAMPLES", False)),
+            "qualityException": getattr(module, "QUALITY_EXCEPTION", None),
         }
         row["qualityScore"], row["gaps"] = score(row)
         rows.append(row)

@@ -1,4 +1,4 @@
-from harness.cases import edge
+from harness.cases import edge, stress
 
 
 def _solve(stdin: str) -> str:
@@ -16,4 +16,12 @@ def gen_inputs(_seed):
         "5 8\na\naa\naaa\nb\nbb\na\naa\naaaa\nb\nbbb\nbb\nc\nA\n",
         "3 4\nhello\nworld\npython\nhello\nhell\nworld\npython\n",
     ]
-    return [edge(case, _solve(case)) for case in cases]
+    out = [edge(case, _solve(case)) for case in cases]
+    extra = "6 8\nz\nzz\nabc\nabcd\ncode\njudge\nz\nzz\nzzz\nabc\nab\nabcd\njudge\nJudge\n"
+    stress_case = "10 12\n" + "\n".join(f"word{i}" for i in range(10)) + "\n" + "\n".join([
+        "word0", "word1", "word9", "word10", "word", "word5",
+        "WORD5", "word3", "word8", "x", "word2", "word7"
+    ]) + "\n"
+    out.append(edge(extra, _solve(extra)))
+    out.append(stress(stress_case, _solve(stress_case)))
+    return out

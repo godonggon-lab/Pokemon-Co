@@ -1,4 +1,4 @@
-from harness.cases import edge
+from harness.cases import edge, stress
 
 
 def _solve(stdin: str) -> str:
@@ -37,4 +37,9 @@ def gen_inputs(_seed):
         "5\nA B C\nB D .\nC . E\nD . .\nE . .\n",
         "7\nA B C\nB D E\nC F G\nD . .\nE . .\nF . .\nG . .\n",
     ]
-    return [edge(case, _solve(case)) for case in cases]
+    out = [edge(case, _solve(case)) for case in cases]
+    skew = "6\nA B .\nB C .\nC D .\nD E .\nE F .\nF . .\n"
+    mixed = "8\nA B C\nB D .\nC E F\nD . G\nE . .\nF H .\nG . .\nH . .\n"
+    out.append(edge(skew, _solve(skew)))
+    out.append(stress(mixed, _solve(mixed)))
+    return out

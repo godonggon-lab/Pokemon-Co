@@ -25,6 +25,7 @@
 | 08 | [phase-08-sample-only-coverage.md](./phase-08-sample-only-coverage.md) | 예제만 있는 고위험 문제를 우선순위대로 보강 | 완료 |
 | 09 | [phase-09-language-runtime-coverage.md](./phase-09-language-runtime-coverage.md) | Python/C++ 실행 환경과 Docker runner 검증 | 완료 |
 | 10 | [phase-10-post-override-validation-plan.md](./phase-10-post-override-validation-plan.md) | 전체 override 검증 이후 운영화 계획 | 계획 |
+| 11 | [phase-11-override-quality-hardening.md](./phase-11-override-quality-hardening.md) | override 품질 점수 저점 제거 | 완료 |
 
 ## 진행 원칙
 

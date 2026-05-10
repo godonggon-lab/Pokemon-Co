@@ -1,4 +1,4 @@
-from harness.cases import edge
+from harness.cases import edge, stress
 
 
 def _lca(parent: list[int], a: int, b: int) -> int:
@@ -35,4 +35,9 @@ def gen_inputs(_seed):
         "2\n7\n1 2\n1 3\n2 4\n2 5\n3 6\n6 7\n4 5\n5\n2 1\n2 3\n3 4\n3 5\n1 5\n",
         "1\n8\n4 2\n4 6\n2 1\n2 3\n6 5\n6 7\n7 8\n1 8\n",
     ]
-    return [edge(case, _solve(case)) for case in cases]
+    out = [edge(case, _solve(case)) for case in cases]
+    extra = "1\n10\n1 2\n1 3\n2 4\n2 5\n5 6\n5 7\n3 8\n8 9\n8 10\n6 7\n"
+    multi = "3\n4\n1 2\n2 3\n3 4\n2 4\n6\n1 2\n1 3\n3 4\n3 5\n5 6\n4 6\n7\n4 2\n4 6\n2 1\n2 3\n6 5\n6 7\n1 7\n"
+    out.append(edge(extra, _solve(extra)))
+    out.append(stress(multi, _solve(multi)))
+    return out

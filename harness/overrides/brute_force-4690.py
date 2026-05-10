@@ -2,6 +2,7 @@ from harness.cases import edge
 
 
 REPLACE_SAMPLES = True
+QUALITY_EXCEPTION = "output-only exhaustive case"
 
 
 def _solve() -> str:

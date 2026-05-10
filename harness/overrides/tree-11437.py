@@ -1,6 +1,6 @@
 from collections import deque
 
-from harness.cases import edge
+from harness.cases import edge, stress
 
 
 def _solve(stdin: str) -> str:
@@ -50,4 +50,9 @@ def gen_inputs(_seed):
         "8\n1 2\n2 3\n3 4\n4 5\n5 6\n6 7\n7 8\n4\n8 5\n7 3\n2 8\n1 8\n",
         "9\n1 2\n1 3\n1 4\n4 5\n4 6\n6 7\n6 8\n8 9\n5\n5 7\n7 9\n2 3\n8 9\n4 9\n",
     ]
-    return [edge(case, _solve(case)) for case in cases]
+    out = [edge(case, _solve(case)) for case in cases]
+    extra = "10\n1 2\n1 3\n2 4\n2 5\n5 6\n5 7\n3 8\n8 9\n8 10\n6\n4 6\n6 7\n9 10\n4 10\n2 8\n1 10\n"
+    chain = "12\n1 2\n2 3\n3 4\n4 5\n5 6\n6 7\n7 8\n8 9\n9 10\n10 11\n11 12\n5\n12 6\n11 2\n3 12\n1 12\n8 9\n"
+    out.append(edge(extra, _solve(extra)))
+    out.append(stress(chain, _solve(chain)))
+    return out
