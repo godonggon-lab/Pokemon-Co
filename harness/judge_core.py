@@ -150,6 +150,7 @@ class DockerRunner:
         # 컨테이너가 어떤 이유로든 멈췄을 때를 대비한 안전망 (작게 잡는다).
         time_limit_ms = int(round(time_limit_s * 1000))
         outer_timeout_s = time_limit_s + 2  # 컨테이너 startup overhead 여유
+        container_memory_mb = max(memory_mb, 512) if lang in {"cpp", "java"} else memory_mb
         cmd = [
             "docker", "run", "--rm", "-i",
             "--name", cname,
@@ -158,8 +159,8 @@ class DockerRunner:
             "--cap-drop", "ALL",
             "--security-opt", "no-new-privileges",
             "--tmpfs", "/work:exec,size=64m,mode=1777",
-            "--memory", f"{memory_mb}m",
-            "--memory-swap", f"{memory_mb}m",
+            "--memory", f"{container_memory_mb}m",
+            "--memory-swap", f"{container_memory_mb}m",
             "--cpus", "1.0",
             "--pids-limit", "128",
             "--ulimit", "nofile=64:64",
