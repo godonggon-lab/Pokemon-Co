@@ -139,7 +139,10 @@ class DockerRunner:
         tmp_root.mkdir(parents=True, exist_ok=True)
         host_dir = tempfile.mkdtemp(prefix="cr-", dir=str(tmp_root))
         fname = {"python":"main.py","javascript":"main.js","cpp":"main.cpp","java":"Main.java"}[lang]
-        with open(os.path.join(host_dir, fname), "w", encoding="utf-8") as h: h.write(code)
+        os.chmod(host_dir, 0o755)
+        source_path = os.path.join(host_dir, fname)
+        with open(source_path, "w", encoding="utf-8") as h: h.write(code)
+        os.chmod(source_path, 0o644)
         host_mount = str(Path(host_dir).resolve()).replace("\\", "/")
 
         cname = f"cr-{uuid.uuid4().hex[:10]}"
