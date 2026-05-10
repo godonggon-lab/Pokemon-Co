@@ -136,3 +136,63 @@ CODERUNNER_IMAGE=dongjun-coderunner:latest
 3. 운영 Docker 모드 체크 강화
 4. 제출 결과 저장 구조 점검
 5. override 품질 점수화
+
+## 작업 로그
+
+### 2026-05-10
+
+진행:
+
+- PR/push용 빠른 CI workflow 추가:
+  - `.github/workflows/ci.yml`
+  - `npm run ops:check-env:example`
+  - `npm run judge:coverage`
+  - `npm run judge:lang-audit`
+  - `npm run harness:test`
+- 수동/nightly Docker 전체 검증 workflow 추가:
+  - `.github/workflows/judge-docker-nightly.yml`
+  - Docker image build
+  - `npm run judge:docker-check`
+  - `npm run judge:verify-overrides`
+- Docker runner smoke check 스크립트 추가:
+  - `scripts/check-docker-runner.py`
+  - Python/C++/Java 코드가 실제 coderunner 이미지에서 실행되는지 확인
+- Docker verdict 회귀 테스트 추가:
+  - `harness/tests/test_docker_runner_verdicts.py`
+  - CE, RE, TLE, MLE, OLE 판정 경로 확인
+
+설계 결정:
+
+- 전체 override 검증은 약 40분 이상 걸릴 수 있으므로 PR CI에는 넣지 않는다.
+- Docker verdict 테스트는 Docker daemon이 없으면 skip한다.
+- 운영 배포 전 또는 nightly에서는 Docker daemon과 coderunner image가 있는 환경에서 전체 검증을 수행한다.
+
+검증 결과:
+
+```txt
+npm run ops:check-env:example
+-> Environment check passed.
+
+npm run judge:coverage
+-> total 362
+-> judgeReady 362
+-> missingCases 0
+-> overrides 362
+-> sampleOnly 0
+-> highRiskSampleOnly 0
+
+npm run judge:lang-audit
+-> allProblemsAcceptPythonCpp true
+-> dockerCliAvailable true
+
+npm run harness:test
+-> OK, 14 tests
+
+npm run judge:docker-check
+-> Docker runner check passed.
+```
+
+주의:
+
+- `judge:docker-check`의 C++/Java 컴파일 smoke test는 512MB 메모리 제한으로 실행한다.
+- 실제 제출 채점은 문제별 제한값을 별도 정책으로 정해야 한다.

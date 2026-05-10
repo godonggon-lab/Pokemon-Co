@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  quick-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: npm ci
+
+      - name: Check environment example
+        run: npm run ops:check-env:example
+
+      - name: Check judge coverage
+        run: npm run judge:coverage
+
+      - name: Check language support metadata
+        run: npm run judge:lang-audit
+
+      - name: Run harness tests
+        run: npm run harness:test

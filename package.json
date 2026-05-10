@@ -17,6 +17,7 @@
     "judge:audit": "node scripts/audit-judge-cases.mjs",
     "judge:coverage": "node scripts/audit-judge-coverage.mjs",
     "judge:lang-audit": "node scripts/audit-language-support.mjs",
+    "judge:docker-check": "python scripts/check-docker-runner.py",
     "judge:verify-overrides": "python scripts/verify-judge-overrides.py",
     "ops:check-env": "node --env-file=.env scripts/check-env.mjs",
     "ops:check-env:example": "node --env-file=.env.example scripts/check-env.mjs",

@@ -1,0 +1,33 @@
+name: Judge Docker Validation
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 18 * * *"
+
+jobs:
+  docker-judge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: npm ci
+
+      - name: Build coderunner image
+        run: docker build -t dongjun-coderunner:latest judge
+
+      - name: Check Docker runner verdicts
+        run: npm run judge:docker-check
+
+      - name: Verify all judge overrides
+        run: npm run judge:verify-overrides
