@@ -32,5 +32,8 @@ jobs:
       - name: Check language support metadata
         run: npm run judge:lang-audit
 
+      - name: Check override quality metadata
+        run: npm run judge:quality
+
       - name: Run harness tests
         run: npm run harness:test

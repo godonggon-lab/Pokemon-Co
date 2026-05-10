@@ -54,14 +54,15 @@
 
 작업:
 
-- SQLite 제출 테이블에 다음 값 저장 여부 확인:
+- SQLite `submissions` 테이블에 다음 값을 저장한다.
   - verdict
   - language
   - problem slug
   - failed case kind
   - duration
   - created_at
-- 실패한 case의 전체 input/output은 너무 클 수 있으므로, preview만 저장하거나 별도 파일 저장으로 분리한다.
+- 실패한 case의 전체 input/output은 저장하지 않는다.
+- 코드 원문도 저장하지 않고 `sha256` 해시와 byte 크기만 저장한다.
 
 ## Phase 10-4. TLE/MLE/OLE 전용 회귀 테스트
 
@@ -108,6 +109,11 @@ problem,case_count,has_edge,has_stress,needs_special_judge,risk
 implementation-16926,9,true,true,false,low
 disjoint_set-17352,6,true,true,true,medium
 ```
+
+구현:
+
+- `scripts/audit-override-quality.py`
+- `npm run judge:quality`
 
 ## Phase 10-6. 배포 전 체크리스트
 
@@ -185,6 +191,9 @@ npm run judge:lang-audit
 -> allProblemsAcceptPythonCpp true
 -> dockerCliAvailable true
 
+npm run judge:quality
+-> override 품질 요약 출력
+
 npm run harness:test
 -> OK, 14 tests
 
@@ -196,3 +205,30 @@ npm run judge:docker-check
 
 - `judge:docker-check`의 C++/Java 컴파일 smoke test는 512MB 메모리 제한으로 실행한다.
 - 실제 제출 채점은 문제별 제한값을 별도 정책으로 정해야 한다.
+
+### 2026-05-10 추가 진행
+
+진행:
+
+- SQLite `submissions` 테이블 추가.
+- `/api/judge` 일반 제출 결과를 요약 저장하도록 연결.
+- 저장하는 값:
+  - trainer id
+  - problem slug
+  - language
+  - status
+  - passed / total
+  - first failed case kind / verdict
+  - duration
+  - code hash / code bytes
+- custom input 실행(`mode: "run"`)은 제출 기록에 저장하지 않음.
+- override 품질 점수화 스크립트 추가:
+  - `scripts/audit-override-quality.py`
+  - `npm run judge:quality`
+- 빠른 CI에 `judge:quality` 추가.
+
+설계 결정:
+
+- 제출 코드 원문과 실패 케이스 전체 input/output은 DB에 저장하지 않는다.
+- 운영 분석에 필요한 최소 요약만 저장한다.
+- judge 응답 저장에 실패해도 사용자에게 반환되는 채점 결과는 변경하지 않는다.

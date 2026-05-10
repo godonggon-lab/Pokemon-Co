@@ -7,6 +7,8 @@
 
 import { NextResponse } from "next/server";
 import { getProblem } from "@/lib/dataset";
+import { recordSubmission } from "@/lib/db";
+import { currentTrainer } from "@/lib/session";
 
 export const runtime = "nodejs";
 
@@ -25,6 +27,20 @@ const rateBuckets = new Map<string, { count: number; resetAt: number }>();
 const ALLOWED_LANGS = new Set([
   "python", "cpp", "java"
 ]);
+
+type JudgeCaseSummary = {
+  ok?: boolean;
+  kind?: string;
+  verdict?: string;
+};
+
+type JudgeResponseSummary = {
+  status?: string;
+  passed?: number;
+  total?: number;
+  cases?: JudgeCaseSummary[];
+  durationMs?: number;
+};
 
 function intEnv(name: string, fallback: number): number {
   const value = Number(process.env[name]);
@@ -48,6 +64,16 @@ function checkRateLimit(key: string) {
   }
   cur.count += 1;
   return { ok: true, remaining: RATE_LIMIT_MAX - cur.count, resetAt: cur.resetAt };
+}
+
+function summarizeFailedCase(result: JudgeResponseSummary) {
+  const failed = Array.isArray(result.cases)
+    ? result.cases.find((c) => c && c.ok === false)
+    : null;
+  return {
+    failedCaseKind: typeof failed?.kind === "string" ? failed.kind : null,
+    failedCaseVerdict: typeof failed?.verdict === "string" ? failed.verdict : null
+  };
 }
 
 export async function POST(req: Request) {
@@ -114,6 +140,26 @@ export async function POST(req: Request) {
       })
     });
     const text = await res.text();
+    if (mode !== "run") {
+      try {
+        const result = JSON.parse(text) as JudgeResponseSummary;
+        const failed = summarizeFailedCase(result);
+        recordSubmission({
+          trainerId: currentTrainer()?.id ?? null,
+          problemSlug: problem.slug,
+          lang,
+          status: typeof result.status === "string" ? result.status : "ERR",
+          passed: typeof result.passed === "number" ? result.passed : null,
+          total: typeof result.total === "number" ? result.total : null,
+          failedCaseKind: failed.failedCaseKind,
+          failedCaseVerdict: failed.failedCaseVerdict,
+          durationMs: typeof result.durationMs === "number" ? result.durationMs : null,
+          code
+        });
+      } catch {
+        // Recording must not change the judge response path.
+      }
+    }
     return new NextResponse(text, {
       status: res.status,
       headers: { "content-type": res.headers.get("content-type") ?? "application/json" }

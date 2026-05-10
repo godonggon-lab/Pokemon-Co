@@ -5,6 +5,7 @@
 //   captures   (trainer_id, problem_slug, captured_at, attempts_at_capture, tr_at_capture, PK(trainer_id, problem_slug))
 //   attempts   (trainer_id, problem_slug, count, PK(trainer_id, problem_slug))
 //   history    (id PK, trainer_id, problem_slug, problem_r, expected, k, delta, prev_tr, next_tr, outcome, ts)
+//   submissions(id PK, trainer_id, problem_slug, lang, status, passed, total, failed_case_kind, failed_case_verdict, duration_ms, code_hash, code_bytes, ts)
 //
 // 익명 세션: 트레이너 가입 시 랜덤 secret 발급 → httpOnly 쿠키 (dj_session = `${id}:${secret}`)
 // 비밀번호 없는 프로토타입. 같은 기기/브라우저 = 같은 세션.
@@ -66,6 +67,22 @@ function db(): Database.Database {
       ts           INTEGER NOT NULL
     );
 
+    CREATE TABLE IF NOT EXISTS submissions (
+      id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+      trainer_id          INTEGER REFERENCES trainers(id) ON DELETE SET NULL,
+      problem_slug        TEXT    NOT NULL,
+      lang                TEXT    NOT NULL,
+      status              TEXT    NOT NULL,
+      passed              INTEGER,
+      total               INTEGER,
+      failed_case_kind    TEXT,
+      failed_case_verdict TEXT,
+      duration_ms         INTEGER,
+      code_hash           TEXT    NOT NULL,
+      code_bytes          INTEGER NOT NULL,
+      ts                  INTEGER NOT NULL
+    );
+
     CREATE TABLE IF NOT EXISTS auth_accounts (
       id               INTEGER PRIMARY KEY AUTOINCREMENT,
       trainer_id       INTEGER NOT NULL REFERENCES trainers(id) ON DELETE CASCADE,
@@ -79,6 +96,8 @@ function db(): Database.Database {
     );
 
     CREATE INDEX IF NOT EXISTS idx_history_trainer  ON history(trainer_id, ts DESC);
+    CREATE INDEX IF NOT EXISTS idx_submissions_trainer ON submissions(trainer_id, ts DESC);
+    CREATE INDEX IF NOT EXISTS idx_submissions_problem ON submissions(problem_slug, ts DESC);
     CREATE INDEX IF NOT EXISTS idx_trainers_tr      ON trainers(tr DESC);
     CREATE INDEX IF NOT EXISTS idx_auth_trainer     ON auth_accounts(trainer_id);
   `);
@@ -113,6 +132,19 @@ export type DbHistory = {
   nextTR: number;
   outcome: "win" | "loss";
   ts: number;
+};
+
+export type RecordSubmissionArgs = {
+  trainerId?: number | null;
+  problemSlug: string;
+  lang: string;
+  status: string;
+  passed?: number | null;
+  total?: number | null;
+  failedCaseKind?: string | null;
+  failedCaseVerdict?: string | null;
+  durationMs?: number | null;
+  code: string;
 };
 
 export type AuthProvider = "kakao" | "naver";
@@ -305,4 +337,28 @@ export function recentHistory(trainerId: number, limit = 20): DbHistory[] {
     expected: r.expected, k: r.k, delta: r.delta,
     prevTR: r.prev_tr, nextTR: r.next_tr, outcome: r.outcome, ts: r.ts
   }));
+}
+
+export function recordSubmission(args: RecordSubmissionArgs) {
+  const codeBytes = Buffer.byteLength(args.code, "utf8");
+  const codeHash = crypto.createHash("sha256").update(args.code).digest("hex");
+  db().prepare(`
+    INSERT INTO submissions (
+      trainer_id, problem_slug, lang, status, passed, total,
+      failed_case_kind, failed_case_verdict, duration_ms, code_hash, code_bytes, ts
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(
+    args.trainerId ?? null,
+    args.problemSlug,
+    args.lang,
+    args.status,
+    args.passed ?? null,
+    args.total ?? null,
+    args.failedCaseKind ?? null,
+    args.failedCaseVerdict ?? null,
+    args.durationMs ?? null,
+    codeHash,
+    codeBytes,
+    Date.now()
+  );
 }
