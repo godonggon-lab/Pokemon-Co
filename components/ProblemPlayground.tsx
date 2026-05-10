@@ -184,8 +184,11 @@ export default function ProblemPlayground({
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <label className="text-xs text-zinc-400">언어</label>
+            <label htmlFor="solution-language" className="text-xs text-zinc-400">언어</label>
             <select
+              id="solution-language"
+              aria-label="풀이 언어"
+              data-testid="language-select"
               className="rounded-md bg-zinc-800 px-2 py-1 text-sm"
               value={lang}
               onChange={(e) => onLangChange(e.target.value as Source["lang"])}
@@ -193,6 +196,7 @@ export default function ProblemPlayground({
               {langs.map((l) => <option key={l} value={l}>{l}</option>)}
             </select>
             <button
+              data-testid="submit-solution"
               className="ml-auto rounded-md bg-amber-500 px-3 py-1.5 text-sm font-bold text-zinc-900 hover:bg-amber-400 disabled:opacity-50"
               disabled={disabled}
               onClick={submit}
@@ -205,7 +209,11 @@ export default function ProblemPlayground({
             <span>{draftStatus === "loaded" ? "저장된 코드를 불러왔습니다." : draftStatus === "saved" ? "자동 저장됨" : "새 풀이"}</span>
             <span>Ctrl/Cmd + Enter 제출</span>
           </div>
-          <div className="overflow-hidden rounded-xl border border-white/10">
+          <div
+            aria-label="코드 편집기"
+            data-testid="code-editor"
+            className="overflow-hidden rounded-xl border border-white/10"
+          >
             <Editor
               height="520px"
               theme="vs-dark"
@@ -222,8 +230,9 @@ export default function ProblemPlayground({
           </div>
           <div className="rounded-xl border border-white/10 bg-zinc-900/60 p-3">
             <div className="mb-2 flex items-center gap-2">
-              <label className="text-xs font-semibold text-zinc-300">직접 실행 입력</label>
+              <label htmlFor="custom-stdin" className="text-xs font-semibold text-zinc-300">직접 실행 입력</label>
               <button
+                data-testid="run-custom-input"
                 className="ml-auto rounded-md bg-zinc-700 px-3 py-1.5 text-xs font-bold text-zinc-100 hover:bg-zinc-600 disabled:opacity-50"
                 disabled={runDisabled}
                 onClick={runCustomInput}
@@ -232,6 +241,9 @@ export default function ProblemPlayground({
               </button>
             </div>
             <textarea
+              id="custom-stdin"
+              aria-label="직접 실행 입력"
+              data-testid="custom-stdin"
               className="h-28 w-full resize-y rounded-lg border border-white/10 bg-black/30 p-2 font-mono text-xs text-zinc-100 outline-none focus:border-amber-400"
               value={customInput}
               onChange={(e) => setCustomInput(e.target.value)}
@@ -264,7 +276,7 @@ export default function ProblemPlayground({
 function RunPanel({ result }: { result: RunVerdict | null }) {
   if (!result) {
     return (
-      <div className="rounded-xl border border-dashed border-white/15 p-4 text-sm text-zinc-400">
+      <div data-testid="run-panel" className="rounded-xl border border-dashed border-white/15 p-4 text-sm text-zinc-400">
         직접 실행 결과가 없습니다.
       </div>
     );
@@ -280,9 +292,9 @@ function RunPanel({ result }: { result: RunVerdict | null }) {
   };
   const s = style[result.status] ?? style.ERR;
   return (
-    <div className="rounded-xl border border-white/10 bg-zinc-900 p-4">
+    <div data-testid="run-panel" className="rounded-xl border border-white/10 bg-zinc-900 p-4">
       <div className="flex items-center gap-3">
-        <span className={`pill text-white ${s.bg}`}>{result.status}</span>
+        <span data-testid="run-status" className={`pill text-white ${s.bg}`}>{result.status}</span>
         <span className="text-sm font-bold text-zinc-100">{s.label}</span>
         {result.durationMs != null && (
           <span className="ml-auto text-xs text-zinc-500">{result.durationMs} ms</span>
@@ -314,7 +326,7 @@ function RunPanel({ result }: { result: RunVerdict | null }) {
 function VerdictPanel({ verdict }: { verdict: JudgeVerdict | null }) {
   if (!verdict) {
     return (
-      <div className="rounded-xl border border-dashed border-white/15 p-6 text-center text-sm text-zinc-400">
+      <div data-testid="verdict-panel" className="rounded-xl border border-dashed border-white/15 p-6 text-center text-sm text-zinc-400">
         아직 도전 기록이 없습니다.<br />
         <span className="text-xs text-zinc-500">
           하네스가 입력 케이스를 자동 생성하여 Oracle 출력과 비교합니다.
@@ -335,9 +347,9 @@ function VerdictPanel({ verdict }: { verdict: JudgeVerdict | null }) {
   };
   const sty = STATUS_STYLE[verdict.status as JudgeStatus] ?? STATUS_STYLE.ERR;
   return (
-    <div className="rounded-xl border border-white/10 bg-zinc-900 p-4">
+    <div data-testid="verdict-panel" className="rounded-xl border border-white/10 bg-zinc-900 p-4">
       <div className="flex items-center gap-3">
-        <span className={`pill text-white ${sty.bg}`}>{sty.emoji} {verdict.status}</span>
+        <span data-testid="judge-status" className={`pill text-white ${sty.bg}`}>{sty.emoji} {verdict.status}</span>
         <span className="text-sm font-bold text-zinc-100">{sty.label}</span>
         {"passed" in verdict && (
           <span className="text-sm text-zinc-300">
