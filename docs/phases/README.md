@@ -26,6 +26,7 @@
 | 09 | [phase-09-language-runtime-coverage.md](./phase-09-language-runtime-coverage.md) | Python/C++ 실행 환경과 Docker runner 검증 | 완료 |
 | 10 | [phase-10-post-override-validation-plan.md](./phase-10-post-override-validation-plan.md) | 전체 override 검증 이후 운영화 계획 | 계획 |
 | 11 | [phase-11-override-quality-hardening.md](./phase-11-override-quality-hardening.md) | override 품질 점수 저점 제거 | 완료 |
+| 12 | [phase-12-submission-history-ui.md](./phase-12-submission-history-ui.md) | 프로필 최근 제출 기록 UI | 완료 |
 
 ## 진행 원칙
 

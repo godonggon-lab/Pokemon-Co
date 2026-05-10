@@ -4,7 +4,7 @@
 // DELETE /api/trainer      - 로그아웃
 
 import { NextResponse } from "next/server";
-import { createTrainer, listAttempts, listCaptures, recentHistory } from "@/lib/db";
+import { createTrainer, listAttempts, listCaptures, recentHistory, recentSubmissions } from "@/lib/db";
 import { clearSessionCookie, currentTrainer, setSessionCookie } from "@/lib/session";
 
 export const runtime = "nodejs";
@@ -17,7 +17,8 @@ export async function GET() {
     trainer: t,
     attempts: listAttempts(t.id),
     captures: listCaptures(t.id),
-    history:  recentHistory(t.id, 30)
+    history:  recentHistory(t.id, 30),
+    submissions: recentSubmissions(t.id, 30)
   });
 }
 
@@ -30,7 +31,7 @@ export async function POST(req: Request) {
     const { trainer, secret } = createTrainer(name);
     setSessionCookie(trainer.id, secret);
     return NextResponse.json({
-      trainer, attempts: {}, captures: [], history: []
+      trainer, attempts: {}, captures: [], history: [], submissions: []
     });
   } catch (e: any) {
     return NextResponse.json({ error: e?.message ?? "fail" }, { status: 400 });

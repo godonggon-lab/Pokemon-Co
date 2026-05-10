@@ -184,6 +184,65 @@ export default function ProfilePage() {
       </section>
 
       <section>
+        <h2 className="mb-3 text-lg font-bold">최근 제출 ({profile.submissions.length})</h2>
+        {profile.submissions.length === 0 ? (
+          <div className="rounded-xl border border-dashed border-white/15 p-6 text-center text-sm text-zinc-400">
+            아직 제출 기록이 없습니다.
+          </div>
+        ) : (
+          <div className="overflow-x-auto rounded-xl border border-white/10">
+            <table className="w-full min-w-[760px] text-sm">
+              <thead className="bg-zinc-900 text-left text-xs uppercase tracking-wider text-zinc-400">
+                <tr>
+                  <th className="px-3 py-2">문제</th>
+                  <th className="px-3 py-2">언어</th>
+                  <th className="px-3 py-2">결과</th>
+                  <th className="px-3 py-2">통과</th>
+                  <th className="px-3 py-2">실패</th>
+                  <th className="px-3 py-2">시간</th>
+                  <th className="px-3 py-2">제출</th>
+                </tr>
+              </thead>
+              <tbody>
+                {profile.submissions.slice(0, 20).map((s) => {
+                  const p = getProblem(s.problemSlug);
+                  return (
+                    <tr key={s.id} className="border-t border-white/5">
+                      <td className="px-3 py-1.5">
+                        {p ? (
+                          <Link href={`/problem/${p.slug}`} className="font-semibold text-zinc-100 hover:text-amber-200">
+                            BOJ #{p.id}
+                          </Link>
+                        ) : (
+                          <span className="font-mono text-xs text-zinc-400">{s.problemSlug}</span>
+                        )}
+                      </td>
+                      <td className="px-3 py-1.5 font-mono text-xs text-zinc-300">{s.lang}</td>
+                      <td className="px-3 py-1.5">
+                        <span className={`rounded px-2 py-0.5 text-xs font-bold ${statusClass(s.status)}`}>
+                          {s.status}
+                        </span>
+                      </td>
+                      <td className="px-3 py-1.5 font-mono text-xs text-zinc-300">
+                        {s.passed == null || s.total == null ? "-" : `${s.passed}/${s.total}`}
+                      </td>
+                      <td className="px-3 py-1.5 text-xs text-zinc-400">
+                        {s.failedCaseKind ? `${s.failedCaseKind}${s.failedCaseVerdict ? `:${s.failedCaseVerdict}` : ""}` : "-"}
+                      </td>
+                      <td className="px-3 py-1.5 font-mono text-xs text-zinc-300">
+                        {s.durationMs == null ? "-" : `${s.durationMs}ms`}
+                      </td>
+                      <td className="px-3 py-1.5 text-xs text-zinc-500">{formatWhen(s.ts)}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+
+      <section>
         <h2 className="mb-3 text-lg font-bold">레이팅 변동 (최근 {profile.history.length})</h2>
         {profile.history.length === 0 ? (
           <div className="text-sm text-zinc-500">아직 기록이 없습니다.</div>
@@ -242,4 +301,21 @@ function Stat({ label, value, accent }: { label: string; value: string | number;
       <div className={`text-lg font-semibold ${accent ?? ""}`}>{value}</div>
     </div>
   );
+}
+
+function statusClass(status: string) {
+  if (status === "AC") return "bg-emerald-500/15 text-emerald-200";
+  if (status === "WA" || status === "PE") return "bg-rose-500/15 text-rose-200";
+  if (status === "TLE" || status === "MLE" || status === "OLE") return "bg-amber-500/15 text-amber-200";
+  if (status === "CE" || status === "RE" || status === "ERR") return "bg-zinc-700 text-zinc-200";
+  return "bg-zinc-800 text-zinc-300";
+}
+
+function formatWhen(ts: number) {
+  return new Intl.DateTimeFormat("ko-KR", {
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit"
+  }).format(new Date(ts));
 }

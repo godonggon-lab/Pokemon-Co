@@ -134,6 +134,20 @@ export type DbHistory = {
   ts: number;
 };
 
+export type DbSubmission = {
+  id: number;
+  problemSlug: string;
+  lang: string;
+  status: string;
+  passed: number | null;
+  total: number | null;
+  failedCaseKind: string | null;
+  failedCaseVerdict: string | null;
+  durationMs: number | null;
+  codeBytes: number;
+  ts: number;
+};
+
 export type RecordSubmissionArgs = {
   trainerId?: number | null;
   problemSlug: string;
@@ -336,6 +350,26 @@ export function recentHistory(trainerId: number, limit = 20): DbHistory[] {
     id: r.id, problemSlug: r.problem_slug, problemR: r.problem_r,
     expected: r.expected, k: r.k, delta: r.delta,
     prevTR: r.prev_tr, nextTR: r.next_tr, outcome: r.outcome, ts: r.ts
+  }));
+}
+
+export function recentSubmissions(trainerId: number, limit = 30): DbSubmission[] {
+  return (db().prepare(`
+    SELECT id, problem_slug, lang, status, passed, total, failed_case_kind,
+           failed_case_verdict, duration_ms, code_bytes, ts
+    FROM submissions WHERE trainer_id = ? ORDER BY ts DESC LIMIT ?
+  `).all(trainerId, limit) as any[]).map(r => ({
+    id: r.id,
+    problemSlug: r.problem_slug,
+    lang: r.lang,
+    status: r.status,
+    passed: r.passed,
+    total: r.total,
+    failedCaseKind: r.failed_case_kind,
+    failedCaseVerdict: r.failed_case_verdict,
+    durationMs: r.duration_ms,
+    codeBytes: r.code_bytes,
+    ts: r.ts
   }));
 }
 

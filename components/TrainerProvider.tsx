@@ -15,6 +15,20 @@ export type CaptureRecord = {
 
 export type HistoryEntry = RatingDelta & { problemSlug?: string };
 
+export type SubmissionEntry = {
+  id: number;
+  problemSlug: string;
+  lang: string;
+  status: string;
+  passed: number | null;
+  total: number | null;
+  failedCaseKind: string | null;
+  failedCaseVerdict: string | null;
+  durationMs: number | null;
+  codeBytes: number;
+  ts: number;
+};
+
 export type TrainerProfile = {
   name: string;
   createdAt: number;
@@ -22,6 +36,7 @@ export type TrainerProfile = {
   captures: Record<string, CaptureRecord>;
   attempts: Record<string, number>;
   history: HistoryEntry[];
+  submissions: SubmissionEntry[];
 };
 
 type Ctx = {
@@ -42,6 +57,7 @@ type ServerSnapshot = {
   attempts?: Record<string, number>;
   captures?: { problemSlug: string; capturedAt: number; attemptsAtCapture: number; trAtCapture: number }[];
   history?: { id: number; problemSlug: string; problemR: number; expected: number; k: number; delta: number; prevTR: number; nextTR: number; outcome: "win" | "loss"; ts: number }[];
+  submissions?: SubmissionEntry[];
 };
 
 function toProfile(s: ServerSnapshot): TrainerProfile | null {
@@ -71,7 +87,8 @@ function toProfile(s: ServerSnapshot): TrainerProfile | null {
     tr: s.trainer.tr,
     captures,
     attempts: s.attempts ?? {},
-    history
+    history,
+    submissions: s.submissions ?? []
   };
 }
 
