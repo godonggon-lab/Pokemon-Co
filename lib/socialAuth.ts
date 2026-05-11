@@ -24,7 +24,13 @@ export function providerLabel(provider: AuthProvider) {
   return provider === "kakao" ? "카카오" : "네이버";
 }
 
-export function providerConfig(provider: AuthProvider): ProviderConfig | null {
+function sameOriginLocalRedirect(_provider: AuthProvider, configuredRedirectUri: string, _requestOrigin?: string) {
+  // Always use the exact redirect URI from .env so it matches the one
+  // registered in the Kakao/Naver developer console.
+  return configuredRedirectUri;
+}
+
+export function providerConfig(provider: AuthProvider, requestOrigin?: string): ProviderConfig | null {
   if (provider === "kakao") {
     const clientId = process.env.KAKAO_REST_API_KEY;
     const redirectUri = process.env.KAKAO_REDIRECT_URI;
@@ -32,7 +38,7 @@ export function providerConfig(provider: AuthProvider): ProviderConfig | null {
     return {
       clientId,
       clientSecret: process.env.KAKAO_CLIENT_SECRET,
-      redirectUri,
+      redirectUri: sameOriginLocalRedirect(provider, redirectUri, requestOrigin),
       authorizeUrl: "https://kauth.kakao.com/oauth/authorize",
       tokenUrl: "https://kauth.kakao.com/oauth/token",
       profileUrl: "https://kapi.kakao.com/v2/user/me"
@@ -46,7 +52,7 @@ export function providerConfig(provider: AuthProvider): ProviderConfig | null {
   return {
     clientId,
     clientSecret,
-    redirectUri,
+    redirectUri: sameOriginLocalRedirect(provider, redirectUri, requestOrigin),
     authorizeUrl: "https://nid.naver.com/oauth2.0/authorize",
     tokenUrl: "https://nid.naver.com/oauth2.0/token",
     profileUrl: "https://openapi.naver.com/v1/nid/me"
@@ -57,8 +63,8 @@ export function authStateCookie(provider: AuthProvider) {
   return `dj_oauth_state_${provider}`;
 }
 
-export function buildAuthorizeUrl(provider: AuthProvider, state: string) {
-  const cfg = providerConfig(provider);
+export function buildAuthorizeUrl(provider: AuthProvider, state: string, requestOrigin?: string) {
+  const cfg = providerConfig(provider, requestOrigin);
   if (!cfg) return null;
   const url = new URL(cfg.authorizeUrl);
   url.searchParams.set("response_type", "code");
@@ -70,7 +76,8 @@ export function buildAuthorizeUrl(provider: AuthProvider, state: string) {
 
 export async function exchangeCodeForProfile(
   provider: AuthProvider,
-  code: string
+  code: string,
+  requestOrigin?: string
 ): Promise<SocialProfile> {
   if (process.env.E2E_MOCK_OAUTH === "1") {
     return {
@@ -81,7 +88,7 @@ export async function exchangeCodeForProfile(
     };
   }
 
-  const cfg = providerConfig(provider);
+  const cfg = providerConfig(provider, requestOrigin);
   if (!cfg) throw new Error(`${providerLabel(provider)} 로그인 환경변수가 설정되지 않았습니다.`);
 
   const form = new URLSearchParams();

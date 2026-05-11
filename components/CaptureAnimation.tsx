@@ -89,20 +89,20 @@ export default function CaptureAnimation({
 
       {phase === "toast" && (
         <div
-          className="fixed left-1/2 top-20 z-50 -translate-x-1/2 rounded-2xl border border-amber-400/30 bg-zinc-900/95 px-5 py-3 shadow-2xl"
+          className="fixed left-1/2 top-20 z-50 -translate-x-1/2 poke-card px-6 py-4 shadow-glow-amber"
           style={{ animation: "toast-in 0.3s ease-out" }}
         >
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             <Sprite src={event.spriteUrl} alt={event.monsterName}
                     fallback={event.fallbackEmoji} size={56} pixelated={false} />
             <div>
-              <div className="text-sm font-bold">
-                {event.firstCapture ? "포획 성공!" : "다시 만났다!"}
+              <div className="text-sm font-extrabold">
+                {event.firstCapture ? "🎉 포획 성공!" : "💫 다시 만났다!"}
               </div>
-              <div className="text-xs text-zinc-300">
-                <b>{event.monsterName}</b>이(가) 도감에 등록되었습니다.
+              <div className="text-xs text-white/60">
+                <b className="text-white/90">{event.monsterName}</b>이(가) 도감에 등록되었어요!
               </div>
-              <div className="mt-0.5 text-[11px] text-amber-300">
+              <div className="mt-0.5 text-[11px] font-bold text-amber-300">
                 TR {event.delta >= 0 ? "+" : ""}{event.delta} → {event.newTR}
               </div>
             </div>

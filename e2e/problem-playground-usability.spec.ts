@@ -1,24 +1,20 @@
 import { expect, test, type Page } from "@playwright/test";
 
-async function completeOnboarding(page: Page) {
-  const submit = page.getByTestId("submit-solution");
-  const input = page.getByPlaceholder("예: 한동준");
-  await expect(submit).toBeVisible();
-  if (await submit.isEnabled().catch(() => false)) return;
-
+async function enterAsGuest(page: Page) {
+  await page.goto("/login");
+  await page.getByTestId("guest-start").click();
+  const input = page.getByTestId("trainer-name-input");
   await expect(input).toBeVisible();
-  if (await input.isVisible().catch(() => false)) {
-    await input.fill(`테스터${Date.now()}`.slice(0, 16));
-    await page.getByRole("button", { name: "모험 시작" }).click();
-    await expect(input).toBeHidden();
-  }
-  await expect(submit).toBeEnabled();
+  await input.fill(`테스터${Date.now()}`.slice(0, 16));
+  await page.getByTestId("trainer-name-submit").click();
+  await expect(input).toBeHidden();
 }
 
 async function openProblem(page: Page) {
+  await enterAsGuest(page);
   await page.goto("/problem/string-1152");
-  await completeOnboarding(page);
   await expect(page.getByTestId("code-editor")).toBeVisible();
+  await expect(page.getByTestId("submit-solution")).toBeEnabled();
 }
 
 async function replaceEditorText(page: Page, code: string) {

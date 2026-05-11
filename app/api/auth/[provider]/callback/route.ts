@@ -3,6 +3,7 @@ import {
   findTrainerByAuthAccount,
   linkAuthAccount
 } from "@/lib/db";
+import { setPendingSocialProfile } from "@/lib/pendingSocialAuth";
 import { currentTrainer, setSessionCookie } from "@/lib/session";
 import {
   authStateCookie,
@@ -20,10 +21,11 @@ export async function GET(
   const provider = parseProvider(params.provider);
   const url = new URL(req.url);
   const redirect = new URL("/profile", req.url);
+  const errorRedirect = new URL("/login", req.url);
 
   if (!provider) {
-    redirect.searchParams.set("auth_error", "unsupported_provider");
-    return NextResponse.redirect(redirect);
+    errorRedirect.searchParams.set("auth_error", "unsupported_provider");
+    return NextResponse.redirect(errorRedirect);
   }
 
   const code = url.searchParams.get("code");
@@ -36,12 +38,12 @@ export async function GET(
     ?.split("=")[1];
 
   if (!code || (!mockOAuth && (!state || !savedState || state !== savedState))) {
-    redirect.searchParams.set("auth_error", "invalid_state");
-    return NextResponse.redirect(redirect);
+    errorRedirect.searchParams.set("auth_error", "invalid_state");
+    return NextResponse.redirect(errorRedirect);
   }
 
   try {
-    const profile = await exchangeCodeForProfile(provider, code);
+    const profile = await exchangeCodeForProfile(provider, code, url.origin);
     if (!profile.providerUserId) throw new Error("provider user id missing");
 
     const existing = findTrainerByAuthAccount(provider, profile.providerUserId);
@@ -51,8 +53,12 @@ export async function GET(
     } else {
       const trainer = currentTrainer();
       if (!trainer) {
-        redirect.searchParams.set("auth_error", "trainer_required");
-        return NextResponse.redirect(redirect);
+        const signup = new URL("/login", req.url);
+        signup.searchParams.set("auth", "signup_required");
+        setPendingSocialProfile(profile);
+        const res = NextResponse.redirect(signup);
+        res.cookies.delete(authStateCookie(provider));
+        return res;
       }
       linkAuthAccount({
         trainerId: trainer.id,
@@ -68,7 +74,7 @@ export async function GET(
     res.cookies.delete(authStateCookie(provider));
     return res;
   } catch (e: any) {
-    redirect.searchParams.set("auth_error", e?.message ?? "auth_failed");
-    return NextResponse.redirect(redirect);
+    errorRedirect.searchParams.set("auth_error", e?.message ?? "auth_failed");
+    return NextResponse.redirect(errorRedirect);
   }
 }

@@ -6,8 +6,9 @@
   "scripts": {
     "data:boj": "node scripts/index-boj.mjs",
     "data:pokedex": "node scripts/build-pokedex.mjs",
+    "data:taxonomy": "node scripts/build-pokemon-taxonomy.mjs",
     "data:map": "node scripts/build-monster-map.mjs",
-    "data:all": "npm run data:boj && npm run data:pokedex && npm run data:map",
+    "data:all": "npm run data:boj && npm run data:pokedex && npm run data:taxonomy && npm run data:map",
     "dev": "next dev",
     "build": "npm run data:all && next build",
     "start": "next start",

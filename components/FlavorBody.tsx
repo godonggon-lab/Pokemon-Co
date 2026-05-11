@@ -170,14 +170,14 @@ export default function FlavorBody({
   meta?: ProblemMeta;
 }) {
   return (
-    <section className="space-y-4 rounded-2xl border border-white/10 bg-zinc-900/40 p-6">
+    <section className="space-y-4 poke-card p-6">
       <div>
-        <div className="text-xs text-zinc-500">
-          {flavor.source === "boj" ? "📚 BOJ 원문" : "📖 합성 시나리오"}
+        <div className="text-xs text-white/30">
+          {flavor.source === "boj" ? "📚 원본 문제" : "📖 포켓몬 시나리오"}
         </div>
-        <h2 className="text-xl font-bold text-amber-200">{flavor.subject}</h2>
+        <h2 className="text-xl font-extrabold text-amber-300">{flavor.subject}</h2>
         {flavor.bojTitle && (
-          <div className="mt-1 text-xs text-zinc-400">
+          <div className="mt-1 text-xs text-white/40">
             원작: <a href={flavor.bojLink} target="_blank" rel="noreferrer" className="hover:underline">{flavor.bojTitle}</a>
             {meta && <span className="ml-2">· {meta.levelName}</span>}
             {flavor.snapshotTs && (
@@ -190,13 +190,13 @@ export default function FlavorBody({
       </div>
 
       <div className="grid grid-cols-2 gap-3 text-xs">
-        <div className="rounded-lg bg-black/30 px-3 py-2">
-          <div className="text-zinc-500">시간 제한</div>
-          <div className="font-mono text-amber-200">{(flavor.limits.timeLimitMs / 1000).toFixed(1)} 초</div>
+        <div className="rounded-lg bg-black/20 px-3 py-2">
+          <div className="text-white/30">시간 제한</div>
+          <div className="font-mono font-bold text-amber-300">{(flavor.limits.timeLimitMs / 1000).toFixed(1)} 초</div>
         </div>
-        <div className="rounded-lg bg-black/30 px-3 py-2">
-          <div className="text-zinc-500">메모리 제한</div>
-          <div className="font-mono text-amber-200">{flavor.limits.memoryLimitMb} MB</div>
+        <div className="rounded-lg bg-black/20 px-3 py-2">
+          <div className="text-white/30">메모리 제한</div>
+          <div className="font-mono font-bold text-amber-300">{flavor.limits.memoryLimitMb} MB</div>
         </div>
       </div>
 
@@ -263,12 +263,11 @@ export default function FlavorBody({
       )}
 
       {flavor.source === "synthesized" ? (
-        <details className="rounded-lg border border-amber-500/20 bg-amber-500/5 p-3">
-          <summary className="cursor-pointer text-xs text-amber-200">⚠️ 본 시나리오는 학습용 합성 텍스트</summary>
-          <p className="mt-2 text-[11px] leading-relaxed text-zinc-300">
-            이 문제 본문은 BOJ 원문 대신 카테고리·태그·정답 코드를 기반으로 자동 합성된
-            포켓몬 테마 텍스트입니다. 실제 채점은 원문 정답(Oracle)과 비교하므로,
-            정밀한 입력 형식·제약은 위 <a href={flavor.bojLink} target="_blank" rel="noreferrer" className="text-amber-400 underline">BOJ 원문</a>을 참고하세요.
+        <details className="rounded-xl border border-amber-500/10 bg-amber-500/[0.03] p-3">
+          <summary className="cursor-pointer text-xs text-amber-300">💡 이 시나리오는 포켓몬 테마로 재구성된 문제예요</summary>
+          <p className="mt-2 text-[11px] leading-relaxed text-white/50">
+            원본 문제를 기반으로 자동 생성된 시나리오예요.
+            정밀한 입력 형식이 필요하면 <a href={flavor.bojLink} target="_blank" rel="noreferrer" className="text-amber-400 underline">원본 문제</a>를 참고하세요.
           </p>
         </details>
       ) : (

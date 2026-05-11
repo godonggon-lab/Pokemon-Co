@@ -43,6 +43,7 @@ type Ctx = {
   profile: TrainerProfile | null;
   ready: boolean;
   needsOnboarding: boolean;
+  refreshTrainer: () => Promise<void>;
   createTrainer: (name: string) => Promise<void>;
   resetTrainer: () => Promise<void>;
   bumpAttempt: (problemSlug: string) => void;
@@ -96,16 +97,20 @@ export function TrainerProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<TrainerProfile | null>(null);
   const [ready, setReady] = useState(false);
 
+  const refreshTrainer = useCallback(async () => {
+    const r = await fetch("/api/trainer", { cache: "no-store" });
+    const j: ServerSnapshot = await r.json();
+    setProfile(toProfile(j));
+  }, []);
+
   useEffect(() => {
     (async () => {
       try {
-        const r = await fetch("/api/trainer", { cache: "no-store" });
-        const j: ServerSnapshot = await r.json();
-        setProfile(toProfile(j));
+        await refreshTrainer();
       } catch { /* ignore */ }
       setReady(true);
     })();
-  }, []);
+  }, [refreshTrainer]);
 
   const createTrainer = useCallback(async (name: string) => {
     const r = await fetch("/api/trainer", {
@@ -207,8 +212,8 @@ export function TrainerProvider({ children }: { children: React.ReactNode }) {
   const value = useMemo<Ctx>(() => ({
     profile, ready,
     needsOnboarding: ready && profile === null,
-    createTrainer, resetTrainer, bumpAttempt, applyWin, applyLoss
-  }), [profile, ready, createTrainer, resetTrainer, bumpAttempt, applyWin, applyLoss]);
+    refreshTrainer, createTrainer, resetTrainer, bumpAttempt, applyWin, applyLoss
+  }), [profile, ready, refreshTrainer, createTrainer, resetTrainer, bumpAttempt, applyWin, applyLoss]);
 
   return <TrainerCtx.Provider value={value}>{children}</TrainerCtx.Provider>;
 }

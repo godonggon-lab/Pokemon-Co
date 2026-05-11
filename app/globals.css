@@ -2,22 +2,93 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
 @layer base {
-  html, body { @apply bg-zinc-950 text-zinc-100 min-h-screen; }
+  html, body {
+    @apply min-h-screen;
+    background: #12132a;
+    color: #e8e8f0;
+    font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+  }
   body {
     background-image:
-      radial-gradient(circle at 20% 0%, rgba(120, 200, 80, 0.08), transparent 50%),
-      radial-gradient(circle at 80% 100%, rgba(248, 88, 136, 0.08), transparent 50%);
+      radial-gradient(ellipse at 15% 0%, rgba(120, 200, 80, 0.06), transparent 50%),
+      radial-gradient(ellipse at 85% 100%, rgba(248, 88, 136, 0.05), transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(104, 144, 240, 0.03), transparent 70%);
   }
   ::selection { @apply bg-amber-400/30; }
 }
 
 @layer components {
-  .pixel-card {
-    @apply relative rounded-2xl border border-white/10 bg-zinc-900/70 backdrop-blur
-           shadow-card transition hover:-translate-y-0.5 hover:border-white/20;
+  /* 따뜻한 카드 — 글래스 효과 대신 솔리드 배경 + 부드러운 그림자 */
+  .poke-card {
+    @apply relative rounded-2xl border border-white/[0.06] transition-all duration-200;
+    background: linear-gradient(145deg, #1e1f3b, #1a1b32);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.03);
   }
+  .poke-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  /* 이전 pixel-card 호환성 유지 */
+  .pixel-card {
+    @apply poke-card;
+  }
+
   .pill {
-    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-semibold;
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-bold;
+  }
+
+  /* 따뜻한 버튼 */
+  .btn-primary {
+    @apply rounded-xl px-5 py-3 text-sm font-bold transition-all duration-200;
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    color: #1a1b2e;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+  }
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .btn-secondary {
+    @apply rounded-xl border border-white/10 px-5 py-3 text-sm font-bold text-white/80 transition-all duration-200;
+    background: rgba(255,255,255,0.05);
+  }
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.15);
+  }
+
+  /* 섹션 헤더 */
+  .section-title {
+    @apply text-xl font-extrabold tracking-tight;
+  }
+
+  /* 테이블 스타일 */
+  .poke-table {
+    @apply w-full text-sm;
+  }
+  .poke-table thead {
+    background: rgba(255,255,255,0.03);
+  }
+  .poke-table th {
+    @apply px-4 py-3 text-left text-xs font-bold uppercase tracking-wider;
+    color: #9ca3af;
+  }
+  .poke-table tbody tr {
+    @apply border-t border-white/[0.04] transition-colors;
+  }
+  .poke-table tbody tr:hover {
+    background: rgba(255,255,255,0.03);
+  }
+  .poke-table td {
+    @apply px-4 py-2.5;
   }
 }
