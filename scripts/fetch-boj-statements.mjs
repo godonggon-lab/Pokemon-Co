@@ -216,7 +216,8 @@ async function main() {
   let targets = problems;
   if (ONLY) {
     const set = new Set(ONLY.split(",").map(s => s.trim()));
-    targets = problems.filter(p => set.has(p.id));
+    const byId = new Map(problems.map(p => [p.id, p]));
+    targets = [...set].map(id => byId.get(id) ?? { id });
   } else if (!FORCE) {
     targets = problems.filter(p => !cache[p.id] || cache[p.id]._failed);
   }
@@ -238,12 +239,16 @@ async function main() {
           okCount++;
           console.log(`  [w${id}] ok  ${p.id} "${got.title}" (snap=${got.snapshotTs}, samples=${got.samples.length})`);
         } else {
-          cache[p.id] = { _failed: true, ts: Date.now() };
+          if (!cache[p.id] || cache[p.id]._failed || FORCE) {
+            cache[p.id] = { _failed: true, ts: Date.now() };
+          }
           failCount++;
           console.log(`  [w${id}] FAIL ${p.id}`);
         }
       } catch (e) {
-        cache[p.id] = { _failed: true, error: String(e?.message ?? e), ts: Date.now() };
+        if (!cache[p.id] || cache[p.id]._failed || FORCE) {
+          cache[p.id] = { _failed: true, error: String(e?.message ?? e), ts: Date.now() };
+        }
         failCount++;
         console.log(`  [w${id}] ERR  ${p.id} ${e?.message ?? e}`);
       }

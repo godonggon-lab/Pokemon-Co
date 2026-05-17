@@ -12,6 +12,9 @@ from harness.judge_core import DockerRunner, LocalRunner, judge
 
 def main() -> int:
     problems = json.loads((ROOT / "data" / "problems.json").read_text(encoding="utf-8"))
+    extra_path = ROOT / "data" / "problems-extra.json"
+    if extra_path.exists():
+        problems.extend(json.loads(extra_path.read_text(encoding="utf-8")))
     override_dir = ROOT / "harness" / "overrides"
     override_slugs = sorted(path.stem for path in override_dir.glob("*.py") if path.name != "__init__.py")
 

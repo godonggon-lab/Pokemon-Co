@@ -1,0 +1,374 @@
+{
+  "generatedAt": "2026-05-15T16:49:15.124Z",
+  "summary": {
+    "externalCandidates": 19,
+    "readinessCounts": {
+      "missing_solution_files": 19
+    },
+    "languageCounts": {}
+  },
+  "candidates": [
+    {
+      "id": "1034",
+      "slug": "brute_force-1034",
+      "categories": [
+        "brute_force"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/1034",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/1034?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    },
+    {
+      "id": "1497",
+      "slug": "backtracking-1497",
+      "categories": [
+        "backtracking"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/1497",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/1497?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    },
+    {
+      "id": "1507",
+      "slug": "shortest_path-1507",
+      "categories": [
+        "shortest_path"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/1507",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/1507?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    },
+    {
+      "id": "2293",
+      "slug": "dynamic_programming_1-2293",
+      "categories": [
+        "dynamic_programming_1"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/2293",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/2293?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    },
+    {
+      "id": "2637",
+      "slug": "topological_sorting-2637",
+      "categories": [
+        "topological_sorting"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/2637",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/2637?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    },
+    {
+      "id": "3025",
+      "slug": "simulation-3025",
+      "categories": [
+        "simulation"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/3025",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/3025?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    },
+    {
+      "id": "7453",
+      "slug": "binary_search-7453",
+      "categories": [
+        "binary_search",
+        "two_pointer"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/7453",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/7453?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    },
+    {
+      "id": "11663",
+      "slug": "binary_search-11663",
+      "categories": [
+        "binary_search"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/11663",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/11663?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    },
+    {
+      "id": "11728",
+      "slug": "two_pointer-11728",
+      "categories": [
+        "two_pointer"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/11728",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/11728?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    },
+    {
+      "id": "12026",
+      "slug": "dynamic_programming_1-12026",
+      "categories": [
+        "dynamic_programming_1"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/12026",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/12026?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    },
+    {
+      "id": "12931",
+      "slug": "greedy-12931",
+      "categories": [
+        "greedy"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/12931",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/12931?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    },
+    {
+      "id": "13422",
+      "slug": "two_pointer-13422",
+      "categories": [
+        "two_pointer"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/13422",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/13422?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    },
+    {
+      "id": "14284",
+      "slug": "shortest_path-14284",
+      "categories": [
+        "shortest_path"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/14284",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/14284?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    },
+    {
+      "id": "17142",
+      "slug": "graph_traversal-17142",
+      "categories": [
+        "graph_traversal"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/17142",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/17142?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    },
+    {
+      "id": "17396",
+      "slug": "shortest_path-17396",
+      "categories": [
+        "shortest_path"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/17396",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/17396?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    },
+    {
+      "id": "18232",
+      "slug": "graph_traversal-18232",
+      "categories": [
+        "graph_traversal"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/18232",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/18232?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    },
+    {
+      "id": "18234",
+      "slug": "greedy-18234",
+      "categories": [
+        "greedy"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/18234",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/18234?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    },
+    {
+      "id": "20007",
+      "slug": "shortest_path-20007",
+      "categories": [
+        "shortest_path"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/20007",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/20007?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    },
+    {
+      "id": "21944",
+      "slug": "data_structure2-21944",
+      "categories": [
+        "data_structure2"
+      ],
+      "titleKo": null,
+      "solvedLevel": null,
+      "solvedTier": null,
+      "sources": [
+        {
+          "url": "https://github.com/tony9402/algorithm-solutions/tree/main/solutions/baekjoon/21944",
+          "ok": false,
+          "error": "GET https://api.github.com/repos/tony9402/algorithm-solutions/contents/solutions/baekjoon/21944?ref=main failed: 403 {\"message\":\"API rate limit exceeded for 125.141.24.232. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\""
+        }
+      ],
+      "languages": [],
+      "readiness": "missing_solution_files"
+    }
+  ]
+}

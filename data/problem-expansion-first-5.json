@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-05-13T15:20:22.895Z",
+  "phase": "13-first-5",
+  "serviceReady": false,
+  "candidates": [
+    {
+      "id": "4949",
+      "slug": "data_structure-4949",
+      "primaryCategory": "data_structure",
+      "languages": [
+        "cpp"
+      ],
+      "sourceFiles": [
+        {
+          "lang": "cpp",
+          "name": "main.cpp",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/4949/main.cpp",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/4949/main.cpp"
+        }
+      ],
+      "statementReady": true,
+      "title": "균형잡힌 세상",
+      "sampleCount": 1,
+      "limits": {
+        "timeLimitMs": 1000,
+        "memoryLimitMb": 1
+      },
+      "nextAction": "앱용 문제 요약과 override를 작성한 뒤 정답 코드 실행 검증"
+    },
+    {
+      "id": "11256",
+      "slug": "greedy-11256",
+      "primaryCategory": "greedy",
+      "languages": [
+        "python"
+      ],
+      "sourceFiles": [
+        {
+          "lang": "python",
+          "name": "main.py",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/11256/main.py",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/11256/main.py"
+        }
+      ],
+      "statementReady": true,
+      "title": "사탕",
+      "sampleCount": 2,
+      "limits": {
+        "timeLimitMs": 1000,
+        "memoryLimitMb": 1
+      },
+      "nextAction": "앱용 문제 요약과 override를 작성한 뒤 정답 코드 실행 검증"
+    },
+    {
+      "id": "11441",
+      "slug": "prefix_sum-11441",
+      "primaryCategory": "prefix_sum",
+      "languages": [
+        "cpp",
+        "java",
+        "python"
+      ],
+      "sourceFiles": [
+        {
+          "lang": "java",
+          "name": "Main.java",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/11441/Main.java",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/11441/Main.java"
+        },
+        {
+          "lang": "cpp",
+          "name": "main.cpp",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/11441/main.cpp",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/11441/main.cpp"
+        },
+        {
+          "lang": "python",
+          "name": "main.py",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/11441/main.py",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/11441/main.py"
+        }
+      ],
+      "statementReady": true,
+      "title": "합 구하기",
+      "sampleCount": 2,
+      "limits": {
+        "timeLimitMs": 1000,
+        "memoryLimitMb": 1
+      },
+      "nextAction": "앱용 문제 요약과 override를 작성한 뒤 정답 코드 실행 검증"
+    },
+    {
+      "id": "1697",
+      "slug": "graph_traversal-1697",
+      "primaryCategory": "graph_traversal",
+      "languages": [
+        "python"
+      ],
+      "sourceFiles": [
+        {
+          "lang": "python",
+          "name": "main.py",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/1697/main.py",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/1697/main.py"
+        }
+      ],
+      "statementReady": true,
+      "title": "숨바꼭질",
+      "sampleCount": 1,
+      "limits": {
+        "timeLimitMs": null,
+        "memoryLimitMb": null
+      },
+      "nextAction": "앱용 문제 요약과 override를 작성한 뒤 정답 코드 실행 검증"
+    },
+    {
+      "id": "2156",
+      "slug": "dynamic_programming_1-2156",
+      "primaryCategory": "dynamic_programming_1",
+      "languages": [
+        "cpp",
+        "java",
+        "python"
+      ],
+      "sourceFiles": [
+        {
+          "lang": "java",
+          "name": "Main.java",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/2156/Main.java",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/2156/Main.java"
+        },
+        {
+          "lang": "cpp",
+          "name": "main.cpp",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/2156/main.cpp",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/2156/main.cpp"
+        },
+        {
+          "lang": "python",
+          "name": "main.py",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/2156/main.py",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/2156/main.py"
+        }
+      ],
+      "statementReady": true,
+      "title": "포도주 시식",
+      "sampleCount": 1,
+      "limits": {
+        "timeLimitMs": null,
+        "memoryLimitMb": null
+      },
+      "nextAction": "앱용 문제 요약과 override를 작성한 뒤 정답 코드 실행 검증"
+    }
+  ]
+}

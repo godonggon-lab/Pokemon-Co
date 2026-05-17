@@ -1,0 +1,747 @@
+[
+  {
+    "id": "1159",
+    "slug": "string-1159",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-1159.py",
+        "code": "import sys\nfrom collections import Counter\n\nn = int(sys.stdin.readline())\ncounter = Counter(sys.stdin.readline().strip()[0] for _ in range(n))\nanswer = ''.join(ch for ch in sorted(counter) if counter[ch] >= 5)\nprint(answer if answer else 'PREDAJA')\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1159",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "ad181c8c31bb",
+    "createdAt": 1779031719690
+  },
+  {
+    "id": "1188",
+    "slug": "math-1188",
+    "categorySlug": "math",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/math-1188.py",
+        "code": "import math\nimport sys\n\nn, m = map(int, sys.stdin.readline().split())\nprint(m - math.gcd(n, m))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1188",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "789405ed7f5b",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "1213",
+    "slug": "string-1213",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-1213.py",
+        "code": "import sys\nfrom collections import Counter\n\ns = sys.stdin.readline().strip()\ncounter = Counter(s)\nodd = [ch for ch in sorted(counter) if counter[ch] % 2 == 1]\nif len(odd) > 1:\n    print(\"I'm Sorry Hansoo\")\nelse:\n    left = ''.join(ch * (counter[ch] // 2) for ch in sorted(counter))\n    mid = odd[0] if odd else ''\n    print(left + mid + left[::-1])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1213",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "f4e90b533526",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "1238",
+    "slug": "shortest_path-1238",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/1238/main.py",
+        "code": "# Authored by : cieske\n# Co-authored by : -\n# Link : http://boj.kr/6d0558a4848c49098f08a06f655cd86c\n\nfrom heapq import heappush, heappop\nimport sys\ndef input():\n    return sys.stdin.readline().rstrip()\n\nINF = 10000000\ndef dijkstra(road, start):\n    dp = [INF]*(n+1)\n    dp[start] = 0\n    heap = []\n    heappush(heap, [0, start])\n\n    while heap:\n        cur_time, cur = heappop(heap)\n\n        if cur_time > dp[cur]: #기존 경로 사용\n            continue\n\n        for t, nxt in road[cur]:\n            new_time = t + cur_time\n            if new_time < dp[nxt]:\n                dp[nxt] = new_time\n                heappush(heap, [new_time, nxt])\n    return dp\n\nn, m, k = map(int, input().split())\nroad = [[] for _ in range(n+1)]\nroad_rev = [[] for _ in range(n+1)]\nfor _ in range(m):\n    x, y, t = map(int, input().split())\n    road[x].append([t, y])\n    road_rev[y].append([t, x])\n    \ndp = dijkstra(road, k)\ndp_rev = dijkstra(road_rev, k)\n\nprint(max([dp[i]+dp_rev[i] for i in range(1, n+1)]))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1238",
+    "authors": [
+      "tony9402"
+    ],
+    "hash": "95fd463602d6",
+    "createdAt": 1778862834817
+  },
+  {
+    "id": "1259",
+    "slug": "string-1259",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-1259.py",
+        "code": "import sys\n\nout = []\nfor line in sys.stdin:\n    s = line.strip()\n    if s == '0':\n        break\n    out.append('yes' if s == s[::-1] else 'no')\nprint('\\n'.join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1259",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "e9bcfe2c98c3",
+    "createdAt": 1779031719692
+  },
+  {
+    "id": "1456",
+    "slug": "math-1456",
+    "categorySlug": "math",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/math-1456.py",
+        "code": "import math\nimport sys\n\na, b = map(int, sys.stdin.readline().split())\nlimit = int(math.isqrt(b))\nis_prime = [True] * (limit + 1)\nif limit >= 0:\n    is_prime[0:2] = [False, False]\nfor i in range(2, int(math.isqrt(limit)) + 1):\n    if is_prime[i]:\n        for j in range(i * i, limit + 1, i):\n            is_prime[j] = False\nanswer = 0\nfor p in range(2, limit + 1):\n    if not is_prime[p]:\n        continue\n    value = p * p\n    while value <= b:\n        if value >= a:\n            answer += 1\n        if value > b // p:\n            break\n        value *= p\nprint(answer)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1456",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "999c8c2461d4",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "1622",
+    "slug": "string-1622",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-1622.py",
+        "code": "import sys\nfrom collections import Counter\n\nlines = sys.stdin.read().splitlines()\nout = []\nfor i in range(0, len(lines), 2):\n    if i + 1 >= len(lines):\n        break\n    a = Counter(lines[i])\n    b = Counter(lines[i + 1])\n    chars = []\n    for ch in sorted(set(a) & set(b)):\n        chars.append(ch * min(a[ch], b[ch]))\n    out.append(''.join(chars))\nprint('\\n'.join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1622",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "52dcce9f9321",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "1669",
+    "slug": "math-1669",
+    "categorySlug": "math",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/math-1669.py",
+        "code": "import math\nimport sys\n\nx, y = map(int, sys.stdin.readline().split())\nd = y - x\nif d == 0:\n    print(0)\nelse:\n    k = math.isqrt(d)\n    if k * k == d:\n        print(2 * k - 1)\n    elif d <= k * k + k:\n        print(2 * k)\n    else:\n        print(2 * k + 1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1669",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "d0818a473b00",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "1697",
+    "slug": "graph_traversal-1697",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/1697/main.py",
+        "code": "# Authored by : 220v\n# Co-authored by : -\n# Link : https://www.acmicpc.net/source/58245171\nimport sys\nfrom collections import deque\n\ndef input():\n    return sys.stdin.readline().rstrip()\n\ndef solve():\n    N, K = map(int, input().split())\n\n    deq = deque([N])\n    visit = dict()\n    visit[N] = 0\n    \n    while deq:\n        cur = deq.popleft()\n        if cur == K:\n            print(visit[cur])\n            return\n\n        for nxt in (cur*2, cur+1, cur-1):\n            if 0 <= nxt <= 100000 and visit.get(nxt, -1) == -1:\n                deq.append(nxt)\n                visit[nxt] = visit[cur]+1\n\nsolve()\n\n\"\"\" Solution Description\n시간 초과나 메모리 초과가 나지 않도록 100,000 이하에서 BFS가 진행되도록 조건을 걸어줘야 하는 것을 주의하며 풀이.  \n자세한 풀이: https://wondev.tistory.com/126\n\"\"\"\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1697",
+    "authors": [
+      "tony9402"
+    ],
+    "hash": "a937ab9e8906",
+    "createdAt": 1778687534770
+  },
+  {
+    "id": "1718",
+    "slug": "string-1718",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-1718.py",
+        "code": "import sys\n\nplain = sys.stdin.readline().rstrip('\\n')\nkey = sys.stdin.readline().strip()\nout = []\nfor i, ch in enumerate(plain):\n    if ch == ' ':\n        out.append(' ')\n    else:\n        shift = ord(key[i % len(key)]) - ord('a') + 1\n        out.append(chr((ord(ch) - ord('a') - shift) % 26 + ord('a')))\nprint(''.join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1718",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "be0d90352c87",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "1972",
+    "slug": "string-1972",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-1972.py",
+        "code": "import sys\n\nout = []\nfor line in sys.stdin:\n    s = line.strip()\n    if s == '*':\n        break\n    ok = True\n    for d in range(1, len(s)):\n        seen = set()\n        for i in range(len(s) - d):\n            pair = s[i] + s[i + d]\n            if pair in seen:\n                ok = False\n                break\n            seen.add(pair)\n        if not ok:\n            break\n    out.append(f\"{s} is {'surprising' if ok else 'NOT surprising'}.\")\nprint('\\n'.join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1972",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "e9dfeca13b5a",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "2156",
+    "slug": "dynamic_programming_1-2156",
+    "categorySlug": "dynamic_programming_1",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/2156/main.py",
+        "code": "# Authored by : wassup37\n# Co-authored by : tony9402\n# Link : http://boj.kr/1211037748274f97ae2a8a24c4f0ec9e\nimport sys\n\ndef input():\n    return sys.stdin.readline().rstrip()\nN = int(input())\nwine = [0] + [int(input()) for i in range(N)] # 인덱스가 1부터 시작하도록 만듭니다.\n\nif N == 1: # n이 1일 경우 맨 처음 포도주를 마시는게 최대입니다.\n    print(wine[1])\nelse:\n    dp = [0, wine[1], wine[1] + wine[2]] # n 인덱스까지의 최댓값을 저장하는 리스트\n    for i in range(3, N+1): # 3부터 n까지 dp 테이블을 채웁니다.\n        dp.append(max(dp[i - 1], dp[i - 2] + wine[i], dp[i - 3] + wine[i - 1] + wine[i]))\n    print(dp[N]) # 포도주 잔의 개수가 n개일 때, 최대로 마실 수 있는 포도주의 양 출력\n"
+      },
+      {
+        "lang": "cpp",
+        "file": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/2156/main.cpp",
+        "code": "// Authored by : ccocco0609\n// Co-authored by : -\n// Link : http://boj.kr/1a58200da0374f249178f1d258ff4c90\n#include <bits/stdc++.h>\nusing namespace std;\n\n// 전역에 배열 또는 변수를 선언한 경우 0으로 초기화 됩니다.\nint wine[10001];\nint dp[10001];\n\nint main() {\n    ios_base::sync_with_stdio(false);\n    cin.tie(NULL);\n    cout.tie(NULL);\n\n    int N; cin >> N;\n    \n    for (int i = 1; i <= N; i++) cin >> wine[i];\n\n    dp[1] = wine[1];\n    dp[2] = wine[1] + wine[2];\n    for (int i = 3; i <= N; i++) {\n        dp[i] = max(wine[i] + dp[i - 2], max(wine[i] + wine[i - 1] + dp[i - 3], dp[i - 1]));\n    }\n    \n    cout << dp[N];\n    return 0;\n}\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2156",
+    "authors": [
+      "tony9402"
+    ],
+    "hash": "51a3a6be684d",
+    "createdAt": 1778687535211
+  },
+  {
+    "id": "2168",
+    "slug": "math-2168",
+    "categorySlug": "math",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/math-2168.py",
+        "code": "import math\nimport sys\n\nx, y = map(int, sys.stdin.readline().split())\nprint(x + y - math.gcd(x, y))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2168",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "6835058f03bf",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "2436",
+    "slug": "math-2436",
+    "categorySlug": "math",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/math-2436.py",
+        "code": "import math\nimport sys\n\ng, l = map(int, sys.stdin.readline().split())\ntarget = l // g\nbest = (g, l)\nfor a in range(1, math.isqrt(target) + 1):\n    if target % a == 0:\n        b = target // a\n        if math.gcd(a, b) == 1:\n            best = (g * a, g * b)\nprint(*best)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2436",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "f5ec80ded9be",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "2602",
+    "slug": "dynamic_programming_2-2602",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-2602.py",
+        "code": "import sys\n\ntarget = sys.stdin.readline().strip()\ndevil = sys.stdin.readline().strip()\nangel = sys.stdin.readline().strip()\nbridges = [devil, angel]\nn = len(target)\nm = len(devil)\n\ndp = [[[0] * m for _ in range(n)] for _ in range(2)]\nfor b in range(2):\n    for i, ch in enumerate(bridges[b]):\n        if ch == target[0]:\n            dp[b][0][i] = 1\n\nfor k in range(1, n):\n    for b in range(2):\n        other = 1 - b\n        running = 0\n        for pos in range(m):\n            running += dp[other][k - 1][pos - 1] if pos > 0 else 0\n            if bridges[b][pos] == target[k]:\n                dp[b][k][pos] = running\n\nprint(sum(dp[0][n - 1]) + sum(dp[1][n - 1]))\n"
+      },
+      {
+        "lang": "cpp",
+        "file": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/2602/main.cpp",
+        "code": "// Authored by: tony9402\n// Co-authored by: -\n// Link: http://boj.kr/c45cc59eb3d94679b794ca568fbd7a5a\n#include<bits/stdc++.h>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(0);\n\n    string S, bridge[2]; cin >> S >> bridge[0] >> bridge[1];\n    int N = (int)bridge[0].size();\n    int K = (int)S.size();\n\n    // DP[2][N][K]\n    vector<vector<vector<int>>> DP(2, vector<vector<int>>(N + 1, vector<int>(K + 1)));\n\n    DP[0][0][0] = DP[1][0][0] = 1;\n    for(int i = 1; i <= N; ++i) {\n        for(int k = 0; k < 2; ++k) {\n            char ch = bridge[k][i - 1];\n            for(int l = 1; l <= K; ++l) {\n                if(S[l - 1] != ch) continue;\n                for(int j = 0; j < i; ++j) {\n                    DP[k][i][l] += DP[1 - k][j][l - 1];\n                }\n            }\n        }\n    }\n\n    int ans = 0;\n    for(int i = 1; i <= N; ++i) {\n        ans += DP[0][i][K] + DP[1][i][K];\n    }\n    cout << ans;\n    \n    return 0;\n}\n\n/* Solution Description\nDP[2][N][K]: \n- DP[0][*][*]는 악마의 돌다리를 밟았을 경우, DP[1][*][*]는 천사의 돌다리를 밟았을 경우를 의미.\n- N번째 돌다리를 밟았고 현재 위치한 알파벳이 두루마리에 적힌 문자열 중에 하나라면 그 알파벳까지 밟은 경우의 수 \n- 주의할 점: 두루마리에 적힌 문자열에서 중복된 문자가 존재할 수 있음.\n\nDP[0][0][0] = DP[1][0][0] = 1 (기저 값)  \n`DP[t][i][j] = ∑DP[1 - t][0...i-1][j - 1]`  \n시간복잡도: O(N^2K)\n\nQuiz. 여기서 어떻게하면 시간복잡도 O(N^2K)보다 빠르게 할 수 있을까요?\n*/"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2602",
+    "authors": [
+      "tony9402"
+    ],
+    "hash": "63e136de2fb2",
+    "createdAt": 1778862835077
+  },
+  {
+    "id": "2638",
+    "slug": "graph_traversal-2638",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/2638/main.py",
+        "code": "# Authored by : 220v\r\n# Co-authored by : -\r\n# Link : https://www.acmicpc.net/source/68292211\r\nimport sys\r\nfrom collections import deque\r\n\r\ndef input():\r\n    return sys.stdin.readline().rstrip()\r\n\r\nN, M = map(int, input().split())\r\n\r\np = [list(map(int, input().split())) for _ in range(N)]\r\n    \r\ndr = (1, 0, -1, 0)\r\ndc = (0, 1, 0, -1)\r\n\r\nair = [[1]*M for _ in range(N)]\r\n\r\ndef BFS(r, c):\r\n    deq = deque([(r, c)])\r\n    while deq:\r\n        nr, nc = deq.popleft()\r\n        for i in range(4):\r\n            lr, lc = nr+dr[i], nc+dc[i]\r\n        \r\n            # 격자 벗어남 체크 / 공기 칸인지 체크 / bfs에서 이미 지나간 칸인 지 확인 (air[lr][lc])\r\n            if 0 <= lr < N and 0 <= lc < M and p[lr][lc] == 0 and air[lr][lc] == 1:\r\n                air[lr][lc] = 0\r\n                deq.append((lr, lc))\r\n\r\nT = 0   # 걸린 시간\r\nwhile True:\r\n    T += 1\r\n    air = [[1]*M for _ in range(N)]\r\n    \r\n    # 공기가 확산되는 칸을 check.\r\n    for r in range(N):\r\n        for c in range(M):\r\n            # 치즈가 있는 칸이거나, 이미 외부 공기와 통한다고 체크한 칸은 pass.\r\n            if p[r][c] == 1 or air[r][c] == 0:\r\n                continue\r\n            \r\n            # 현재 칸이 외부와 닿아 있으면 isAirExposed = True.\r\n            isAirExposed = False\r\n            for i in range(4):\r\n                lr, lc = r+dr[i], c+dc[i]\r\n                if lr < 0 or lr >= N or lc < 0 or lc >= M:\r\n                    isAirExposed = True\r\n                    break\r\n            \r\n            # 외부와 맞닿은 칸부터 BFS로 공기인 칸을 탐색하며 외부 공기와 통하는 것으로 check (0으로 변경)\r\n            if isAirExposed:\r\n                BFS(r, c)\r\n\r\n    # 치즈 녹이기\r\n    for r in range(N):\r\n        for c in range(M):\r\n            if p[r][c] == 0:\r\n                continue\r\n            \r\n            cnt = 0\r\n            for i in range(4):\r\n                lr, lc = r+dr[i], c+dc[i]\r\n                if air[lr][lc] == 0:\r\n                    cnt += 1\r\n            # 외부 공기와 2변 이상 닿으면, 치즈를 녹인다.\r\n            if cnt >= 2:\r\n                p[r][c] = 0\r\n\r\n    # 다 녹음 체크\r\n    isAllMelt = True\r\n    for r in range(N):\r\n        if not isAllMelt:\r\n            break\r\n        for c in range(M):\r\n            if p[r][c] == 1:\r\n                isAllMelt = False\r\n                break\r\n    \r\n    if isAllMelt:\r\n        print(T)\r\n        break\r\n    \r\n\"\"\" Solution Description\r\n두 변 이상 실내온도의 공기와 접촉할 때 치즈가 녹는다는 조건만 잘 처리한다면, 여타 BFS 문제와 비슷하게 풀이할 수 있다.  \r\nhttps://wondev.tistory.com/202\r\n\"\"\"\r\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2638",
+    "authors": [
+      "tony9402"
+    ],
+    "hash": "d34b8a0484e8",
+    "createdAt": 1778862834517
+  },
+  {
+    "id": "2671",
+    "slug": "string-2671",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-2671.py",
+        "code": "import re\nimport sys\n\ns = sys.stdin.readline().strip()\nprint('SUBMARINE' if re.fullmatch(r'(100+1+|01)+', s) else 'NOISE')\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2671",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "a34005d55ef1",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "2852",
+    "slug": "string-2852",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-2852.py",
+        "code": "import sys\n\ndef to_sec(t):\n    m, s = map(int, t.split(':'))\n    return m * 60 + s\n\ndef fmt(sec):\n    return f\"{sec // 60:02d}:{sec % 60:02d}\"\n\nn = int(sys.stdin.readline())\nscore = [0, 0]\nlead_time = [0, 0]\nlast = 0\nfor _ in range(n):\n    team, t = sys.stdin.readline().split()\n    now = to_sec(t)\n    if score[0] > score[1]:\n        lead_time[0] += now - last\n    elif score[1] > score[0]:\n        lead_time[1] += now - last\n    score[int(team) - 1] += 1\n    last = now\nif score[0] > score[1]:\n    lead_time[0] += 48 * 60 - last\nelif score[1] > score[0]:\n    lead_time[1] += 48 * 60 - last\nprint(fmt(lead_time[0]))\nprint(fmt(lead_time[1]))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2852",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "21eb228ed73a",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "2941",
+    "slug": "string-2941",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-2941.py",
+        "code": "import sys\n\ns = sys.stdin.readline().strip()\nfor token in ['c=', 'c-', 'dz=', 'd-', 'lj', 'nj', 's=', 'z=']:\n    s = s.replace(token, '*')\nprint(len(s))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2941",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "d6b87872a384",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "3613",
+    "slug": "string-3613",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-3613.py",
+        "code": "import sys\n\ns = sys.stdin.readline().strip()\n\ndef error():\n    print('Error!')\n    raise SystemExit\n\nif not s or s[0] == '_' or s[-1] == '_' or s[0].isupper() or '__' in s:\n    error()\n\nhas_under = '_' in s\nhas_upper = any(ch.isupper() for ch in s)\n\nif has_under and has_upper:\n    error()\n\nif has_under:\n    parts = s.split('_')\n    if any(not part or not part.islower() for part in parts):\n        error()\n    print(parts[0] + ''.join(part.capitalize() for part in parts[1:]))\nelse:\n    out = []\n    for ch in s:\n        if ch.isupper():\n            out.append('_')\n            out.append(ch.lower())\n        else:\n            out.append(ch)\n    print(''.join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/3613",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "59cd9f372b7e",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "4949",
+    "slug": "data_structure-4949",
+    "categorySlug": "data_structure",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/data_structure-4949.py",
+        "code": "import sys\n\npairs = {\")\": \"(\", \"]\": \"[\"}\n\ndef balanced(line):\n    stack = []\n    for ch in line:\n        if ch in \"([\":\n            stack.append(ch)\n        elif ch in \")]\":\n            if not stack or stack.pop() != pairs[ch]:\n                return False\n    return not stack\n\nout = []\nfor line in sys.stdin.read().splitlines():\n    if line == \".\":\n        break\n    out.append(\"yes\" if balanced(line) else \"no\")\nprint(\"\\n\".join(out))\n"
+      },
+      {
+        "lang": "cpp",
+        "file": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/4949/main.cpp",
+        "code": "// Authored by : jminryu\n// Co-authored by : -\n// Link : http://boj.kr/1f1b7257c19e45169d3c4384b315ec7f\n#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n    cout.tie(nullptr);\n\n    string str;\n    while (1) {\n        getline(cin, str);\n        if (str == \".\") break;\n        \n        bool isBalanced = true;\n        stack<char> st;\n        \n        for (char c : str) {\n            if (!isBalanced) break;\n            switch (c) {\n                case '(':\n                    st.push(c);\n                    break;\n                case ')':\n                    if (st.empty() || st.top() != '(') isBalanced = false;\n                    else st.pop();\n                    break;\n                case '[':\n                    st.push(c);\n                    break;\n                case ']':\n                    if (st.empty() || st.top() != '[') isBalanced = false;\n                    else st.pop();\n                    break;\n                default:\n                    break;\n            }\n        }\n        if (isBalanced && st.empty()) cout << \"yes\\n\";\n        else cout << \"no\\n\";\n    }\n    return 0;\n}\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/4949",
+    "authors": [
+      "tony9402"
+    ],
+    "hash": "708aa3f6b94c",
+    "createdAt": 1778687533845
+  },
+  {
+    "id": "5534",
+    "slug": "string-5534",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-5534.py",
+        "code": "import sys\n\nn = int(sys.stdin.readline())\ntarget = sys.stdin.readline().strip()\nanswer = 0\nfor _ in range(n):\n    board = sys.stdin.readline().strip()\n    ok = False\n    for start in range(len(board)):\n        for step in range(1, len(board) + 1):\n            end = start + step * (len(target) - 1)\n            if end >= len(board):\n                break\n            if ''.join(board[start + step * i] for i in range(len(target))) == target:\n                ok = True\n                break\n        if ok:\n            break\n    answer += int(ok)\nprint(answer)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/5534",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "2177a3095825",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "6996",
+    "slug": "string-6996",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-6996.py",
+        "code": "import sys\nfrom collections import Counter\n\nt = int(sys.stdin.readline())\nout = []\nfor _ in range(t):\n    a, b = sys.stdin.readline().split()\n    if Counter(a) == Counter(b):\n        out.append(f\"{a} & {b} are anagrams.\")\n    else:\n        out.append(f\"{a} & {b} are NOT anagrams.\")\nprint('\\n'.join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/6996",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "325b6c8bc3c6",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "9536",
+    "slug": "string-9536",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-9536.py",
+        "code": "import sys\n\nt = int(sys.stdin.readline())\nanswers = []\nfor _ in range(t):\n    recorded = sys.stdin.readline().split()\n    known = set()\n    while True:\n        line = sys.stdin.readline().strip()\n        if line == 'what does the fox say?':\n            break\n        known.add(line.split()[-1])\n    answers.append(' '.join(sound for sound in recorded if sound not in known))\nprint('\\n'.join(answers))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/9536",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "51b2c1677cf5",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "9933",
+    "slug": "string-9933",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-9933.py",
+        "code": "import sys\n\nn = int(sys.stdin.readline())\nwords = [sys.stdin.readline().strip() for _ in range(n)]\nseen = set(words)\nfor word in words:\n    if word[::-1] in seen:\n        print(len(word), word[len(word) // 2])\n        break\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/9933",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "f23d5425c2fb",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "10808",
+    "slug": "string-10808",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-10808.py",
+        "code": "import sys\n\ns = sys.stdin.readline().strip()\ncounts = [0] * 26\nfor ch in s:\n    counts[ord(ch) - 97] += 1\nprint(*counts)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/10808",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "d134fc9f61ba",
+    "createdAt": 1779031719692
+  },
+  {
+    "id": "10809",
+    "slug": "string-10809",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-10809.py",
+        "code": "import sys\n\ns = sys.stdin.readline().strip()\nprint(*[s.find(chr(97 + i)) for i in range(26)])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/10809",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "7c20a8a4889f",
+    "createdAt": 1779031719692
+  },
+  {
+    "id": "10988",
+    "slug": "string-10988",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-10988.py",
+        "code": "import sys\n\ns = sys.stdin.readline().strip()\nprint(1 if s == s[::-1] else 0)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/10988",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "22d96b820907",
+    "createdAt": 1779031719692
+  },
+  {
+    "id": "11256",
+    "slug": "greedy-11256",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/11256/main.py",
+        "code": "# Authored by : gd30220\n# Co-authored by : -\n# Link : http://boj.kr/fb3874925c8049e58f475817595d442a\nimport sys\n\ndef input():\n    return sys.stdin.readline().rstrip()\n\ntestcase = int(input())\nfor _ in range(testcase):\n    j, n = map(int, input().split())\n\n    boxes = []\n    for _ in range(n):\n        r, c = map(int, input().split())\n        boxes.append(r * c)\n\n    boxes.sort(reverse=True)\n    result = 0\n\n    for box in boxes:\n        j -= box\n        result += 1\n        if j <= 0:\n            break\n\n    print(result)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/11256",
+    "authors": [
+      "tony9402"
+    ],
+    "hash": "f31b4085784e",
+    "createdAt": 1778687534070
+  },
+  {
+    "id": "11441",
+    "slug": "prefix_sum-11441",
+    "categorySlug": "prefix_sum",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/11441/main.py",
+        "code": "# Authored by : vswngjs\n# Co-authored by : tony9402\n# Link : http://boj.kr/a2fb7c4e954d42f4bfabc04bbd2973ba\nimport sys\n\ndef input():\n    return sys.stdin.readline()\n\nn = int(input())\n\nnumbers = list(map(int, input().split(\" \")))\nsolve_list = [0] # 누적합을 저장하기 위한 리스트\nsum = 0\n\nfor i in numbers:\n    sum += i\n    solve_list.append(sum)\n\ntestcase = int(input())\nfor i in range(testcase):\n    parts = list(map(int, input().split()))\n    print(solve_list[parts[1]] - solve_list[parts[0] - 1])  # i ~ j 인덱스까지의 누적합\n"
+      },
+      {
+        "lang": "cpp",
+        "file": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/11441/main.cpp",
+        "code": "// Authored by : ccocco0609\n// Co-authored by : tony9402\n// Link : http://boj.kr/de37b0fcab5b4d13a414abb3040ee3f5\n\n#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n\tios_base::sync_with_stdio(false);\n\tcin.tie(NULL);\n\tcout.tie(NULL);\n\n\tint n; cin >> n;\n\tvector<int> sum_vector;\n\n\tsum_vector.push_back(0);\n\n\tfor (int i = 0; i < n; i++) {\n\t\tint tmp = 0;\n\t\tcin >> tmp;\n\t\tsum_vector.push_back(sum_vector.back() + tmp);  // 누적 합을 저장\n\t}\n\n\tint m; cin >> m;\n\n\tfor (int k = 0; k < m; k++) {\n\t\tint i, j;\n\t\tcin >> i >> j;\n\t\tint result = sum_vector[j] - sum_vector[i - 1]; // 해당하는 범위의 누적합을 구함\n\t\tcout << result << '\\n';\n\t}\n\n\treturn 0;\n}\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/11441",
+    "authors": [
+      "tony9402"
+    ],
+    "hash": "cfe5e56a9367",
+    "createdAt": 1778687534544
+  },
+  {
+    "id": "11478",
+    "slug": "string-11478",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-11478.py",
+        "code": "import sys\n\ns = sys.stdin.readline().strip()\nanswer = set()\nfor i in range(len(s)):\n    for j in range(i + 1, len(s) + 1):\n        answer.add(s[i:j])\nprint(len(answer))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/11478",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "c921d639e046",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "11655",
+    "slug": "string-11655",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-11655.py",
+        "code": "import sys\n\ns = sys.stdin.readline().rstrip('\\n')\nout = []\nfor ch in s:\n    if 'a' <= ch <= 'z':\n        out.append(chr((ord(ch) - ord('a') + 13) % 26 + ord('a')))\n    elif 'A' <= ch <= 'Z':\n        out.append(chr((ord(ch) - ord('A') + 13) % 26 + ord('A')))\n    else:\n        out.append(ch)\nprint(''.join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/11655",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "6b1734219914",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "11656",
+    "slug": "string-11656",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-11656.py",
+        "code": "import sys\n\ns = sys.stdin.readline().strip()\nprint('\\n'.join(sorted(s[i:] for i in range(len(s)))))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/11656",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "81cf32b17c53",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "13022",
+    "slug": "string-13022",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-13022.py",
+        "code": "import sys\n\ns = sys.stdin.readline().strip()\ni = 0\nok = True\nwhile i < len(s):\n    cnt = 0\n    while i < len(s) and s[i] == 'w':\n        cnt += 1\n        i += 1\n    if cnt == 0:\n        ok = False\n        break\n    for ch in 'olf':\n        now = 0\n        while i < len(s) and s[i] == ch:\n            now += 1\n            i += 1\n        if now != cnt:\n            ok = False\n            break\n    if not ok:\n        break\nprint(1 if ok and i == len(s) else 0)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/13022",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "d9d7fbe7cf79",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "14405",
+    "slug": "string-14405",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-14405.py",
+        "code": "import sys\n\ns = sys.stdin.readline().strip()\ni = 0\nok = True\nwhile i < len(s):\n    if s.startswith('pi', i):\n        i += 2\n    elif s.startswith('ka', i):\n        i += 2\n    elif s.startswith('chu', i):\n        i += 3\n    else:\n        ok = False\n        break\nprint('YES' if ok else 'NO')\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/14405",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "f2d61026c59f",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "14697",
+    "slug": "brute_force-14697",
+    "categorySlug": "brute_force",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/brute_force-14697.py",
+        "code": "import sys\n\na, b, c, n = map(int, sys.stdin.readline().split())\nok = 0\nfor x in range(n // a + 1):\n    for y in range(n // b + 1):\n        rest = n - a * x - b * y\n        if rest >= 0 and rest % c == 0:\n            ok = 1\nprint(ok)\n"
+      },
+      {
+        "lang": "cpp",
+        "file": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/14697/main.cpp",
+        "code": "// Authored by: tony9402\n// Co-authored by: -\n// Link: http://boj.kr/76974dc8cc4b4b4a849de1a3f1d91ee3\n#include<bits/stdc++.h>\n\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(0);\n\n    int arr[3], N;\n    for(int i = 0; i < 3; ++i) cin >> arr[i];\n    cin >> N;\n\n    bool answer = false;\n    for(int i = 0; arr[0] * i <= N; ++i) {\n        for(int j = 0; arr[0] * i + arr[1] * j <= N; ++j) {\n            int rem = N - arr[0] * i - arr[1] * j;\n            if(rem % arr[2] == 0) answer = true;\n        }\n    }\n    cout << answer;\n\n    return 0;\n}\n\n/* Solution Description\n가능한 모든 조합을 확인해서 Ax + By + Cz = N을 만족하는 (x, y, z)가 하나라도 있는지 보면 된다.  \n시간복잡도는 O(N^2)으로 충분히 돌 수 있다.  \n*/"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/14697",
+    "authors": [
+      "tony9402"
+    ],
+    "hash": "b086e846aef0",
+    "createdAt": 1778862834244
+  },
+  {
+    "id": "15886",
+    "slug": "implementation-15886",
+    "categorySlug": "implementation",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/15886/main.py",
+        "code": "# Authored by : hyeonjaee\n# Co-authored by : -\n# Link : http://boj.kr/f9cd00a87d59430abd180cfe4050d394\nimport sys\n\ndef input():\n    return sys.stdin.readline().rstrip()\n\nn = int(input())\nboard = input()\nans = sum(1 for i in range(n-1) if board[i] == 'E' and board[i+1] == 'W')\nprint(ans)\n\n\"\"\" Solution Description\n이동방향이 전환되는 곳, 즉 E 뒤에  W가 이어서 나오는 곳에 선물을 놓아야 한다.\n따라서 입력 받은 리스트에서 E 뒤에 W가 나오면 ans를 1씩 증가한다.\n\"\"\"\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/15886",
+    "authors": [
+      "tony9402"
+    ],
+    "hash": "91454dc2912f",
+    "createdAt": 1778862833976
+  },
+  {
+    "id": "15927",
+    "slug": "string-15927",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-15927.py",
+        "code": "import sys\n\ns = sys.stdin.readline().strip()\nif s != s[::-1]:\n    print(len(s))\nelif len(set(s)) == 1:\n    print(-1)\nelse:\n    print(len(s) - 1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/15927",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "9c53ddbb7b50",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "16916",
+    "slug": "string-16916",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-16916.py",
+        "code": "import sys\n\ns = sys.stdin.readline().strip()\np = sys.stdin.readline().strip()\nprint(1 if p in s else 0)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/16916",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "e51cbf490672",
+    "createdAt": 1779031719693
+  },
+  {
+    "id": "20944",
+    "slug": "string-20944",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-20944.py",
+        "code": "import sys\n\nn = int(sys.stdin.readline())\nprint('a' * n)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/20944",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "5e89670db8ce",
+    "createdAt": 1779031719693
+  }
+]

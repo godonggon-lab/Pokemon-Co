@@ -4,9 +4,13 @@
 import type { Category, Problem } from "./types";
 import categoriesJson from "@/data/categories.json";
 import problemsJson   from "@/data/problems.json";
+import problemsExtraJson from "@/data/problems-extra.json";
 
 export const categories: Category[] = categoriesJson as Category[];
-export const problems:   Problem[]  = problemsJson   as Problem[];
+export const problems: Problem[] = [
+  ...(problemsJson as Problem[]),
+  ...(problemsExtraJson as Problem[])
+];
 
 const byCatSlug = new Map<string, Category>();
 for (const c of categories) byCatSlug.set(c.slug, c);

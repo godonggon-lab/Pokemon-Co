@@ -1,0 +1,2515 @@
+{
+  "generatedAt": "2026-05-15T16:49:14.964Z",
+  "phase": "13-batch-02",
+  "targetCount": 100,
+  "serviceReady": false,
+  "strategy": "external runtime candidates first, then easy manual-oracle categories",
+  "summary": {
+    "selected": 100,
+    "laneCounts": {
+      "external_runtime": 6,
+      "external_java_or_port": 13,
+      "manual_oracle": 81
+    },
+    "readinessCounts": {
+      "needs_statement": 6,
+      "needs_statement_and_oracle": 94
+    },
+    "categoryCounts": {
+      "binary_search": 2,
+      "two_pointer": 2,
+      "graph_traversal": 2,
+      "backtracking": 1,
+      "shortest_path": 4,
+      "simulation": 1,
+      "greedy": 2,
+      "brute_force": 1,
+      "data_structure2": 2,
+      "dynamic_programming_1": 2,
+      "topological_sorting": 1,
+      "string": 32,
+      "math": 10,
+      "implementation": 22,
+      "prefix_sum": 15,
+      "dynamic_programming_2": 1
+    }
+  },
+  "candidates": [
+    {
+      "id": "11663",
+      "slug": "binary_search-11663",
+      "primaryCategory": "binary_search",
+      "categories": [
+        "binary_search"
+      ],
+      "lane": "external_runtime",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "runtime_ready",
+      "externalLanguages": [
+        "cpp"
+      ],
+      "externalSourceFiles": [
+        {
+          "name": "main.cpp",
+          "path": "solutions/baekjoon/11663/main.cpp",
+          "lang": "cpp",
+          "size": 1467,
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/11663/main.cpp",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/11663/main.cpp"
+        }
+      ],
+      "requiredWork": [
+        "statement 확보",
+        "외부 정답 self-judge",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "11728",
+      "slug": "two_pointer-11728",
+      "primaryCategory": "two_pointer",
+      "categories": [
+        "two_pointer"
+      ],
+      "lane": "external_runtime",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "runtime_ready",
+      "externalLanguages": [
+        "java",
+        "python"
+      ],
+      "externalSourceFiles": [
+        {
+          "name": "Main.java",
+          "path": "solutions/baekjoon/11728/Main.java",
+          "lang": "java",
+          "size": 2221,
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/11728/Main.java",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/11728/Main.java"
+        },
+        {
+          "name": "main.py",
+          "path": "solutions/baekjoon/11728/main.py",
+          "lang": "python",
+          "size": 770,
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/11728/main.py",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/11728/main.py"
+        }
+      ],
+      "requiredWork": [
+        "statement 확보",
+        "외부 정답 self-judge",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "17142",
+      "slug": "graph_traversal-17142",
+      "primaryCategory": "graph_traversal",
+      "categories": [
+        "graph_traversal"
+      ],
+      "lane": "external_runtime",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "runtime_ready",
+      "externalLanguages": [
+        "python"
+      ],
+      "externalSourceFiles": [
+        {
+          "name": "main.py",
+          "path": "solutions/baekjoon/17142/main.py",
+          "lang": "python",
+          "size": 2348,
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/17142/main.py",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/17142/main.py"
+        }
+      ],
+      "requiredWork": [
+        "statement 확보",
+        "외부 정답 self-judge",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "1497",
+      "slug": "backtracking-1497",
+      "primaryCategory": "backtracking",
+      "categories": [
+        "backtracking"
+      ],
+      "lane": "external_runtime",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "runtime_ready",
+      "externalLanguages": [
+        "cpp"
+      ],
+      "externalSourceFiles": [
+        {
+          "name": "main.cpp",
+          "path": "solutions/baekjoon/1497/main.cpp",
+          "lang": "cpp",
+          "size": 1847,
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/1497/main.cpp",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/1497/main.cpp"
+        }
+      ],
+      "requiredWork": [
+        "statement 확보",
+        "외부 정답 self-judge",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "14284",
+      "slug": "shortest_path-14284",
+      "primaryCategory": "shortest_path",
+      "categories": [
+        "shortest_path"
+      ],
+      "lane": "external_runtime",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "runtime_ready",
+      "externalLanguages": [
+        "cpp",
+        "java"
+      ],
+      "externalSourceFiles": [
+        {
+          "name": "Main.java",
+          "path": "solutions/baekjoon/14284/Main.java",
+          "lang": "java",
+          "size": 2768,
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/14284/Main.java",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/14284/Main.java"
+        },
+        {
+          "name": "main.cpp",
+          "path": "solutions/baekjoon/14284/main.cpp",
+          "lang": "cpp",
+          "size": 1344,
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/14284/main.cpp",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/14284/main.cpp"
+        }
+      ],
+      "requiredWork": [
+        "statement 확보",
+        "외부 정답 self-judge",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "3025",
+      "slug": "simulation-3025",
+      "primaryCategory": "simulation",
+      "categories": [
+        "simulation"
+      ],
+      "lane": "external_runtime",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "runtime_ready",
+      "externalLanguages": [
+        "cpp"
+      ],
+      "externalSourceFiles": [
+        {
+          "name": "main.cpp",
+          "path": "solutions/baekjoon/3025/main.cpp",
+          "lang": "cpp",
+          "size": 2405,
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/3025/main.cpp",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/3025/main.cpp"
+        }
+      ],
+      "requiredWork": [
+        "statement 확보",
+        "외부 정답 self-judge",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "12931",
+      "slug": "greedy-12931",
+      "primaryCategory": "greedy",
+      "categories": [
+        "greedy"
+      ],
+      "lane": "external_java_or_port",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "needs_java_runtime_or_port",
+      "externalLanguages": [
+        "java"
+      ],
+      "externalSourceFiles": [
+        {
+          "name": "Main.java",
+          "path": "solutions/baekjoon/12931/Main.java",
+          "lang": "java",
+          "size": 2841,
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/12931/Main.java",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/12931/Main.java"
+        }
+      ],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "18234",
+      "slug": "greedy-18234",
+      "primaryCategory": "greedy",
+      "categories": [
+        "greedy"
+      ],
+      "lane": "external_java_or_port",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "missing_solution_files",
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "1034",
+      "slug": "brute_force-1034",
+      "primaryCategory": "brute_force",
+      "categories": [
+        "brute_force"
+      ],
+      "lane": "external_java_or_port",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "needs_java_runtime_or_port",
+      "externalLanguages": [
+        "java"
+      ],
+      "externalSourceFiles": [
+        {
+          "name": "Main.java",
+          "path": "solutions/baekjoon/1034/Main.java",
+          "lang": "java",
+          "size": 3297,
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/1034/Main.java",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/1034/Main.java"
+        }
+      ],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "21944",
+      "slug": "data_structure2-21944",
+      "primaryCategory": "data_structure2",
+      "categories": [
+        "data_structure2"
+      ],
+      "lane": "external_java_or_port",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "missing_solution_files",
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "7453",
+      "slug": "binary_search-7453",
+      "primaryCategory": "binary_search",
+      "categories": [
+        "binary_search",
+        "two_pointer"
+      ],
+      "lane": "external_java_or_port",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "needs_java_runtime_or_port",
+      "externalLanguages": [
+        "java"
+      ],
+      "externalSourceFiles": [
+        {
+          "name": "Main.java",
+          "path": "solutions/baekjoon/7453/Main.java",
+          "lang": "java",
+          "size": 3341,
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/7453/Main.java",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/7453/Main.java"
+        }
+      ],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "13422",
+      "slug": "two_pointer-13422",
+      "primaryCategory": "two_pointer",
+      "categories": [
+        "two_pointer"
+      ],
+      "lane": "external_java_or_port",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "needs_java_runtime_or_port",
+      "externalLanguages": [
+        "java"
+      ],
+      "externalSourceFiles": [
+        {
+          "name": "Main.java",
+          "path": "solutions/baekjoon/13422/Main.java",
+          "lang": "java",
+          "size": 3053,
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/13422/Main.java",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/13422/Main.java"
+        }
+      ],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "2293",
+      "slug": "dynamic_programming_1-2293",
+      "primaryCategory": "dynamic_programming_1",
+      "categories": [
+        "dynamic_programming_1"
+      ],
+      "lane": "external_java_or_port",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "needs_java_runtime_or_port",
+      "externalLanguages": [
+        "java"
+      ],
+      "externalSourceFiles": [
+        {
+          "name": "Main.java",
+          "path": "solutions/baekjoon/2293/Main.java",
+          "lang": "java",
+          "size": 2061,
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/2293/Main.java",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/2293/Main.java"
+        }
+      ],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "12026",
+      "slug": "dynamic_programming_1-12026",
+      "primaryCategory": "dynamic_programming_1",
+      "categories": [
+        "dynamic_programming_1"
+      ],
+      "lane": "external_java_or_port",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "needs_java_runtime_or_port",
+      "externalLanguages": [
+        "java"
+      ],
+      "externalSourceFiles": [
+        {
+          "name": "Main.java",
+          "path": "solutions/baekjoon/12026/Main.java",
+          "lang": "java",
+          "size": 2732,
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/12026/Main.java",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/12026/Main.java"
+        }
+      ],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "18232",
+      "slug": "graph_traversal-18232",
+      "primaryCategory": "graph_traversal",
+      "categories": [
+        "graph_traversal"
+      ],
+      "lane": "external_java_or_port",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "missing_solution_files",
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "1507",
+      "slug": "shortest_path-1507",
+      "primaryCategory": "shortest_path",
+      "categories": [
+        "shortest_path"
+      ],
+      "lane": "external_java_or_port",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "needs_java_runtime_or_port",
+      "externalLanguages": [
+        "java"
+      ],
+      "externalSourceFiles": [
+        {
+          "name": "Main.java",
+          "path": "solutions/baekjoon/1507/Main.java",
+          "lang": "java",
+          "size": 3146,
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/1507/Main.java",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/1507/Main.java"
+        }
+      ],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "17396",
+      "slug": "shortest_path-17396",
+      "primaryCategory": "shortest_path",
+      "categories": [
+        "shortest_path"
+      ],
+      "lane": "external_java_or_port",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "missing_solution_files",
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "20007",
+      "slug": "shortest_path-20007",
+      "primaryCategory": "shortest_path",
+      "categories": [
+        "shortest_path"
+      ],
+      "lane": "external_java_or_port",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "missing_solution_files",
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "2637",
+      "slug": "topological_sorting-2637",
+      "primaryCategory": "topological_sorting",
+      "categories": [
+        "topological_sorting"
+      ],
+      "lane": "external_java_or_port",
+      "status": "external_solution_candidate",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": "needs_java_runtime_or_port",
+      "externalLanguages": [
+        "java"
+      ],
+      "externalSourceFiles": [
+        {
+          "name": "Main.java",
+          "path": "solutions/baekjoon/2637/Main.java",
+          "lang": "java",
+          "size": 3743,
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/2637/Main.java",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/2637/Main.java"
+        }
+      ],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "1213",
+      "slug": "string-1213",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "1622",
+      "slug": "string-1622",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "1718",
+      "slug": "string-1718",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "1942",
+      "slug": "string-1942",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "1972",
+      "slug": "string-1972",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "2115",
+      "slug": "string-2115",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "2671",
+      "slug": "string-2671",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "2852",
+      "slug": "string-2852",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "2941",
+      "slug": "string-2941",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "3005",
+      "slug": "string-3005",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "3107",
+      "slug": "string-3107",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "3613",
+      "slug": "string-3613",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "4446",
+      "slug": "string-4446",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "4836",
+      "slug": "string-4836",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "5534",
+      "slug": "string-5534",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "6996",
+      "slug": "string-6996",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "9242",
+      "slug": "string-9242",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "9536",
+      "slug": "string-9536",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "9933",
+      "slug": "string-9933",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "11478",
+      "slug": "string-11478",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "11655",
+      "slug": "string-11655",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "11656",
+      "slug": "string-11656",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "13022",
+      "slug": "string-13022",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "14405",
+      "slug": "string-14405",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "15927",
+      "slug": "string-15927",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "16890",
+      "slug": "string-16890",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "16916",
+      "slug": "string-16916",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "19583",
+      "slug": "data_structure2-19583",
+      "primaryCategory": "data_structure2",
+      "categories": [
+        "data_structure2",
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "19844",
+      "slug": "string-19844",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "19948",
+      "slug": "string-19948",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "20114",
+      "slug": "string-20114",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "20210",
+      "slug": "string-20210",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "20944",
+      "slug": "string-20944",
+      "primaryCategory": "string",
+      "categories": [
+        "string"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "1188",
+      "slug": "math-1188",
+      "primaryCategory": "math",
+      "categories": [
+        "math"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "1456",
+      "slug": "math-1456",
+      "primaryCategory": "math",
+      "categories": [
+        "math"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "1669",
+      "slug": "math-1669",
+      "primaryCategory": "math",
+      "categories": [
+        "math"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "2168",
+      "slug": "math-2168",
+      "primaryCategory": "math",
+      "categories": [
+        "math"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "2436",
+      "slug": "math-2436",
+      "primaryCategory": "math",
+      "categories": [
+        "math"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "2553",
+      "slug": "math-2553",
+      "primaryCategory": "math",
+      "categories": [
+        "math"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "2824",
+      "slug": "math-2824",
+      "primaryCategory": "math",
+      "categories": [
+        "math"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "3343",
+      "slug": "math-3343",
+      "primaryCategory": "math",
+      "categories": [
+        "math"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "9421",
+      "slug": "math-9421",
+      "primaryCategory": "math",
+      "categories": [
+        "math"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "22943",
+      "slug": "math-22943",
+      "primaryCategory": "math",
+      "categories": [
+        "math"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "1022",
+      "slug": "implementation-1022",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "1283",
+      "slug": "implementation-1283",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "2469",
+      "slug": "implementation-2469",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "2877",
+      "slug": "implementation-2877",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "5766",
+      "slug": "implementation-5766",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "9081",
+      "slug": "implementation-9081",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "9934",
+      "slug": "implementation-9934",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation",
+        "tree"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "10703",
+      "slug": "implementation-10703",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "16719",
+      "slug": "implementation-16719",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "16927",
+      "slug": "implementation-16927",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "17128",
+      "slug": "implementation-17128",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "17276",
+      "slug": "implementation-17276",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "17406",
+      "slug": "implementation-17406",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "17470",
+      "slug": "implementation-17470",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "18311",
+      "slug": "implementation-18311",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "20164",
+      "slug": "implementation-20164",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "20327",
+      "slug": "implementation-20327",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "21277",
+      "slug": "implementation-21277",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "21611",
+      "slug": "implementation-21611",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "22858",
+      "slug": "implementation-22858",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "22859",
+      "slug": "implementation-22859",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "22860",
+      "slug": "implementation-22860",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "2571",
+      "slug": "prefix_sum-2571",
+      "primaryCategory": "prefix_sum",
+      "categories": [
+        "prefix_sum"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "2900",
+      "slug": "prefix_sum-2900",
+      "primaryCategory": "prefix_sum",
+      "categories": [
+        "prefix_sum"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "3673",
+      "slug": "prefix_sum-3673",
+      "primaryCategory": "prefix_sum",
+      "categories": [
+        "prefix_sum"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "5549",
+      "slug": "prefix_sum-5549",
+      "primaryCategory": "prefix_sum",
+      "categories": [
+        "prefix_sum"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "5875",
+      "slug": "prefix_sum-5875",
+      "primaryCategory": "prefix_sum",
+      "categories": [
+        "prefix_sum"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "10427",
+      "slug": "prefix_sum-10427",
+      "primaryCategory": "prefix_sum",
+      "categories": [
+        "prefix_sum"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "10713",
+      "slug": "prefix_sum-10713",
+      "primaryCategory": "prefix_sum",
+      "categories": [
+        "prefix_sum"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "14476",
+      "slug": "prefix_sum-14476",
+      "primaryCategory": "prefix_sum",
+      "categories": [
+        "prefix_sum"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "16139",
+      "slug": "prefix_sum-16139",
+      "primaryCategory": "prefix_sum",
+      "categories": [
+        "prefix_sum"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "16507",
+      "slug": "prefix_sum-16507",
+      "primaryCategory": "prefix_sum",
+      "categories": [
+        "prefix_sum"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "17123",
+      "slug": "prefix_sum-17123",
+      "primaryCategory": "prefix_sum",
+      "categories": [
+        "prefix_sum"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "17390",
+      "slug": "prefix_sum-17390",
+      "primaryCategory": "prefix_sum",
+      "categories": [
+        "prefix_sum"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "18866",
+      "slug": "prefix_sum-18866",
+      "primaryCategory": "prefix_sum",
+      "categories": [
+        "prefix_sum"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "19566",
+      "slug": "prefix_sum-19566",
+      "primaryCategory": "prefix_sum",
+      "categories": [
+        "prefix_sum"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "19951",
+      "slug": "prefix_sum-19951",
+      "primaryCategory": "prefix_sum",
+      "categories": [
+        "prefix_sum"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    },
+    {
+      "id": "20002",
+      "slug": "dynamic_programming_2-20002",
+      "primaryCategory": "dynamic_programming_2",
+      "categories": [
+        "dynamic_programming_2",
+        "prefix_sum"
+      ],
+      "lane": "manual_oracle",
+      "status": "needs_oracle",
+      "readiness": "needs_statement_and_oracle",
+      "title": null,
+      "statementReady": false,
+      "sampleCount": 0,
+      "externalReadiness": null,
+      "externalLanguages": [],
+      "externalSourceFiles": [],
+      "requiredWork": [
+        "statement 확보",
+        "Python/C++ oracle 작성",
+        "edge/fuzz override 작성",
+        "problems-extra 편입"
+      ]
+    }
+  ]
+}

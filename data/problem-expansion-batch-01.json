@@ -1,0 +1,352 @@
+{
+  "generatedAt": "2026-05-13T15:47:59.448Z",
+  "phase": "13-batch-01",
+  "title": "외부 풀이 Python/C++ 런타임 후보 1차 편입",
+  "serviceReady": false,
+  "reasonNotReady": "문제 본문 요약, sample/edge/fuzz case, oracle 검증이 아직 필요하다.",
+  "summary": {
+    "targetCount": 12,
+    "source": "data/external-solution-audit.json",
+    "readiness": "runtime_ready"
+  },
+  "candidates": [
+    {
+      "id": "1238",
+      "slug": "shortest_path-1238",
+      "primaryCategory": "shortest_path",
+      "categories": [
+        "shortest_path"
+      ],
+      "languages": [
+        "python"
+      ],
+      "sourceFiles": [
+        {
+          "lang": "python",
+          "name": "main.py",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/1238/main.py",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/1238/main.py"
+        }
+      ],
+      "requiredBeforeImport": [
+        "BOJ 원문 링크와 앱용 문제 요약 작성",
+        "sample input/output 확보",
+        "정답 코드가 Python/C++ 런타임에서 통과하는지 확인",
+        "문제별 edge/fuzz case 작성",
+        "필요 시 TLE/stress case 작성",
+        "data/problems.json 편입 후 monster-map 재생성"
+      ]
+    },
+    {
+      "id": "1497",
+      "slug": "backtracking-1497",
+      "primaryCategory": "backtracking",
+      "categories": [
+        "backtracking"
+      ],
+      "languages": [
+        "cpp"
+      ],
+      "sourceFiles": [
+        {
+          "lang": "cpp",
+          "name": "main.cpp",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/1497/main.cpp",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/1497/main.cpp"
+        }
+      ],
+      "requiredBeforeImport": [
+        "BOJ 원문 링크와 앱용 문제 요약 작성",
+        "sample input/output 확보",
+        "정답 코드가 Python/C++ 런타임에서 통과하는지 확인",
+        "문제별 edge/fuzz case 작성",
+        "필요 시 TLE/stress case 작성",
+        "data/problems.json 편입 후 monster-map 재생성"
+      ]
+    },
+    {
+      "id": "2602",
+      "slug": "dynamic_programming_2-2602",
+      "primaryCategory": "dynamic_programming_2",
+      "categories": [
+        "dynamic_programming_2"
+      ],
+      "languages": [
+        "cpp"
+      ],
+      "sourceFiles": [
+        {
+          "lang": "cpp",
+          "name": "main.cpp",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/2602/main.cpp",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/2602/main.cpp"
+        }
+      ],
+      "requiredBeforeImport": [
+        "BOJ 원문 링크와 앱용 문제 요약 작성",
+        "sample input/output 확보",
+        "정답 코드가 Python/C++ 런타임에서 통과하는지 확인",
+        "문제별 edge/fuzz case 작성",
+        "필요 시 TLE/stress case 작성",
+        "data/problems.json 편입 후 monster-map 재생성"
+      ]
+    },
+    {
+      "id": "2638",
+      "slug": "graph_traversal-2638",
+      "primaryCategory": "graph_traversal",
+      "categories": [
+        "graph_traversal"
+      ],
+      "languages": [
+        "python"
+      ],
+      "sourceFiles": [
+        {
+          "lang": "python",
+          "name": "main.py",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/2638/main.py",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/2638/main.py"
+        }
+      ],
+      "requiredBeforeImport": [
+        "BOJ 원문 링크와 앱용 문제 요약 작성",
+        "sample input/output 확보",
+        "정답 코드가 Python/C++ 런타임에서 통과하는지 확인",
+        "문제별 edge/fuzz case 작성",
+        "필요 시 TLE/stress case 작성",
+        "data/problems.json 편입 후 monster-map 재생성"
+      ]
+    },
+    {
+      "id": "3025",
+      "slug": "simulation-3025",
+      "primaryCategory": "simulation",
+      "categories": [
+        "simulation"
+      ],
+      "languages": [
+        "cpp"
+      ],
+      "sourceFiles": [
+        {
+          "lang": "cpp",
+          "name": "main.cpp",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/3025/main.cpp",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/3025/main.cpp"
+        }
+      ],
+      "requiredBeforeImport": [
+        "BOJ 원문 링크와 앱용 문제 요약 작성",
+        "sample input/output 확보",
+        "정답 코드가 Python/C++ 런타임에서 통과하는지 확인",
+        "문제별 edge/fuzz case 작성",
+        "필요 시 TLE/stress case 작성",
+        "data/problems.json 편입 후 monster-map 재생성"
+      ]
+    },
+    {
+      "id": "11663",
+      "slug": "binary_search-11663",
+      "primaryCategory": "binary_search",
+      "categories": [
+        "binary_search"
+      ],
+      "languages": [
+        "cpp"
+      ],
+      "sourceFiles": [
+        {
+          "lang": "cpp",
+          "name": "main.cpp",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/11663/main.cpp",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/11663/main.cpp"
+        }
+      ],
+      "requiredBeforeImport": [
+        "BOJ 원문 링크와 앱용 문제 요약 작성",
+        "sample input/output 확보",
+        "정답 코드가 Python/C++ 런타임에서 통과하는지 확인",
+        "문제별 edge/fuzz case 작성",
+        "필요 시 TLE/stress case 작성",
+        "data/problems.json 편입 후 monster-map 재생성"
+      ]
+    },
+    {
+      "id": "11728",
+      "slug": "two_pointer-11728",
+      "primaryCategory": "two_pointer",
+      "categories": [
+        "two_pointer"
+      ],
+      "languages": [
+        "java",
+        "python"
+      ],
+      "sourceFiles": [
+        {
+          "lang": "java",
+          "name": "Main.java",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/11728/Main.java",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/11728/Main.java"
+        },
+        {
+          "lang": "python",
+          "name": "main.py",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/11728/main.py",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/11728/main.py"
+        }
+      ],
+      "requiredBeforeImport": [
+        "BOJ 원문 링크와 앱용 문제 요약 작성",
+        "sample input/output 확보",
+        "정답 코드가 Python/C++ 런타임에서 통과하는지 확인",
+        "문제별 edge/fuzz case 작성",
+        "필요 시 TLE/stress case 작성",
+        "data/problems.json 편입 후 monster-map 재생성"
+      ]
+    },
+    {
+      "id": "14284",
+      "slug": "shortest_path-14284",
+      "primaryCategory": "shortest_path",
+      "categories": [
+        "shortest_path"
+      ],
+      "languages": [
+        "cpp",
+        "java"
+      ],
+      "sourceFiles": [
+        {
+          "lang": "java",
+          "name": "Main.java",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/14284/Main.java",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/14284/Main.java"
+        },
+        {
+          "lang": "cpp",
+          "name": "main.cpp",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/14284/main.cpp",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/14284/main.cpp"
+        }
+      ],
+      "requiredBeforeImport": [
+        "BOJ 원문 링크와 앱용 문제 요약 작성",
+        "sample input/output 확보",
+        "정답 코드가 Python/C++ 런타임에서 통과하는지 확인",
+        "문제별 edge/fuzz case 작성",
+        "필요 시 TLE/stress case 작성",
+        "data/problems.json 편입 후 monster-map 재생성"
+      ]
+    },
+    {
+      "id": "14697",
+      "slug": "brute_force-14697",
+      "primaryCategory": "brute_force",
+      "categories": [
+        "brute_force"
+      ],
+      "languages": [
+        "cpp"
+      ],
+      "sourceFiles": [
+        {
+          "lang": "cpp",
+          "name": "main.cpp",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/14697/main.cpp",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/14697/main.cpp"
+        }
+      ],
+      "requiredBeforeImport": [
+        "BOJ 원문 링크와 앱용 문제 요약 작성",
+        "sample input/output 확보",
+        "정답 코드가 Python/C++ 런타임에서 통과하는지 확인",
+        "문제별 edge/fuzz case 작성",
+        "필요 시 TLE/stress case 작성",
+        "data/problems.json 편입 후 monster-map 재생성"
+      ]
+    },
+    {
+      "id": "15886",
+      "slug": "implementation-15886",
+      "primaryCategory": "implementation",
+      "categories": [
+        "implementation"
+      ],
+      "languages": [
+        "python"
+      ],
+      "sourceFiles": [
+        {
+          "lang": "python",
+          "name": "main.py",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/15886/main.py",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/15886/main.py"
+        }
+      ],
+      "requiredBeforeImport": [
+        "BOJ 원문 링크와 앱용 문제 요약 작성",
+        "sample input/output 확보",
+        "정답 코드가 Python/C++ 런타임에서 통과하는지 확인",
+        "문제별 edge/fuzz case 작성",
+        "필요 시 TLE/stress case 작성",
+        "data/problems.json 편입 후 monster-map 재생성"
+      ]
+    },
+    {
+      "id": "17142",
+      "slug": "graph_traversal-17142",
+      "primaryCategory": "graph_traversal",
+      "categories": [
+        "graph_traversal"
+      ],
+      "languages": [
+        "python"
+      ],
+      "sourceFiles": [
+        {
+          "lang": "python",
+          "name": "main.py",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/17142/main.py",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/17142/main.py"
+        }
+      ],
+      "requiredBeforeImport": [
+        "BOJ 원문 링크와 앱용 문제 요약 작성",
+        "sample input/output 확보",
+        "정답 코드가 Python/C++ 런타임에서 통과하는지 확인",
+        "문제별 edge/fuzz case 작성",
+        "필요 시 TLE/stress case 작성",
+        "data/problems.json 편입 후 monster-map 재생성"
+      ]
+    },
+    {
+      "id": "21944",
+      "slug": "data_structure2-21944",
+      "primaryCategory": "data_structure2",
+      "categories": [
+        "data_structure2"
+      ],
+      "languages": [
+        "python"
+      ],
+      "sourceFiles": [
+        {
+          "lang": "python",
+          "name": "main.py",
+          "htmlUrl": "https://github.com/tony9402/algorithm-solutions/blob/main/solutions/baekjoon/21944/main.py",
+          "downloadUrl": "https://raw.githubusercontent.com/tony9402/algorithm-solutions/main/solutions/baekjoon/21944/main.py"
+        }
+      ],
+      "requiredBeforeImport": [
+        "BOJ 원문 링크와 앱용 문제 요약 작성",
+        "sample input/output 확보",
+        "정답 코드가 Python/C++ 런타임에서 통과하는지 확인",
+        "문제별 edge/fuzz case 작성",
+        "필요 시 TLE/stress case 작성",
+        "data/problems.json 편입 후 monster-map 재생성"
+      ]
+    }
+  ]
+}

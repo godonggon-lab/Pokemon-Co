@@ -1,7 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const problems = JSON.parse(fs.readFileSync("data/problems.json", "utf8"));
+const problems = [
+  ...JSON.parse(fs.readFileSync("data/problems.json", "utf8")),
+  ...JSON.parse(fs.existsSync("data/problems-extra.json") ? fs.readFileSync("data/problems-extra.json", "utf8") : "[]")
+];
 const statements = JSON.parse(fs.readFileSync("data/problems-statements.json", "utf8"));
 const overridesDir = path.join("harness", "overrides");
 

@@ -1,7 +1,10 @@
 import fs from "node:fs";
 import { spawnSync } from "node:child_process";
 
-const problems = JSON.parse(fs.readFileSync("data/problems.json", "utf8"));
+const problems = [
+  ...JSON.parse(fs.readFileSync("data/problems.json", "utf8")),
+  ...JSON.parse(fs.existsSync("data/problems-extra.json") ? fs.readFileSync("data/problems-extra.json", "utf8") : "[]")
+];
 const apiRoute = fs.readFileSync("app/api/judge/route.ts", "utf8");
 const playground = fs.readFileSync("components/ProblemPlayground.tsx", "utf8");
 const dockerfile = fs.readFileSync("judge/Dockerfile", "utf8");

@@ -45,7 +45,14 @@ function nextFromPool(pools, cursors, tier) {
 
 async function main() {
   await mkdir(DATA_DIR, { recursive: true });
-  const problems = JSON.parse(await readFile(path.join(DATA_DIR, "problems.json"), "utf8"));
+  const baseProblems = JSON.parse(await readFile(path.join(DATA_DIR, "problems.json"), "utf8"));
+  let extraProblems = [];
+  try {
+    extraProblems = JSON.parse(await readFile(path.join(DATA_DIR, "problems-extra.json"), "utf8"));
+  } catch {
+    extraProblems = [];
+  }
+  const problems = [...baseProblems, ...extraProblems];
   const taxonomy = JSON.parse(await readFile(path.join(DATA_DIR, "pokemon-taxonomy.json"), "utf8"));
   const meta = JSON.parse(await readFile(path.join(DATA_DIR, "problems-meta.json"), "utf8"));
 

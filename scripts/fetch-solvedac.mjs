@@ -100,7 +100,10 @@ async function main() {
     cache = JSON.parse(await readFile(OUT, "utf8"));
   }
 
-  const problems = JSON.parse(await readFile(path.join(DATA_DIR, "problems.json"), "utf8"));
+  const problems = [
+    ...JSON.parse(await readFile(path.join(DATA_DIR, "problems.json"), "utf8")),
+    ...JSON.parse(await readFile(path.join(DATA_DIR, "problems-extra.json"), "utf8").catch(() => "[]"))
+  ];
   const need = problems.map(p => p.id).filter(id => !cache[id]);
   console.log(`[solvedac] need=${need.length} cached=${Object.keys(cache).length} total=${problems.length}`);
 
