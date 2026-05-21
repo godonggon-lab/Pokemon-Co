@@ -1024,3 +1024,39 @@ npx next build
 - 확장 unique BOJ 문제: 115개
 - 총 unique BOJ 문제: 468개
 - 목표 1025개까지 남은 unique 문제 수: 557개
+### Batch 03: 그리디 20문제 확장
+
+사용자 요청에 따라 앞으로의 문제 확장은 20개 단위로 처리하고, 각 배치가 끝날 때마다 남은 개수를 기록한 뒤 commit/push한다. 이번 배치는 그리디 후보 중 oracle과 fuzz/edge 입력을 안정적으로 구성할 수 있는 20문제를 추가했다.
+
+도입 문제:
+
+- `greedy-1080`, `greedy-1343`, `greedy-1439`, `greedy-1449`, `greedy-1455`
+- `greedy-1715`, `greedy-1744`, `greedy-1946`, `greedy-2138`, `greedy-2847`
+- `greedy-6068`, `greedy-11047`, `greedy-11509`, `greedy-12782`, `greedy-13413`
+- `greedy-14400`, `greedy-16162`, `greedy-16206`, `greedy-17615`, `greedy-19939`
+
+검증 명령:
+
+```bash
+node scripts/import-expansion-manual-batch-11.mjs
+python scripts/verify-judge-overrides.py greedy-1080 greedy-1343 greedy-1439 greedy-1449 greedy-1455 greedy-1715 greedy-1744 greedy-1946 greedy-2138 greedy-2847 greedy-6068 greedy-11047 greedy-11509 greedy-12782 greedy-13413 greedy-14400 greedy-16162 greedy-16206 greedy-17615 greedy-19939
+npm run data:map
+npm run judge:coverage
+npm run judge:lang-audit
+npm run judge:audit
+npx next build
+```
+
+검증 결과:
+
+- 신규 20문제 override self-judge: 모두 AC
+- 전체 포켓몬 매핑: 497개
+- judge coverage: 497개 전부 judge ready
+- missing case: 0개
+- Python/C++ 제출 가능성 audit: 통과
+- Next.js build: 통과
+
+현재 확정 상태:
+
+- 이번 배치 처리: 20개
+- 확장 후보 기준 남은 문제: 507개

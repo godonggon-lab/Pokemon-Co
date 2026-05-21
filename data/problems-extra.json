@@ -36,6 +36,24 @@
     "createdAt": 1779193907417
   },
   {
+    "id": "1080",
+    "slug": "greedy-1080",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-1080.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, m = map(int, input().split())\na = [list(map(int, input().strip())) for _ in range(n)]\nb = [list(map(int, input().strip())) for _ in range(n)]\nans = 0\nfor i in range(n - 2):\n    for j in range(m - 2):\n        if a[i][j] != b[i][j]:\n            ans += 1\n            for r in range(i, i + 3):\n                for c in range(j, j + 3):\n                    a[r][c] ^= 1\nprint(ans if a == b else -1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1080",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "80a97bec768b",
+    "createdAt": 1779371113596
+  },
+  {
     "id": "1159",
     "slug": "string-1159",
     "categorySlug": "string",
@@ -142,6 +160,78 @@
     ],
     "hash": "c54b1d4302b4",
     "createdAt": 1779193907417
+  },
+  {
+    "id": "1343",
+    "slug": "greedy-1343",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-1343.py",
+        "code": "import sys\ns = sys.stdin.readline().strip()\nparts = s.split('.')\nout = []\npossible = True\nfor part in parts:\n    if len(part) % 2:\n        possible = False\n        break\n    out.append('AAAA' * (len(part) // 4) + 'BB' * ((len(part) % 4) // 2))\nprint(-1 if not possible else '.'.join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1343",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "0c2d47c7c8a1",
+    "createdAt": 1779371113602
+  },
+  {
+    "id": "1439",
+    "slug": "greedy-1439",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-1439.py",
+        "code": "import sys\ns = sys.stdin.readline().strip()\ngroups = {'0': 0, '1': 0}\nprev = ''\nfor ch in s:\n    if ch != prev:\n        groups[ch] += 1\n        prev = ch\nprint(min(groups.values()))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1439",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "c0511d64f2c6",
+    "createdAt": 1779371113602
+  },
+  {
+    "id": "1449",
+    "slug": "greedy-1449",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-1449.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, l = map(int, input().split())\nleaks = sorted(map(int, input().split()))\nans = 0\ncovered = -1\nfor leak in leaks:\n    if leak > covered:\n        ans += 1\n        covered = leak + l - 1\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1449",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "1e656a6faaaf",
+    "createdAt": 1779371113602
+  },
+  {
+    "id": "1455",
+    "slug": "greedy-1455",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-1455.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, m = map(int, input().split())\nboard = [list(map(int, input().strip())) for _ in range(n)]\nans = 0\nfor i in range(n - 1, -1, -1):\n    for j in range(m - 1, -1, -1):\n        if board[i][j]:\n            ans += 1\n            for r in range(i + 1):\n                for c in range(j + 1):\n                    board[r][c] ^= 1\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1455",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "9aeb9f0279ee",
+    "createdAt": 1779371113602
   },
   {
     "id": "1456",
@@ -252,6 +342,24 @@
     "createdAt": 1778687534770
   },
   {
+    "id": "1715",
+    "slug": "greedy-1715",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-1715.py",
+        "code": "import heapq, sys\ninput = sys.stdin.readline\nn = int(input())\nheap = [int(input()) for _ in range(n)]\nheapq.heapify(heap)\nans = 0\nwhile len(heap) > 1:\n    a = heapq.heappop(heap)\n    b = heapq.heappop(heap)\n    ans += a + b\n    heapq.heappush(heap, a + b)\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1715",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "e81a26b4df43",
+    "createdAt": 1779371113602
+  },
+  {
     "id": "1718",
     "slug": "string-1718",
     "categorySlug": "string",
@@ -270,6 +378,24 @@
     "createdAt": 1779032187509
   },
   {
+    "id": "1744",
+    "slug": "greedy-1744",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-1744.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\npositives = []\nnegatives = []\nones = 0\nzero = 0\nfor _ in range(n):\n    x = int(input())\n    if x > 1:\n        positives.append(x)\n    elif x == 1:\n        ones += 1\n    elif x == 0:\n        zero += 1\n    else:\n        negatives.append(x)\npositives.sort(reverse=True)\nnegatives.sort()\nans = ones\nfor i in range(0, len(positives) - 1, 2):\n    ans += positives[i] * positives[i + 1]\nif len(positives) % 2:\n    ans += positives[-1]\nfor i in range(0, len(negatives) - 1, 2):\n    ans += negatives[i] * negatives[i + 1]\nif len(negatives) % 2 and zero == 0:\n    ans += negatives[-1]\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1744",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "8ebd832e2798",
+    "createdAt": 1779371113602
+  },
+  {
     "id": "1942",
     "slug": "string-1942",
     "categorySlug": "string",
@@ -286,6 +412,24 @@
     ],
     "hash": "21b9b142e2cd",
     "createdAt": 1779193907414
+  },
+  {
+    "id": "1946",
+    "slug": "greedy-1946",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-1946.py",
+        "code": "import sys\ninput = sys.stdin.readline\nt = int(input())\nout = []\nfor _ in range(t):\n    n = int(input())\n    people = sorted(tuple(map(int, input().split())) for _ in range(n))\n    best = 10 ** 9\n    count = 0\n    for _, interview in people:\n        if interview < best:\n            best = interview\n            count += 1\n    out.append(str(count))\nprint('\\n'.join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1946",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "ad5e65aee968",
+    "createdAt": 1779371113602
   },
   {
     "id": "1972",
@@ -322,6 +466,24 @@
     ],
     "hash": "ca6c6bb2a607",
     "createdAt": 1779368220397
+  },
+  {
+    "id": "2138",
+    "slug": "greedy-2138",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-2138.py",
+        "code": "import sys\nn = int(sys.stdin.readline())\nstart = list(map(int, sys.stdin.readline().strip()))\ntarget = list(map(int, sys.stdin.readline().strip()))\n\ndef solve(first):\n    arr = start[:]\n    count = 0\n    if first:\n        count += 1\n        for i in range(min(2, n)):\n            arr[i] ^= 1\n    for i in range(1, n):\n        if arr[i - 1] != target[i - 1]:\n            count += 1\n            for j in (i - 1, i, i + 1):\n                if 0 <= j < n:\n                    arr[j] ^= 1\n    return count if arr == target else 10 ** 9\n\nans = min(solve(False), solve(True))\nprint(ans if ans != 10 ** 9 else -1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2138",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "e2a270931f75",
+    "createdAt": 1779371113602
   },
   {
     "id": "2156",
@@ -548,6 +710,24 @@
     ],
     "hash": "7cf727c1dc94",
     "createdAt": 1779032187510
+  },
+  {
+    "id": "2847",
+    "slug": "greedy-2847",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-2847.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\nscores = [int(input()) for _ in range(n)]\nans = 0\nfor i in range(n - 2, -1, -1):\n    if scores[i] >= scores[i + 1]:\n        target = scores[i + 1] - 1\n        ans += scores[i] - target\n        scores[i] = target\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2847",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "5c2e6584db65",
+    "createdAt": 1779371113602
   },
   {
     "id": "2852",
@@ -861,6 +1041,24 @@
     "createdAt": 1779368220400
   },
   {
+    "id": "6068",
+    "slug": "greedy-6068",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-6068.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\njobs = [tuple(map(int, input().split())) for _ in range(n)]\njobs.sort(key=lambda x: x[1], reverse=True)\ntime = 10 ** 9\nfor duration, deadline in jobs:\n    time = min(time, deadline) - duration\nprint(time if time >= 0 else -1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/6068",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "af3dd02eb024",
+    "createdAt": 1779371113602
+  },
+  {
     "id": "6996",
     "slug": "string-6996",
     "categorySlug": "string",
@@ -1113,6 +1311,24 @@
     "createdAt": 1779032187509
   },
   {
+    "id": "11047",
+    "slug": "greedy-11047",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-11047.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, k = map(int, input().split())\ncoins = [int(input()) for _ in range(n)]\nans = 0\nfor coin in reversed(coins):\n    ans += k // coin\n    k %= coin\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/11047",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "f0f0e4414234",
+    "createdAt": 1779371113602
+  },
+  {
     "id": "11256",
     "slug": "greedy-11256",
     "categorySlug": "greedy",
@@ -1170,6 +1386,24 @@
     ],
     "hash": "c921d639e046",
     "createdAt": 1779032187509
+  },
+  {
+    "id": "11509",
+    "slug": "greedy-11509",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-11509.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\nheights = list(map(int, input().split()))\narrows = {}\nans = 0\nfor h in heights:\n    if arrows.get(h, 0):\n        arrows[h] -= 1\n        arrows[h - 1] = arrows.get(h - 1, 0) + 1\n    else:\n        ans += 1\n        arrows[h - 1] = arrows.get(h - 1, 0) + 1\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/11509",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "4b9d3da29620",
+    "createdAt": 1779371113602
   },
   {
     "id": "11655",
@@ -1262,6 +1496,24 @@
     "createdAt": 1779033474715
   },
   {
+    "id": "12782",
+    "slug": "greedy-12782",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-12782.py",
+        "code": "import sys\ninput = sys.stdin.readline\nt = int(input())\nout = []\nfor _ in range(t):\n    a, b = input().split()\n    zero_to_one = one_to_zero = 0\n    for x, y in zip(a, b):\n        if x == '0' and y == '1':\n            zero_to_one += 1\n        elif x == '1' and y == '0':\n            one_to_zero += 1\n    out.append(str(max(zero_to_one, one_to_zero)))\nprint('\\n'.join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/12782",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "3b12aa889e62",
+    "createdAt": 1779371113602
+  },
+  {
     "id": "12931",
     "slug": "greedy-12931",
     "categorySlug": "greedy",
@@ -1298,6 +1550,24 @@
     "createdAt": 1779032187510
   },
   {
+    "id": "13413",
+    "slug": "greedy-13413",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-13413.py",
+        "code": "import sys\ninput = sys.stdin.readline\nt = int(input())\nout = []\nfor _ in range(t):\n    n = int(input())\n    a = input().strip()\n    b = input().strip()\n    bw = wb = 0\n    for x, y in zip(a, b):\n        if x == 'B' and y == 'W':\n            bw += 1\n        elif x == 'W' and y == 'B':\n            wb += 1\n    out.append(str(max(bw, wb)))\nprint('\\n'.join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/13413",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "b4e00a5e605d",
+    "createdAt": 1779371113602
+  },
+  {
     "id": "13422",
     "slug": "two_pointer-13422",
     "categorySlug": "two_pointer",
@@ -1332,6 +1602,24 @@
     ],
     "hash": "87ae4fc04df6",
     "createdAt": 1779033474715
+  },
+  {
+    "id": "14400",
+    "slug": "greedy-14400",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-14400.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\nxs, ys = [], []\nfor _ in range(n):\n    x, y = map(int, input().split())\n    xs.append(x)\n    ys.append(y)\nxs.sort()\nys.sort()\nmx = xs[n // 2]\nmy = ys[n // 2]\nprint(sum(abs(x - mx) for x in xs) + sum(abs(y - my) for y in ys))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/14400",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "e7db2c1cd1ae",
+    "createdAt": 1779371113602
   },
   {
     "id": "14405",
@@ -1445,6 +1733,42 @@
     ],
     "hash": "fa9906b0daad",
     "createdAt": 1779032187510
+  },
+  {
+    "id": "16162",
+    "slug": "greedy-16162",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-16162.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, a, d = map(int, input().split())\nnotes = list(map(int, input().split()))\nwant = a\nans = 0\nfor note in notes:\n    if note == want:\n        ans += 1\n        want += d\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/16162",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "62289746c948",
+    "createdAt": 1779371113602
+  },
+  {
+    "id": "16206",
+    "slug": "greedy-16206",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-16206.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, m = map(int, input().split())\ncakes = list(map(int, input().split()))\ncakes.sort(key=lambda x: (x % 10 != 0, x))\nans = 0\nfor cake in cakes:\n    while cake > 10 and m > 0:\n        cake -= 10\n        m -= 1\n        ans += 1\n    if cake == 10:\n        ans += 1\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/16206",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "d4d6ed3a94aa",
+    "createdAt": 1779371113603
   },
   {
     "id": "16507",
@@ -1681,6 +2005,24 @@
     "createdAt": 1779198150930
   },
   {
+    "id": "17615",
+    "slug": "greedy-17615",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-17615.py",
+        "code": "import sys\nn = int(sys.stdin.readline())\ns = sys.stdin.readline().strip()\nans = n\nfor color in 'RB':\n    total = s.count(color)\n    left = 0\n    while left < n and s[left] == color:\n        left += 1\n    right = 0\n    while right < n and s[n - 1 - right] == color:\n        right += 1\n    ans = min(ans, total - left, total - right)\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/17615",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "2256c7c74bfd",
+    "createdAt": 1779371113603
+  },
+  {
     "id": "18232",
     "slug": "graph_traversal-18232",
     "categorySlug": "graph_traversal",
@@ -1805,6 +2147,24 @@
     ],
     "hash": "52b67e6c0ced",
     "createdAt": 1779201736799
+  },
+  {
+    "id": "19939",
+    "slug": "greedy-19939",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-19939.py",
+        "code": "import sys\nn, k = map(int, sys.stdin.readline().split())\nminimum = k * (k + 1) // 2\nif n < minimum:\n    print(-1)\nelse:\n    remain = n - minimum\n    print(k - 1 + (1 if remain % k else 0))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/19939",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "1b9835b7b484",
+    "createdAt": 1779371113603
   },
   {
     "id": "19948",
