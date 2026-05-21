@@ -152,5 +152,12 @@
     "name_en": "minimum_spanning_tree",
     "type": "fairy",
     "problemCount": 12
+  },
+  {
+    "slug": "topological_sorting",
+    "name_ko": "위상 정렬",
+    "name_en": "topological_sorting",
+    "type": "flying",
+    "problemCount": 1
   }
 ]

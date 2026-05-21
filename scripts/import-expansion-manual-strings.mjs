@@ -577,6 +577,250 @@ for a in range(1, math.isqrt(target) + 1):
             best = (g * a, g * b)
 print(*best)
 `
+  },
+  {
+    id: "2553",
+    slug: "math-2553",
+    categorySlug: "math",
+    title: "Last Non-zero Digit",
+    code: `import sys
+
+n = int(sys.stdin.readline())
+value = 1
+for i in range(2, n + 1):
+    value *= i
+    while value % 10 == 0:
+        value //= 10
+    value %= 1000000
+print(value % 10)
+`
+  },
+  {
+    id: "2824",
+    slug: "math-2824",
+    categorySlug: "math",
+    title: "Maximum Common Divisor",
+    code: `import math
+import sys
+
+input = sys.stdin.readline
+n = int(input())
+a = list(map(int, input().split()))
+m = int(input())
+b = list(map(int, input().split()))
+
+answer = 1
+trimmed = False
+for i in range(n):
+    x = a[i]
+    if x == 1:
+        continue
+    for j in range(m):
+        g = math.gcd(x, b[j])
+        if g > 1:
+            answer *= g
+            if answer >= 1000000000:
+                trimmed = True
+                answer %= 1000000000
+            x //= g
+            b[j] //= g
+        if x == 1:
+            break
+if trimmed:
+    print(f"{answer:09d}")
+else:
+    print(answer)
+`
+  },
+  {
+    id: "2877",
+    slug: "implementation-2877",
+    categorySlug: "implementation",
+    title: "4 and 7",
+    code: `import sys
+
+k = int(sys.stdin.readline())
+bits = bin(k + 1)[3:]
+print(''.join('4' if bit == '0' else '7' for bit in bits))
+`
+  },
+  {
+    id: "5766",
+    slug: "implementation-5766",
+    categorySlug: "implementation",
+    title: "Grandpa is Famous",
+    code: `import sys
+from collections import Counter
+
+tokens = iter(sys.stdin.read().split())
+out = []
+for n_s in tokens:
+    n = int(n_s)
+    m = int(next(tokens))
+    if n == 0 and m == 0:
+        break
+    scores = [int(next(tokens)) for _ in range(n * m)]
+    counter = Counter(scores)
+    first = max(counter.values())
+    second = max(v for v in counter.values() if v < first)
+    out.append(' '.join(map(str, sorted(k for k, v in counter.items() if v == second))))
+print('\\n'.join(out))
+`
+  },
+  {
+    id: "9081",
+    slug: "implementation-9081",
+    categorySlug: "implementation",
+    title: "Word Sorting",
+    code: `import sys
+
+def next_permutation(word):
+    arr = list(word)
+    i = len(arr) - 2
+    while i >= 0 and arr[i] >= arr[i + 1]:
+        i -= 1
+    if i < 0:
+        return word
+    j = len(arr) - 1
+    while arr[i] >= arr[j]:
+        j -= 1
+    arr[i], arr[j] = arr[j], arr[i]
+    arr[i + 1:] = reversed(arr[i + 1:])
+    return ''.join(arr)
+
+t = int(sys.stdin.readline())
+print('\\n'.join(next_permutation(sys.stdin.readline().strip()) for _ in range(t)))
+`
+  },
+  {
+    id: "9934",
+    slug: "implementation-9934",
+    categorySlug: "implementation",
+    title: "Complete Binary Tree",
+    code: `import sys
+
+k = int(sys.stdin.readline())
+values = list(map(int, sys.stdin.readline().split()))
+levels = [[] for _ in range(k)]
+
+def build(start, end, depth):
+    if start > end:
+        return
+    mid = (start + end) // 2
+    levels[depth].append(values[mid])
+    build(start, mid - 1, depth + 1)
+    build(mid + 1, end, depth + 1)
+
+build(0, len(values) - 1, 0)
+print('\\n'.join(' '.join(map(str, level)) for level in levels))
+`
+  },
+  {
+    id: "10703",
+    slug: "implementation-10703",
+    categorySlug: "implementation",
+    title: "Meteor",
+    code: `import sys
+
+r, s = map(int, sys.stdin.readline().split())
+grid = [list(sys.stdin.readline().strip()) for _ in range(r)]
+drop = r
+for c in range(s):
+    meteor = -1
+    ground = r
+    for i in range(r):
+        if grid[i][c] == 'X':
+            meteor = i
+        elif grid[i][c] == '#' and meteor != -1:
+            ground = i
+            break
+    if meteor != -1:
+        drop = min(drop, ground - meteor - 1)
+
+result = [['.' for _ in range(s)] for _ in range(r)]
+for i in range(r):
+    for j in range(s):
+        if grid[i][j] == '#':
+            result[i][j] = '#'
+        elif grid[i][j] == 'X':
+            result[i + drop][j] = 'X'
+print('\\n'.join(''.join(row) for row in result))
+`
+  },
+  {
+    id: "16139",
+    slug: "prefix_sum-16139",
+    categorySlug: "prefix_sum",
+    title: "Human-Computer Interaction",
+    code: `import sys
+
+input = sys.stdin.readline
+s = input().strip()
+prefix = [[0] * 26]
+for ch in s:
+    row = prefix[-1][:]
+    row[ord(ch) - 97] += 1
+    prefix.append(row)
+q = int(input())
+out = []
+for _ in range(q):
+    a, l, r = input().split()
+    idx = ord(a) - 97
+    l = int(l)
+    r = int(r)
+    out.append(str(prefix[r + 1][idx] - prefix[l][idx]))
+print('\\n'.join(out))
+`
+  },
+  {
+    id: "16507",
+    slug: "prefix_sum-16507",
+    categorySlug: "prefix_sum",
+    title: "Dark is Scary",
+    code: `import sys
+
+input = sys.stdin.readline
+r, c, q = map(int, input().split())
+prefix = [[0] * (c + 1)]
+for _ in range(r):
+    row = list(map(int, input().split()))
+    acc = 0
+    current = [0]
+    prev = prefix[-1]
+    for j, value in enumerate(row, 1):
+        acc += value
+        current.append(prev[j] + acc)
+    prefix.append(current)
+out = []
+for _ in range(q):
+    r1, c1, r2, c2 = map(int, input().split())
+    total = prefix[r2][c2] - prefix[r1 - 1][c2] - prefix[r2][c1 - 1] + prefix[r1 - 1][c1 - 1]
+    count = (r2 - r1 + 1) * (c2 - c1 + 1)
+    out.append(str(total // count))
+print('\\n'.join(out))
+`
+  },
+  {
+    id: "19951",
+    slug: "prefix_sum-19951",
+    categorySlug: "prefix_sum",
+    title: "Taebo Height",
+    code: `import sys
+
+input = sys.stdin.readline
+n, m = map(int, input().split())
+heights = list(map(int, input().split()))
+diff = [0] * (n + 1)
+for _ in range(m):
+    a, b, k = map(int, input().split())
+    diff[a - 1] += k
+    diff[b] -= k
+acc = 0
+for i in range(n):
+    acc += diff[i]
+    heights[i] += acc
+print(*heights)
+`
   }
 ];
 

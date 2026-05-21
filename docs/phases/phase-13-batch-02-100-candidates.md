@@ -250,3 +250,177 @@
 - `npx next build`: 통과
 
 편입 완료된 문제 기준으로 앱의 확정 매핑 수는 402개다.
+
+### 2026-05-18 수동 mixed 10문제 편입
+
+요청에 따라 10개 단위 배치로 확장했다.
+
+편입 문제:
+
+- `math-2553` 마지막 팩토리얼 수
+- `math-2824` 최대공약수
+- `implementation-2877` 4와 7
+- `implementation-5766` 할아버지는 유명해!
+- `implementation-9081` 단어 맞추기
+- `implementation-9934` 완전 이진 트리
+- `implementation-10703` 유성
+- `prefix_sum-16139` 인간-컴퓨터 상호작용
+- `prefix_sum-16507` 어두운 건 무서워
+- `prefix_sum-19951` 태상이의 훈련소 생활
+
+검증:
+
+- 신규 10문제 override self-judge: 모두 AC
+- `npm run judge:coverage`: 412개 전부 judge ready
+- `npm run judge:lang-audit`: Python/C++ 제출 가능성 통과
+- `npm run judge:audit`: missing case 0개
+- `npx next build`: 통과
+
+편입 완료된 문제 기준으로 앱의 확정 매핑 수는 412개다.
+
+### 2026-05-18 수동 mixed 20문제 편입
+
+요청에 따라 20개 단위 배치로 확장했다.
+
+편입 문제:
+
+- `binary_search-11663` 선분 위의 점
+- `two_pointer-11728` 배열 합치기
+- `dynamic_programming_1-2293` 동전 1
+- `dynamic_programming_1-12026` BOJ 거리
+- `two_pointer-13422` 도둑
+- `shortest_path-14284` 간선 이어가기 2
+- `topological_sorting-2637` 장난감 조립
+- `binary_search-7453` 합이 0인 네 정수
+- `shortest_path-1507` 궁금한 민호
+- `greedy-12931` 두 배 더하기
+- `greedy-18234` 당근 훔쳐 먹기
+- `prefix_sum-2571` 색종이 - 3
+- `prefix_sum-3673` 나눌 수 있는 부분 수열
+- `prefix_sum-5549` 행성 탐사
+- `prefix_sum-10713` 기차 여행
+- `prefix_sum-14476` 최대공약수 하나 빼기
+- `prefix_sum-17390` 이건 꼭 풀어야 해!
+- `prefix_sum-17123` 배열 놀이
+- `dynamic_programming_2-20002` 사과나무
+- `implementation-17128` 소가 정보섬에 올라온 이유
+
+함께 수정한 내용:
+
+- `data/categories.json`에 `topological_sorting` 카테고리를 추가했다.
+- 이 카테고리 누락으로 발생하던 `/problem/topological_sorting-2637` 정적 빌드 실패를 해결했다.
+
+검증:
+
+- 신규 20문제 override self-judge: 모두 AC
+- `npm run judge:coverage`: 432개 전부 judge ready
+- `npm run judge:lang-audit`: Python/C++ 제출 가능성 통과
+- `npm run judge:audit`: missing case 0개
+- `npx next build`: 통과
+
+편입 완료된 문제 기준으로 앱의 확정 매핑 수는 432개다.
+
+### 2026-05-19 수동 mixed 10문제 편입
+
+남은 후보군 중 문제 조건을 재현하기 쉽고, 입력/출력 oracle을 안정적으로 작성할 수 있는 10문제를 먼저 추가했다. 일부 남은 후보는 시뮬레이션/파싱/특수 규칙이 강해서 다음 배치에서 별도 검증 후 진행한다.
+
+편입 문제:
+
+- `string-1942` 디지털시계
+- `string-3005` 크로스워드 퍼즐 쳐다보기
+- `string-3107` IPv6
+- `string-20114` 미아 노트
+- `math-3343` 장미
+- `math-9421` 소수상근수
+- `implementation-1022` 소용돌이 예쁘게 출력하기
+- `implementation-1283` 단축키 지정
+- `brute_force-1034` 램프
+- `graph_traversal-18232` 텔레포트 정거장
+
+검증:
+
+- 신규 10문제 override self-judge: 모두 AC
+- `npm run data:map`: 442개 매핑
+- `npm run judge:coverage`: 442개 전부 judge ready
+- `npm run judge:lang-audit`: Python/C++ 제출 가능성 통과
+- `npm run judge:audit`: missing case 0개
+- `npx next build`: 통과
+
+현재 확정 매핑 수는 442개다.
+
+### 2026-05-19 수동 mixed 추가 10문제 편입
+
+직전 10문제에 이어, 규칙을 재현할 수 있는 후보 10개를 더 추가해 이번 20문제 확장 묶음을 완성했다.
+
+편입 문제:
+
+- `backtracking-1497` 기타콘서트
+- `shortest_path-17396` 백도어
+- `shortest_path-20007` 떡 돌리기
+- `data_structure2-19583` 싸이버개강총회
+- `implementation-16719` ZOAC
+- `implementation-16927` 배열 돌리기 2
+- `implementation-17276` 배열 돌리기
+- `implementation-18311` 왕복
+- `implementation-20164` 홀수 홀릭 호석
+- `implementation-2469` 사다리 타기
+
+검증:
+
+- 신규 10문제 override self-judge: 모두 AC
+- `npm run data:map`: 452개 매핑
+- `npm run judge:coverage`: 452개 전부 judge ready
+- `npm run judge:lang-audit`: Python/C++ 제출 가능성 통과
+- `npm run judge:audit`: missing case 0개
+- `npx next build`: 통과
+
+현재 확정 매핑 수는 452개다.
+
+### 2026-05-19 고난도 mixed 6문제 편입
+
+남은 후보군 중 구현 난도가 높지만 규칙을 안정적으로 재현할 수 있는 6문제를 추가했다. 남은 문제들은 문자열 특수 파싱, 대형 시뮬레이션, prefix sum 응용 등 원문 확인이 더 필요한 항목으로 남긴다.
+
+편입 문제:
+
+- `graph_traversal-17142` 연구소 3
+- `implementation-17406` 배열 돌리기 4
+- `implementation-17470` 배열 돌리기 5
+- `implementation-20327` 배열 돌리기 6
+- `implementation-21277` 짠돌이 호석
+- `data_structure2-21944` 문제 추천 시스템 Version 2
+
+검증:
+
+- 신규 6문제 override self-judge: 모두 AC
+- `npm run data:map`: 458개 매핑
+- `npm run judge:coverage`: 458개 전부 judge ready
+- `npm run judge:lang-audit`: Python/C++ 제출 가능성 통과
+- `npm run judge:audit`: missing case 0개
+- `npx next build`: 통과
+
+현재 확정 매핑 수는 458개다.
+
+### 2026-05-19 문자열/수학/구현 7문제 편입
+
+남은 후보 중 원문 규칙을 확인할 수 있고, deterministic oracle을 안정적으로 작성할 수 있는 7문제를 추가했다.
+
+편입 문제:
+
+- `string-4446` ROT13
+- `string-9242` 폭탄 해체
+- `string-19844` 단어 개수 세기
+- `string-19948` 음유시인 영재
+- `string-20210` 파일 탐색기
+- `implementation-22858` 원상 복구 (small)
+- `math-22943` 수
+
+검증:
+
+- 신규 7문제 override self-judge: 모두 AC
+- `npm run data:map`: 465개 매핑
+- `npm run judge:coverage`: 465개 전부 judge ready
+- `npm run judge:lang-audit`: Python/C++ 제출 가능성 통과
+- `npm run judge:audit`: missing case 0개
+- `npx next build`: 통과
+
+현재 확정 매핑 수는 465개다.

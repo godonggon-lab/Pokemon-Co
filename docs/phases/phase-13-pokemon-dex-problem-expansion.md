@@ -603,6 +603,148 @@ npx next build
 - 총 unique BOJ 문제: 393개
 - 목표 1025개까지 남은 unique 문제 수: 632개
 
+### Batch 02. 아홉 번째 10문제 수동 mixed 배치
+
+요청에 따라 배치 크기를 10개로 키웠다. 이번 묶음은 수학 2개, 구현 5개, 누적합 3개로 구성했다.
+
+입력한 문제:
+
+- `math-2553` 마지막 팩토리얼 수
+- `math-2824` 최대공약수
+- `implementation-2877` 4와 7
+- `implementation-5766` 할아버지는 유명해!
+- `implementation-9081` 단어 맞추기
+- `implementation-9934` 완전 이진 트리
+- `implementation-10703` 유성
+- `prefix_sum-16139` 인간-컴퓨터 상호작용
+- `prefix_sum-16507` 어두운 건 무서워
+- `prefix_sum-19951` 태상이의 훈련소 생활
+
+추가 파일:
+
+- `harness/overrides/math-2553.py`
+- `harness/overrides/math-2824.py`
+- `harness/overrides/implementation-2877.py`
+- `harness/overrides/implementation-5766.py`
+- `harness/overrides/implementation-9081.py`
+- `harness/overrides/implementation-9934.py`
+- `harness/overrides/implementation-10703.py`
+- `harness/overrides/prefix_sum-16139.py`
+- `harness/overrides/prefix_sum-16507.py`
+- `harness/overrides/prefix_sum-19951.py`
+
+검증 명령:
+
+```bash
+npm run problems:import-manual-strings
+python scripts/verify-judge-overrides.py math-2553 math-2824 implementation-2877 implementation-5766 implementation-9081 implementation-9934 implementation-10703 prefix_sum-16139 prefix_sum-16507 prefix_sum-19951
+npm run data:map
+npm run judge:coverage
+npm run judge:lang-audit
+npm run judge:audit
+npx next build
+```
+
+검증 결과:
+
+- 새 10문제 override self-judge: 모두 AC
+- 전체 포켓몬 매핑: 412개
+- judge coverage: 412개 전부 judge ready
+- missing case: 0개
+- Python/C++ 제출 가능성 audit: 통과
+- Next.js build: 통과
+
+현재 확정 상태:
+
+- 기존 unique BOJ 문제: 353개
+- 확장 unique BOJ 문제: 50개
+- 총 unique BOJ 문제: 403개
+- 목표 1025개까지 남은 unique 문제 수: 622개
+
+### Batch 02. 열 번째 20문제 수동 mixed 배치
+
+요청에 따라 배치 크기를 20개로 키웠다. 이번 묶음은 이분 탐색, 투 포인터, DP, 최단 경로, 위상 정렬, 그리디, 누적합, 구현을 섞었다.
+
+입력한 문제:
+
+- `binary_search-11663` 선분 위의 점
+- `two_pointer-11728` 배열 합치기
+- `dynamic_programming_1-2293` 동전 1
+- `dynamic_programming_1-12026` BOJ 거리
+- `two_pointer-13422` 도둑
+- `shortest_path-14284` 간선 이어가기 2
+- `topological_sorting-2637` 장난감 조립
+- `binary_search-7453` 합이 0인 네 정수
+- `shortest_path-1507` 궁금한 민호
+- `greedy-12931` 두 배 더하기
+- `greedy-18234` 당근 훔쳐 먹기
+- `prefix_sum-2571` 색종이 - 3
+- `prefix_sum-3673` 나눌 수 있는 부분 수열
+- `prefix_sum-5549` 행성 탐사
+- `prefix_sum-10713` 기차 여행
+- `prefix_sum-14476` 최대공약수 하나 빼기
+- `prefix_sum-17390` 이건 꼭 풀어야 해!
+- `prefix_sum-17123` 배열 놀이
+- `dynamic_programming_2-20002` 사과나무
+- `implementation-17128` 소가 정보섬에 올라온 이유
+
+추가 파일:
+
+- `scripts/import-expansion-manual-batch-04.mjs`
+- `harness/overrides/binary_search-11663.py`
+- `harness/overrides/two_pointer-11728.py`
+- `harness/overrides/dynamic_programming_1-2293.py`
+- `harness/overrides/dynamic_programming_1-12026.py`
+- `harness/overrides/two_pointer-13422.py`
+- `harness/overrides/shortest_path-14284.py`
+- `harness/overrides/topological_sorting-2637.py`
+- `harness/overrides/binary_search-7453.py`
+- `harness/overrides/shortest_path-1507.py`
+- `harness/overrides/greedy-12931.py`
+- `harness/overrides/greedy-18234.py`
+- `harness/overrides/prefix_sum-2571.py`
+- `harness/overrides/prefix_sum-3673.py`
+- `harness/overrides/prefix_sum-5549.py`
+- `harness/overrides/prefix_sum-10713.py`
+- `harness/overrides/prefix_sum-14476.py`
+- `harness/overrides/prefix_sum-17390.py`
+- `harness/overrides/prefix_sum-17123.py`
+- `harness/overrides/dynamic_programming_2-20002.py`
+- `harness/overrides/implementation-17128.py`
+
+함께 수정한 내용:
+
+- `data/categories.json`에 `topological_sorting` 카테고리를 추가했다.
+- 빌드 중 `/problem/topological_sorting-2637`에서 카테고리 메타가 없어 `slug` 접근 에러가 난 문제를 해결했다.
+
+검증 명령:
+
+```bash
+node scripts/import-expansion-manual-batch-04.mjs
+python scripts/verify-judge-overrides.py binary_search-11663 two_pointer-11728 dynamic_programming_1-2293 dynamic_programming_1-12026 two_pointer-13422 shortest_path-14284 topological_sorting-2637 binary_search-7453 shortest_path-1507 greedy-12931 greedy-18234 prefix_sum-2571 prefix_sum-3673 prefix_sum-5549 prefix_sum-10713 prefix_sum-14476 prefix_sum-17390 prefix_sum-17123 dynamic_programming_2-20002 implementation-17128
+npm run data:map
+npm run judge:coverage
+npm run judge:lang-audit
+npm run judge:audit
+npx next build
+```
+
+검증 결과:
+
+- 새 20문제 override self-judge: 모두 AC
+- 전체 포켓몬 매핑: 432개
+- judge coverage: 432개 전부 judge ready
+- missing case: 0개
+- Python/C++ 제출 가능성 audit: 통과
+- Next.js build: 통과
+
+현재 확정 상태:
+
+- 기존 unique BOJ 문제: 353개
+- 확장 unique BOJ 문제: 70개
+- 총 unique BOJ 문제: 423개
+- 목표 1025개까지 남은 unique 문제 수: 602개
+
 ### Batch 02. 세 번째 5문제 수동 string 배치
 
 외부 정답 후보 중 남은 7개 `external_runtime` 문제는 현재 statement 수집이 막혀 있어, 바로 검증 가능한 수동 oracle 문제부터 진행했다.
@@ -656,3 +798,154 @@ npx next build
   - `external_java_or_port`: 12개
   - `manual_oracle`: 81개
   - `ready_for_override`: 0개
+
+### 열한 번째 10문제 수동 mixed 배치
+
+20개 단위 확장을 이어가되, 남은 후보 중 규칙이 명확한 문제를 우선 선별해 10문제를 먼저 편입했다. 이번 배치는 문자열 파싱, 수학 최적화, 구현, 브루트포스, BFS 문제로 구성했다.
+
+편입 문제:
+
+- `string-1942`, `string-3005`, `string-3107`, `string-20114`
+- `math-3343`, `math-9421`
+- `implementation-1022`, `implementation-1283`
+- `brute_force-1034`
+- `graph_traversal-18232`
+
+검증 명령:
+
+```bash
+node scripts/import-expansion-manual-batch-05.mjs
+python scripts/verify-judge-overrides.py string-1942 string-3005 string-3107 string-20114 math-3343 math-9421 implementation-1022 implementation-1283 brute_force-1034 graph_traversal-18232
+npm run data:map
+npm run judge:coverage
+npm run judge:lang-audit
+npm run judge:audit
+npx next build
+```
+
+검증 결과:
+
+- 신규 10문제 override self-judge: 모두 AC
+- 전체 포켓몬 매핑: 442개
+- judge coverage: 442개 전부 judge ready
+- missing case: 0개
+- Python/C++ 제출 가능성 audit: 통과
+- Next.js build: 통과
+
+현재 확정 상태:
+
+- 확장 unique BOJ 문제: 80개
+- 총 unique BOJ 문제: 433개
+- 목표 1025개까지 남은 unique 문제 수: 592개
+
+### 열두 번째 10문제 수동 mixed 배치
+
+직전 10문제에 이어 다음 10문제를 추가했다. 이로써 이번 요청의 20문제 단위 확장은 452개 judge-ready 상태까지 완료되었다.
+
+편입 문제:
+
+- `backtracking-1497`
+- `shortest_path-17396`, `shortest_path-20007`
+- `data_structure2-19583`
+- `implementation-16719`, `implementation-16927`, `implementation-17276`, `implementation-18311`, `implementation-20164`, `implementation-2469`
+
+검증 명령:
+
+```bash
+node scripts/import-expansion-manual-batch-06.mjs
+python scripts/verify-judge-overrides.py backtracking-1497 shortest_path-17396 shortest_path-20007 data_structure2-19583 implementation-16719 implementation-16927 implementation-17276 implementation-18311 implementation-20164 implementation-2469
+npm run data:map
+npm run judge:coverage
+npm run judge:lang-audit
+npm run judge:audit
+npx next build
+```
+
+검증 결과:
+
+- 신규 10문제 override self-judge: 모두 AC
+- 전체 포켓몬 매핑: 452개
+- judge coverage: 452개 전부 judge ready
+- missing case: 0개
+- Python/C++ 제출 가능성 audit: 통과
+- Next.js build: 통과
+
+현재 확정 상태:
+
+- 확장 unique BOJ 문제: 90개
+- 총 unique BOJ 문제: 443개
+- 목표 1025개까지 남은 unique 문제 수: 582개
+
+### 열세 번째 고난도 6문제 수동 mixed 배치
+
+남은 후보 중 원문 규칙을 안정적으로 재현할 수 있는 고난도 문제 6개를 추가했다. 배열 회전 계열과 추천 시스템, 연구소 3처럼 학생 제출에서 오류가 자주 날 수 있는 문제를 우선했다.
+
+편입 문제:
+
+- `graph_traversal-17142`
+- `implementation-17406`, `implementation-17470`, `implementation-20327`, `implementation-21277`
+- `data_structure2-21944`
+
+검증 명령:
+
+```bash
+node scripts/import-expansion-manual-batch-07.mjs
+python scripts/verify-judge-overrides.py graph_traversal-17142 implementation-17406 implementation-17470 implementation-20327 implementation-21277 data_structure2-21944
+npm run data:map
+npm run judge:coverage
+npm run judge:lang-audit
+npm run judge:audit
+npx next build
+```
+
+검증 결과:
+
+- 신규 6문제 override self-judge: 모두 AC
+- 전체 포켓몬 매핑: 458개
+- judge coverage: 458개 전부 judge ready
+- missing case: 0개
+- Python/C++ 제출 가능성 audit: 통과
+- Next.js build: 통과
+
+현재 확정 상태:
+
+- 확장 unique BOJ 문제: 96개
+- 총 unique BOJ 문제: 449개
+- 목표 1025개까지 남은 unique 문제 수: 576개
+
+### 열네 번째 문자열/수학/구현 7문제 수동 배치
+
+남은 후보 중 문자열 특수 규칙과 수학 조건을 확인할 수 있는 7문제를 추가했다. 특히 `string-20210`은 자연 정렬 규칙, `math-22943`은 소수 합/곱 조건을 override에 포함했다.
+
+편입 문제:
+
+- `string-4446`, `string-9242`, `string-19844`, `string-19948`, `string-20210`
+- `implementation-22858`
+- `math-22943`
+
+검증 명령:
+
+```bash
+node scripts/import-expansion-manual-batch-08.mjs
+python scripts/verify-judge-overrides.py string-4446 string-9242 string-19844 string-19948 string-20210 implementation-22858 math-22943
+npm run data:map
+npm run judge:coverage
+npm run judge:lang-audit
+npm run judge:audit
+npx next build
+```
+
+검증 결과:
+
+- 신규 7문제 override self-judge: 모두 AC
+- 전체 포켓몬 매핑: 465개
+- judge coverage: 465개 전부 judge ready
+- missing case: 0개
+- Python/C++ 제출 가능성 audit: 통과
+- Next.js build: 통과
+
+현재 확정 상태:
+
+- 확장 unique BOJ 문제: 103개
+- 총 unique BOJ 문제: 456개
+- 목표 1025개까지 남은 unique 문제 수: 569개

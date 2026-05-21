@@ -40,11 +40,12 @@ class RunResult:
     timed_out: bool
     compile_error: bool
     oom_killed: bool = False
+    output_exceeded: bool = False
     exit_code: int = 0
 
 
 class Runner(Protocol):
-    def run(self, lang: Lang, code: str, stdin: str, *, time_limit_s: float, memory_mb: int) -> RunResult: ...
+    def run(self, lang: Lang, code: str, stdin: str, *, time_limit_s: float, memory_mb: int, max_output_bytes: int | None = None) -> RunResult: ...
 
 
 def _normalize(s: str) -> str:
@@ -54,7 +55,7 @@ def _normalize(s: str) -> str:
 
 # --------------------------- LocalRunner (oracle 전용 권장) ---------------------------
 class LocalRunner:
-    def run(self, lang, code, stdin, *, time_limit_s=2.0, memory_mb=256):
+    def run(self, lang, code, stdin, *, time_limit_s=2.0, memory_mb=256, max_output_bytes=None):
         with tempfile.TemporaryDirectory() as tmp:
             try:
                 cmd = self._compile(lang, code, tmp)
@@ -68,11 +69,16 @@ class LocalRunner:
             except subprocess.TimeoutExpired:
                 return RunResult(False, "", "", int((time.perf_counter() - t0) * 1000), True, False)
             dur = int((time.perf_counter() - t0) * 1000)
+            output_exceeded = (
+                max_output_bytes is not None
+                and len(p.stdout) + len(p.stderr) > max_output_bytes
+            )
             return RunResult(
-                ok=(p.returncode == 0),
+                ok=(p.returncode == 0 and not output_exceeded),
                 stdout=p.stdout.decode("utf-8", "replace"),
                 stderr=p.stderr.decode("utf-8", "replace"),
                 duration_ms=dur, timed_out=False, compile_error=False,
+                output_exceeded=output_exceeded,
                 exit_code=p.returncode
             )
 
@@ -105,7 +111,7 @@ class DockerRunner:
     """
     IMAGE = os.environ.get("CODERUNNER_IMAGE", "dongjun-coderunner:latest")
 
-    def run(self, lang, code, stdin, *, time_limit_s=2.0, memory_mb=256):
+    def run(self, lang, code, stdin, *, time_limit_s=2.0, memory_mb=256, max_output_bytes=None):
         if shutil.which("docker") is None:
             return RunResult(False, "", "docker not installed on judge host", 0, False, False)
 
@@ -144,6 +150,10 @@ class DockerRunner:
             shutil.rmtree(host_dir, ignore_errors=True)
 
         dur = int((time.perf_counter() - t0) * 1000)
+        output_exceeded = (
+            max_output_bytes is not None
+            and len(p.stdout) + len(p.stderr) > max_output_bytes
+        )
         out = p.stdout.decode("utf-8", "replace")
         err = p.stderr.decode("utf-8", "replace")
         # 컨테이너 내부 entrypoint 가 컴파일 실패 시 종료코드 100 약속
@@ -161,10 +171,10 @@ class DockerRunner:
         if p.returncode == 137 and not oom_killed and dur >= time_limit_ms:
             timed_out = True
         return RunResult(
-            ok=(p.returncode == 0),
+            ok=(p.returncode == 0 and not output_exceeded),
             stdout=out, stderr=err,
             duration_ms=dur, timed_out=timed_out, compile_error=compile_error,
-            oom_killed=oom_killed, exit_code=p.returncode
+            oom_killed=oom_killed, output_exceeded=output_exceeded, exit_code=p.returncode
         )
 
 
@@ -235,11 +245,16 @@ def judge(*,
           oracle_runner: Runner,
           case_count: int = 6,
           time_limit_s: float = 2.0,
-          memory_limit_mb: int = 256) -> dict:
+          memory_limit_mb: int = 256,
+          max_output_bytes: int | None = None) -> dict:
     from .generators import generate
     sample_cases = _load_sample_cases(problem_slug)
     fuzz_cases: list[JudgeCase] = []
-    for generated in generate(problem_slug, category_slug, count=case_count):
+    try:
+        generated_cases = generate(problem_slug, category_slug, count=case_count)
+    except Exception as exc:
+        return {"status": "ERR", "message": f"generator failed: {exc}"}
+    for generated in generated_cases:
         if isinstance(generated, dict):
             stdin = generated.get("input")
             if not isinstance(stdin, str):
@@ -267,13 +282,17 @@ def judge(*,
             oracle = oracle_runner.run(oracle_lang, oracle_code, stdin,
                                        time_limit_s=time_limit_s * 2, memory_mb=512)
             if not oracle.ok:
-                # Oracle 자체가 실패하면 해당 케이스는 스킵 (생성기 결함 가능)
-                continue
+                return {
+                    "status": "ERR",
+                    "message": f"oracle failed: {oracle.stderr or oracle.stdout}",
+                    "durationMs": int((time.perf_counter() - t0) * 1000),
+                }
             expected = oracle.stdout
 
         # 2) 사용자 실행
         user = user_runner.run(user_lang, user_code, stdin,
-                               time_limit_s=time_limit_s, memory_mb=memory_limit_mb)
+                               time_limit_s=time_limit_s, memory_mb=memory_limit_mb,
+                               max_output_bytes=max_output_bytes)
         if user.compile_error:
             return {"status": "CE", "message": user.stderr,
                     "durationMs": int((time.perf_counter() - t0) * 1000)}
@@ -285,17 +304,24 @@ def judge(*,
             cases.append(CaseResult(i, stdin, expected, "<MLE>", False, jc.kind,
                                     verdict="MLE", duration_ms=user.duration_ms))
             continue
+        if user.output_exceeded:
+            cases.append(CaseResult(i, stdin, expected, "<OLE>", False, jc.kind,
+                                    verdict="OLE", duration_ms=user.duration_ms))
+            continue
         if not user.ok:
             cases.append(CaseResult(i, stdin, expected, user.stderr or "<RE>", False, jc.kind,
                                     verdict="RE", duration_ms=user.duration_ms))
             continue
         ok = _normalize(user.stdout) == _normalize(expected)
         if ok: passed += 1
+        verdict = "AC" if ok else "WA"
+        if not ok and user.stdout.split() == expected.split():
+            verdict = "PE"
         cases.append(CaseResult(i, stdin, expected, user.stdout, ok, jc.kind,
-                                verdict="AC" if ok else "WA", duration_ms=user.duration_ms))
+                                verdict=verdict, duration_ms=user.duration_ms))
 
     total = len(cases)
-    # 우선순위: CE > MLE > TLE > RE > WA > AC
+    # 우선순위: CE > MLE > TLE > OLE > RE > PE > WA > AC
     verdicts = [c.verdict for c in cases]
     if total == 0:
         status = "WA"
@@ -305,8 +331,12 @@ def judge(*,
         status = "MLE"
     elif "TLE" in verdicts:
         status = "TLE"
+    elif "OLE" in verdicts:
+        status = "OLE"
     elif "RE" in verdicts:
         status = "RE"
+    elif "PE" in verdicts:
+        status = "PE"
     else:
         status = "WA"
     return {
