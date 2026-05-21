@@ -306,6 +306,24 @@
     "createdAt": 1779032187510
   },
   {
+    "id": "2115",
+    "slug": "string-2115",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-2115.py",
+        "code": "import sys\ninput = sys.stdin.readline\nm, n = map(int, input().split())\ngrid = [list(input().strip()) for _ in range(m)]\nused = [[False] * n for _ in range(m)]\nanswer = 0\nfor r in range(m - 1):\n    for c in range(n):\n        if grid[r][c] == grid[r + 1][c] == 'X' and not used[r][c] and not used[r + 1][c]:\n            if c + 1 < n and grid[r][c + 1] == grid[r + 1][c + 1] == '.':\n                used[r][c] = used[r + 1][c] = True\n                answer += 1\n            elif c - 1 >= 0 and grid[r][c - 1] == grid[r + 1][c - 1] == '.':\n                used[r][c] = used[r + 1][c] = True\n                answer += 1\nfor r in range(m):\n    for c in range(n - 1):\n        if grid[r][c] == grid[r][c + 1] == 'X' and not used[r][c] and not used[r][c + 1]:\n            if r + 1 < m and grid[r + 1][c] == grid[r + 1][c + 1] == '.':\n                used[r][c] = used[r][c + 1] = True\n                answer += 1\n            elif r - 1 >= 0 and grid[r - 1][c] == grid[r - 1][c + 1] == '.':\n                used[r][c] = used[r][c + 1] = True\n                answer += 1\nprint(answer)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2115",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "ca6c6bb2a607",
+    "createdAt": 1779368220397
+  },
+  {
     "id": "2156",
     "slug": "dynamic_programming_1-2156",
     "categorySlug": "dynamic_programming_1",
@@ -568,6 +586,24 @@
     "createdAt": 1779032187510
   },
   {
+    "id": "2900",
+    "slug": "prefix_sum-2900",
+    "categorySlug": "prefix_sum",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/prefix_sum-2900.py",
+        "code": "import sys\nfrom collections import Counter\ninput = sys.stdin.readline\nn, k = map(int, input().split())\ncounter = Counter(map(int, input().split()))\narr = [0] * n\nfor jump, count in counter.items():\n    for idx in range(0, n, jump):\n        arr[idx] += count\nprefix = [0]\nfor value in arr:\n    prefix.append(prefix[-1] + value)\nq = int(input())\nout = []\nfor _ in range(q):\n    l, r = map(int, input().split())\n    out.append(str(prefix[r + 1] - prefix[l]))\nprint('\\n'.join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2900",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "cde2b60cce7c",
+    "createdAt": 1779368220400
+  },
+  {
     "id": "2941",
     "slug": "string-2941",
     "categorySlug": "string",
@@ -602,6 +638,24 @@
     ],
     "hash": "6dbbbe204a18",
     "createdAt": 1779193907416
+  },
+  {
+    "id": "3025",
+    "slug": "simulation-3025",
+    "categorySlug": "simulation",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/simulation-3025.py",
+        "code": "import sys\ninput = sys.stdin.readline\nr, c = map(int, input().split())\nboard = [list(input().strip()) for _ in range(r)]\nn = int(input())\nfor _ in range(n):\n    col = int(input()) - 1\n    row = 0\n    while True:\n        if row + 1 == r:\n            board[row][col] = 'O'\n            break\n        if board[row + 1][col] == '.':\n            row += 1\n        elif board[row + 1][col] in 'XO':\n            if col > 0 and board[row][col - 1] == '.' and board[row + 1][col - 1] == '.':\n                row += 1\n                col -= 1\n            elif col + 1 < c and board[row][col + 1] == '.' and board[row + 1][col + 1] == '.':\n                row += 1\n                col += 1\n            else:\n                board[row][col] = 'O'\n                break\nprint('\\n'.join(''.join(row) for row in board))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/3025",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "473e052df981",
+    "createdAt": 1779368220400
   },
   {
     "id": "3107",
@@ -694,6 +748,24 @@
     "createdAt": 1779201736797
   },
   {
+    "id": "4836",
+    "slug": "string-4836",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-4836.py",
+        "code": "import sys\n\ndef check(line):\n    steps = line.split()\n    broken = [False] * 5\n    dip_bad = [False] * len(steps)\n    for i, step in enumerate(steps):\n        if step == 'dip':\n            ok = (i >= 1 and steps[i - 1] == 'jiggle') or (i >= 2 and steps[i - 2] == 'jiggle') or (i + 1 < len(steps) and steps[i + 1] == 'twirl')\n            if not ok:\n                broken[0] = True\n                dip_bad[i] = True\n    if len(steps) < 3 or steps[-3:] != ['clap', 'stomp', 'clap']:\n        broken[1] = True\n    if 'twirl' in steps and 'hop' not in steps:\n        broken[2] = True\n    if steps and steps[0] == 'jiggle':\n        broken[3] = True\n    if 'dip' not in steps:\n        broken[4] = True\n    fixed = [step.upper() if step == 'dip' and dip_bad[i] else step for i, step in enumerate(steps)]\n    errors = [str(i + 1) for i, value in enumerate(broken) if value]\n    if not errors:\n        return 'form ok: ' + line\n    if len(errors) == 1:\n        prefix = 'form error ' + errors[0] + ': '\n    else:\n        prefix = 'form errors ' + ', '.join(errors[:-1]) + ' and ' + errors[-1] + ': '\n    return prefix + ' '.join(fixed)\n\nprint('\\n'.join(check(line) for line in sys.stdin.read().splitlines()))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/4836",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "9edb88548e08",
+    "createdAt": 1779368220400
+  },
+  {
     "id": "4949",
     "slug": "data_structure-4949",
     "categorySlug": "data_structure",
@@ -769,6 +841,24 @@
     ],
     "hash": "6d70e26d3c68",
     "createdAt": 1779032187510
+  },
+  {
+    "id": "5875",
+    "slug": "prefix_sum-5875",
+    "categorySlug": "prefix_sum",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/prefix_sum-5875.py",
+        "code": "import sys\ns = sys.stdin.readline().strip()\n\ndef valid(value):\n    balance = 0\n    for ch in value:\n        balance += 1 if ch == '(' else -1\n        if balance < 0:\n            return False\n    return balance == 0\n\nanswer = 0\nfor i, ch in enumerate(s):\n    flipped = s[:i] + (')' if ch == '(' else '(') + s[i + 1:]\n    if valid(flipped):\n        answer += 1\nprint(answer)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/5875",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "a86c963477b7",
+    "createdAt": 1779368220400
   },
   {
     "id": "6996",
@@ -1393,6 +1483,24 @@
     "createdAt": 1779197295240
   },
   {
+    "id": "16890",
+    "slug": "string-16890",
+    "categorySlug": "string",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/string-16890.py",
+        "code": "import sys\nfrom collections import deque\na = sorted(sys.stdin.readline().strip())\nb = sorted(sys.stdin.readline().strip(), reverse=True)\nn = len(a)\nleft = 0\nright = n - 1\nanswer = [''] * n\na = deque(a[: (n + 1) // 2])\nb = deque(b[: n // 2])\nfor turn in range(n):\n    if turn % 2 == 0:\n        if b and a[0] >= b[0]:\n            answer[right] = a.pop()\n            right -= 1\n        else:\n            answer[left] = a.popleft()\n            left += 1\n    else:\n        if a and b[0] <= a[0]:\n            answer[right] = b.pop()\n            right -= 1\n        else:\n            answer[left] = b.popleft()\n            left += 1\nprint(''.join(answer))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/16890",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "a63e5fa7c81e",
+    "createdAt": 1779368220400
+  },
+  {
     "id": "16916",
     "slug": "string-16916",
     "categorySlug": "string",
@@ -1877,6 +1985,24 @@
     ],
     "hash": "74d073e6654f",
     "createdAt": 1779198150930
+  },
+  {
+    "id": "21611",
+    "slug": "implementation-21611",
+    "categorySlug": "implementation",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/implementation-21611.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, m = map(int, input().split())\nboard = [list(map(int, input().split())) for _ in range(n)]\nspells = [tuple(map(int, input().split())) for _ in range(m)]\ncenter = n // 2\npositions = []\nr = c = center\nfor length in range(1, n):\n    for dr, dc, cnt in [(0, -1, length), (1, 0, length), (0, 1, length + 1), (-1, 0, length + 1)]:\n        for _ in range(cnt):\n            r += dr\n            c += dc\n            if 0 <= r < n and 0 <= c < n:\n                positions.append((r, c))\n    if len(positions) >= n * n - 1:\n        break\npositions = positions[: n * n - 1]\ndir_map = {1: (-1, 0), 2: (1, 0), 3: (0, -1), 4: (0, 1)}\nscore = [0, 0, 0, 0]\n\ndef flatten():\n    return [board[r][c] for r, c in positions if board[r][c] != 0]\n\ndef write(values):\n    for idx, (r, c) in enumerate(positions):\n        board[r][c] = values[idx] if idx < len(values) else 0\n\nfor d, s in spells:\n    dr, dc = dir_map[d]\n    for step in range(1, s + 1):\n        rr, cc = center + dr * step, center + dc * step\n        if 0 <= rr < n and 0 <= cc < n:\n            board[rr][cc] = 0\n    values = flatten()\n    changed = True\n    while changed:\n        changed = False\n        nxt = []\n        i = 0\n        while i < len(values):\n            j = i\n            while j < len(values) and values[j] == values[i]:\n                j += 1\n            if j - i >= 4:\n                score[values[i]] += j - i\n                changed = True\n            else:\n                nxt.extend(values[i:j])\n            i = j\n        values = nxt\n    transformed = []\n    i = 0\n    while i < len(values) and len(transformed) < len(positions):\n        j = i\n        while j < len(values) and values[j] == values[i]:\n            j += 1\n        transformed.extend([j - i, values[i]])\n        i = j\n    write(transformed[: len(positions)])\nprint(score[1] + score[2] * 2 + score[3] * 3)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/21611",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "ec512e9038db",
+    "createdAt": 1779368220400
   },
   {
     "id": "21944",

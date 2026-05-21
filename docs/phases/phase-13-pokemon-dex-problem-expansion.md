@@ -985,3 +985,42 @@ npx next build
 - 확장 unique BOJ 문제: 108개
 - 총 unique BOJ 문제: 461개
 - 목표 1025개까지 남은 unique 문제 수: 564개
+
+### 열여섯 번째 batch-02 마감 partial 7문제 배치
+
+사용자 요청에 따라 이후 배치는 20개 단위로 처리하고, 각 배치 종료 시 남은 문제 수를 기록하며, 배치마다 commit/push 한다. 다만 현재 batch-02 후보는 7개만 남아 있었기 때문에 마지막 partial batch로 마감했다.
+
+편입 문제:
+
+- `simulation-3025`
+- `string-2115`, `string-4836`, `string-16890`
+- `implementation-21611`
+- `prefix_sum-2900`, `prefix_sum-5875`
+
+검증 명령:
+
+```bash
+node scripts/import-expansion-manual-batch-10.mjs
+python scripts/verify-judge-overrides.py simulation-3025 string-2115 string-4836 string-16890 implementation-21611 prefix_sum-2900 prefix_sum-5875
+npm run data:map
+npm run judge:coverage
+npm run judge:lang-audit
+npm run judge:audit
+npx next build
+```
+
+검증 결과:
+
+- 신규 7문제 override self-judge: 모두 AC
+- 전체 포켓몬 매핑: 477개
+- judge coverage: 477개 전부 judge ready
+- missing case: 0개
+- Python/C++ 제출 가능성 audit: 통과
+- Next.js build: 통과
+
+현재 확정 상태:
+
+- batch-02 남은 후보: 0개
+- 확장 unique BOJ 문제: 115개
+- 총 unique BOJ 문제: 468개
+- 목표 1025개까지 남은 unique 문제 수: 557개

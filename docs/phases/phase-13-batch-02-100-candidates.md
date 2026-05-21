@@ -447,3 +447,28 @@ GitHub Action 수정 커밋 이후 남은 후보 중 규칙을 확인할 수 있
 - `npx next build`: 통과
 
 현재 확정 매핑 수는 470개다.
+
+### 2026-05-21 batch-02 마감 partial 7문제 편입
+
+batch-02 후보 중 마지막으로 남은 7문제를 모두 편입했다. 이번 묶음은 전체 남은 후보가 20개 미만이었기 때문에 partial batch로 처리했다.
+
+편입 문제:
+
+- `simulation-3025` 돌 던지기
+- `string-2115` 갤러리
+- `string-4836` 춤
+- `string-16890` 창업
+- `implementation-21611` 마법사 상어와 블리자드
+- `prefix_sum-2900` 프로그램
+- `prefix_sum-5875` 오타
+
+검증:
+
+- 신규 7문제 override self-judge: 모두 AC
+- `npm run data:map`: 477개 매핑
+- `npm run judge:coverage`: 477개 전부 judge ready
+- `npm run judge:lang-audit`: Python/C++ 제출 가능성 통과
+- `npm run judge:audit`: missing case 0개
+- `npx next build`: 통과
+
+batch-02 남은 후보 수는 0개다.
