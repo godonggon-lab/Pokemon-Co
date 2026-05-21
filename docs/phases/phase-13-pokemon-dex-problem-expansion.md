@@ -949,3 +949,39 @@ npx next build
 - 확장 unique BOJ 문제: 103개
 - 총 unique BOJ 문제: 456개
 - 목표 1025개까지 남은 unique 문제 수: 569개
+
+### 열다섯 번째 prefix/구현 5문제 수동 배치
+
+GitHub Action의 Docker runner 인자 호환 문제를 커밋/푸시한 뒤, 남은 후보 중 규칙을 안정적으로 재현할 수 있는 5문제를 추가했다.
+
+편입 문제:
+
+- `prefix_sum-10427`, `prefix_sum-18866`, `prefix_sum-19566`
+- `implementation-22859`, `implementation-22860`
+
+검증 명령:
+
+```bash
+node scripts/import-expansion-manual-batch-09.mjs
+python scripts/verify-judge-overrides.py prefix_sum-10427 prefix_sum-18866 prefix_sum-19566 implementation-22859 implementation-22860
+npm run data:map
+npm run judge:coverage
+npm run judge:lang-audit
+npm run judge:audit
+npx next build
+```
+
+검증 결과:
+
+- 신규 5문제 override self-judge: 모두 AC
+- 전체 포켓몬 매핑: 470개
+- judge coverage: 470개 전부 judge ready
+- missing case: 0개
+- Python/C++ 제출 가능성 audit: 통과
+- Next.js build: 통과
+
+현재 확정 상태:
+
+- 확장 unique BOJ 문제: 108개
+- 총 unique BOJ 문제: 461개
+- 목표 1025개까지 남은 unique 문제 수: 564개

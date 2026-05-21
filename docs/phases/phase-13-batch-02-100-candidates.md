@@ -424,3 +424,26 @@
 - `npx next build`: 통과
 
 현재 확정 매핑 수는 465개다.
+
+### 2026-05-21 prefix/구현 5문제 편입
+
+GitHub Action 수정 커밋 이후 남은 후보 중 규칙을 확인할 수 있는 5문제를 추가했다.
+
+편입 문제:
+
+- `prefix_sum-10427` 빚
+- `prefix_sum-18866` 젊은 날의 생이여
+- `prefix_sum-19566` 수열의 구간 평균
+- `implementation-22859` HTML 파싱
+- `implementation-22860` 폴더 정리 (small)
+
+검증:
+
+- 신규 5문제 override self-judge: 모두 AC
+- `npm run data:map`: 470개 매핑
+- `npm run judge:coverage`: 470개 전부 judge ready
+- `npm run judge:lang-audit`: Python/C++ 제출 가능성 통과
+- `npm run judge:audit`: missing case 0개
+- `npx next build`: 통과
+
+현재 확정 매핑 수는 470개다.

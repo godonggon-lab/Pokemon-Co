@@ -915,6 +915,24 @@
     "createdAt": 1779032187510
   },
   {
+    "id": "10427",
+    "slug": "prefix_sum-10427",
+    "categorySlug": "prefix_sum",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/prefix_sum-10427.py",
+        "code": "import sys\ninput = sys.stdin.readline\nt = int(input())\nanswers = []\nfor _ in range(t):\n    data = list(map(int, input().split()))\n    n = data[0]\n    arr = sorted(data[1:])\n    prefix = [0]\n    for value in arr:\n        prefix.append(prefix[-1] + value)\n    total = 0\n    for size in range(1, n + 1):\n        best = 10 ** 30\n        for end in range(size, n + 1):\n            cost = arr[end - 1] * size - (prefix[end] - prefix[end - size])\n            best = min(best, cost)\n        total += best\n    answers.append(str(total))\nprint('\\n'.join(answers))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/10427",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "ca1ab2c96c5f",
+    "createdAt": 1779367596535
+  },
+  {
     "id": "10703",
     "slug": "implementation-10703",
     "categorySlug": "implementation",
@@ -1609,6 +1627,42 @@
     "createdAt": 1779197295240
   },
   {
+    "id": "18866",
+    "slug": "prefix_sum-18866",
+    "categorySlug": "prefix_sum",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/prefix_sum-18866.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\nhappy = [0] * n\ntired = [0] * n\nfor i in range(n):\n    happy[i], tired[i] = map(int, input().split())\ninf = 10 ** 30\npref_min_h = [inf] * n\npref_max_t = [-inf] * n\ncur_h = inf\ncur_t = -inf\nfor i in range(n):\n    if happy[i]:\n        cur_h = min(cur_h, happy[i])\n    if tired[i]:\n        cur_t = max(cur_t, tired[i])\n    pref_min_h[i] = cur_h\n    pref_max_t[i] = cur_t\nsuf_max_h = [-inf] * n\nsuf_min_t = [inf] * n\ncur_h = -inf\ncur_t = inf\nfor i in range(n - 1, -1, -1):\n    if happy[i]:\n        cur_h = max(cur_h, happy[i])\n    if tired[i]:\n        cur_t = min(cur_t, tired[i])\n    suf_max_h[i] = cur_h\n    suf_min_t[i] = cur_t\nanswer = -1\nfor k in range(1, n):\n    if pref_min_h[k - 1] > suf_max_h[k] and pref_max_t[k - 1] < suf_min_t[k]:\n        answer = k\nprint(answer)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/18866",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "d52bc6efc6c6",
+    "createdAt": 1779367596538
+  },
+  {
+    "id": "19566",
+    "slug": "prefix_sum-19566",
+    "categorySlug": "prefix_sum",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/prefix_sum-19566.py",
+        "code": "import sys\nfrom collections import defaultdict\ninput = sys.stdin.readline\nn, k = map(int, input().split())\narr = list(map(int, input().split()))\ncounter = defaultdict(int)\ncounter[0] = 1\nprefix = 0\nanswer = 0\nfor idx, value in enumerate(arr, 1):\n    prefix += value\n    key = prefix - idx * k\n    answer += counter[key]\n    counter[key] += 1\nprint(answer)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/19566",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "24880895e395",
+    "createdAt": 1779367596538
+  },
+  {
     "id": "19583",
     "slug": "data_structure2-19583",
     "categorySlug": "data_structure2",
@@ -1859,6 +1913,42 @@
     ],
     "hash": "1bfdf0914d65",
     "createdAt": 1779201736800
+  },
+  {
+    "id": "22859",
+    "slug": "implementation-22859",
+    "categorySlug": "implementation",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/implementation-22859.py",
+        "code": "import re, sys\nsource = sys.stdin.readline().strip()\nmain = re.search(r'<main>(.*)</main>', source).group(1)\nfor title, body in re.findall(r'<div title=\"(.*?)\">(.*?)</div>', main):\n    print(f'title : {title}')\n    for paragraph in re.findall(r'<p>(.*?)</p>', body):\n        text = re.sub(r'<.*?>', '', paragraph)\n        text = re.sub(r'\\s+', ' ', text.strip())\n        print(text)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/22859",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "14cdf31ebfda",
+    "createdAt": 1779367596538
+  },
+  {
+    "id": "22860",
+    "slug": "implementation-22860",
+    "categorySlug": "implementation",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/implementation-22860.py",
+        "code": "import sys\nfrom collections import defaultdict\ninput = sys.stdin.readline\nn, m = map(int, input().split())\nchildren = defaultdict(list)\nfor _ in range(n + m):\n    parent, child, is_folder = input().split()\n    children[parent].append((child, is_folder == '1'))\n\ndef collect(folder):\n    names = set()\n    total = 0\n    stack = [folder]\n    while stack:\n        cur = stack.pop()\n        for name, is_folder in children[cur]:\n            if is_folder:\n                stack.append(name)\n            else:\n                names.add(name)\n                total += 1\n    return len(names), total\n\nq = int(input())\nout = []\nfor _ in range(q):\n    folder = input().strip().split('/')[-1]\n    out.append('%d %d' % collect(folder))\nprint('\\n'.join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/22860",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "cc98625632d7",
+    "createdAt": 1779367596539
   },
   {
     "id": "22943",
