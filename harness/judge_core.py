@@ -116,8 +116,11 @@ class DockerRunner:
             return RunResult(False, "", "docker not installed on judge host", 0, False, False)
 
         host_dir = tempfile.mkdtemp(prefix="cr-")
+        os.chmod(host_dir, 0o755)
         fname = {"python":"main.py","javascript":"main.js","cpp":"main.cpp","java":"Main.java"}[lang]
-        with open(os.path.join(host_dir, fname), "w", encoding="utf-8") as h: h.write(code)
+        source_path = os.path.join(host_dir, fname)
+        with open(source_path, "w", encoding="utf-8") as h: h.write(code)
+        os.chmod(source_path, 0o644)
 
         cname = f"cr-{uuid.uuid4().hex[:10]}"
         # 컨테이너 내부 timeout 을 정확한 ms 로 강제. 외부 subprocess 타임아웃은
