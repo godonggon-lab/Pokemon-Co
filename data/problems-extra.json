@@ -648,6 +648,24 @@
     "createdAt": 1779375186073
   },
   {
+    "id": "1548",
+    "slug": "brute_force-1548",
+    "categorySlug": "brute_force",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/brute_force-1548.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\na = sorted(map(int, input().split()))\nans = min(n, 2)\nfor i in range(n):\n    for j in range(i + 2, n):\n        if a[i] + a[i + 1] > a[j]:\n            ans = max(ans, j - i + 1)\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1548",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "1ca0a0073fb1",
+    "createdAt": 1779440392436
+  },
+  {
     "id": "1622",
     "slug": "string-1622",
     "categorySlug": "string",
@@ -790,6 +808,24 @@
     ],
     "hash": "a975675ec89b",
     "createdAt": 1779439433534
+  },
+  {
+    "id": "1711",
+    "slug": "brute_force-1711",
+    "categorySlug": "brute_force",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/brute_force-1711.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\np = [tuple(map(int, input().split())) for _ in range(n)]\nans = 0\nfor i in range(n):\n    for j in range(i + 1, n):\n        for k in range(j + 1, n):\n            x1, y1 = p[i]; x2, y2 = p[j]; x3, y3 = p[k]\n            v = [((x2-x1, y2-y1), (x3-x1, y3-y1)), ((x1-x2, y1-y2), (x3-x2, y3-y2)), ((x1-x3, y1-y3), (x2-x3, y2-y3))]\n            if any(a*c + b*d == 0 for (a,b), (c,d) in v):\n                ans += 1\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1711",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "624e4d4d5438",
+    "createdAt": 1779440392438
   },
   {
     "id": "1713",
@@ -1247,6 +1283,24 @@
     "createdAt": 1779439433535
   },
   {
+    "id": "2225",
+    "slug": "dynamic_programming_2-2225",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-2225.py",
+        "code": "import sys\nn, k = map(int, sys.stdin.readline().split())\nmod = 1000000000\ndp = [[0] * (n + 1) for _ in range(k + 1)]\ndp[0][0] = 1\nfor i in range(1, k + 1):\n    acc = 0\n    for s in range(n + 1):\n        acc = (acc + dp[i - 1][s]) % mod\n        dp[i][s] = acc\nprint(dp[k][n])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2225",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "243b6f109730",
+    "createdAt": 1779440392438
+  },
+  {
     "id": "2293",
     "slug": "dynamic_programming_1-2293",
     "categorySlug": "dynamic_programming_1",
@@ -1263,6 +1317,78 @@
     ],
     "hash": "f13b3ca1b448",
     "createdAt": 1779033474715
+  },
+  {
+    "id": "2302",
+    "slug": "dynamic_programming_1-2302",
+    "categorySlug": "dynamic_programming_1",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_1-2302.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\nm = int(input())\nvip = [int(input()) for _ in range(m)]\nfib = [1] * (n + 2)\nfib[1] = 1\nfor i in range(2, n + 2):\n    fib[i] = fib[i - 1] + fib[i - 2]\nans = 1\nprev = 0\nfor x in vip + [n + 1]:\n    ans *= fib[x - prev - 1]\n    prev = x\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2302",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "ca217b54170a",
+    "createdAt": 1779440392439
+  },
+  {
+    "id": "2304",
+    "slug": "brute_force-2304",
+    "categorySlug": "brute_force",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/brute_force-2304.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\np = sorted(tuple(map(int, input().split())) for _ in range(n))\nmax_h = max(h for _, h in p)\nmax_positions = [x for x, h in p if h == max_h]\nleft_max_x = max_positions[0]\nright_max_x = max_positions[-1]\narea = (right_max_x - left_max_x + 1) * max_h\ncur_x, cur_h = p[0]\nfor x, h in p:\n    if x > left_max_x:\n        break\n    if h > cur_h:\n        area += (x - cur_x) * cur_h\n        cur_x, cur_h = x, h\ncur_x, cur_h = p[-1]\nfor x, h in reversed(p):\n    if x < right_max_x:\n        break\n    if h > cur_h:\n        area += (cur_x - x) * cur_h\n        cur_x, cur_h = x, h\nprint(area)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2304",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "76d41b406dc0",
+    "createdAt": 1779440392439
+  },
+  {
+    "id": "2343",
+    "slug": "binary_search-2343",
+    "categorySlug": "binary_search",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/binary_search-2343.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, m = map(int, input().split())\na = list(map(int, input().split()))\nlo, hi = max(a), sum(a)\nwhile lo < hi:\n    mid = (lo + hi) // 2\n    cnt = 1\n    cur = 0\n    for x in a:\n        if cur + x > mid:\n            cnt += 1\n            cur = 0\n        cur += x\n    if cnt <= m:\n        hi = mid\n    else:\n        lo = mid + 1\nprint(lo)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2343",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "18fc94f27b42",
+    "createdAt": 1779440392439
+  },
+  {
+    "id": "2435",
+    "slug": "brute_force-2435",
+    "categorySlug": "brute_force",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/brute_force-2435.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, k = map(int, input().split())\na = list(map(int, input().split()))\ncur = sum(a[:k])\nans = cur\nfor i in range(k, n):\n    cur += a[i] - a[i - k]\n    ans = max(ans, cur)\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2435",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "ed27a3a4b94d",
+    "createdAt": 1779440392439
   },
   {
     "id": "2436",
@@ -1301,6 +1427,42 @@
     "createdAt": 1779197295241
   },
   {
+    "id": "2491",
+    "slug": "dynamic_programming_1-2491",
+    "categorySlug": "dynamic_programming_1",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_1-2491.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\na = list(map(int, input().split()))\ninc = dec = ans = 1\nfor i in range(1, n):\n    inc = inc + 1 if a[i - 1] <= a[i] else 1\n    dec = dec + 1 if a[i - 1] >= a[i] else 1\n    ans = max(ans, inc, dec)\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2491",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "f28c7f098a2e",
+    "createdAt": 1779440392439
+  },
+  {
+    "id": "2531",
+    "slug": "two_pointer-2531",
+    "categorySlug": "two_pointer",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/two_pointer-2531.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, d, k, c = map(int, input().split())\na = [int(input()) for _ in range(n)]\ncnt = [0] * (d + 1)\nkind = 0\nfor i in range(k):\n    if cnt[a[i]] == 0:\n        kind += 1\n    cnt[a[i]] += 1\nans = kind + (1 if cnt[c] == 0 else 0)\nfor start in range(1, n):\n    out = a[start - 1]\n    cnt[out] -= 1\n    if cnt[out] == 0:\n        kind -= 1\n    inn = a[(start + k - 1) % n]\n    if cnt[inn] == 0:\n        kind += 1\n    cnt[inn] += 1\n    ans = max(ans, kind + (1 if cnt[c] == 0 else 0))\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2531",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "03354fc77ef0",
+    "createdAt": 1779440392439
+  },
+  {
     "id": "2553",
     "slug": "math-2553",
     "categorySlug": "math",
@@ -1335,6 +1497,24 @@
     ],
     "hash": "1b915c70d6e8",
     "createdAt": 1779033474716
+  },
+  {
+    "id": "2583",
+    "slug": "graph_traversal-2583",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-2583.py",
+        "code": "from collections import deque\nimport sys\ninput = sys.stdin.readline\nm, n, k = map(int, input().split())\ngrid = [[False] * n for _ in range(m)]\nfor _ in range(k):\n    x1, y1, x2, y2 = map(int, input().split())\n    for y in range(y1, y2):\n        for x in range(x1, x2):\n            grid[y][x] = True\nareas = []\nfor r in range(m):\n    for c in range(n):\n        if grid[r][c]:\n            continue\n        grid[r][c] = True\n        q = deque([(r, c)])\n        size = 0\n        while q:\n            x, y = q.popleft()\n            size += 1\n            for dx, dy in ((1,0),(-1,0),(0,1),(0,-1)):\n                nx, ny = x + dx, y + dy\n                if 0 <= nx < m and 0 <= ny < n and not grid[nx][ny]:\n                    grid[nx][ny] = True\n                    q.append((nx, ny))\n        areas.append(size)\nareas.sort()\nprint(len(areas))\nprint(' '.join(map(str, areas)))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2583",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "33ca4fdeb1f0",
+    "createdAt": 1779440392439
   },
   {
     "id": "2602",
@@ -1396,6 +1576,24 @@
     "createdAt": 1778862834517
   },
   {
+    "id": "2644",
+    "slug": "graph_traversal-2644",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-2644.py",
+        "code": "from collections import deque\nimport sys\ninput = sys.stdin.readline\nn = int(input())\na, b = map(int, input().split())\nm = int(input())\ng = [[] for _ in range(n + 1)]\nfor _ in range(m):\n    x, y = map(int, input().split())\n    g[x].append(y)\n    g[y].append(x)\ndist = [-1] * (n + 1)\ndist[a] = 0\nq = deque([a])\nwhile q:\n    x = q.popleft()\n    for y in g[x]:\n        if dist[y] == -1:\n            dist[y] = dist[x] + 1\n            q.append(y)\nprint(dist[b])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2644",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "cb3bf77a8a60",
+    "createdAt": 1779440392440
+  },
+  {
     "id": "2671",
     "slug": "string-2671",
     "categorySlug": "string",
@@ -1412,6 +1610,24 @@
     ],
     "hash": "a34005d55ef1",
     "createdAt": 1779032187510
+  },
+  {
+    "id": "2792",
+    "slug": "binary_search-2792",
+    "categorySlug": "binary_search",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/binary_search-2792.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, m = map(int, input().split())\na = [int(input()) for _ in range(m)]\nlo, hi = 1, max(a)\nwhile lo < hi:\n    mid = (lo + hi) // 2\n    need = sum((x + mid - 1) // mid for x in a)\n    if need <= n:\n        hi = mid\n    else:\n        lo = mid + 1\nprint(lo)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2792",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "3631eee3f6de",
+    "createdAt": 1779440392440
   },
   {
     "id": "2824",
@@ -1522,6 +1738,24 @@
     "createdAt": 1779032187509
   },
   {
+    "id": "2961",
+    "slug": "brute_force-2961",
+    "categorySlug": "brute_force",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/brute_force-2961.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\ning = [tuple(map(int, input().split())) for _ in range(n)]\nans = 10 ** 18\nfor mask in range(1, 1 << n):\n    sour = 1\n    bitter = 0\n    for i in range(n):\n        if mask >> i & 1:\n            sour *= ing[i][0]\n            bitter += ing[i][1]\n    ans = min(ans, abs(sour - bitter))\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2961",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "53a156e88af6",
+    "createdAt": 1779440392440
+  },
+  {
     "id": "3005",
     "slug": "string-3005",
     "categorySlug": "string",
@@ -1558,6 +1792,24 @@
     "createdAt": 1779368220400
   },
   {
+    "id": "3085",
+    "slug": "brute_force-3085",
+    "categorySlug": "brute_force",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/brute_force-3085.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\na = [list(input().strip()) for _ in range(n)]\ndef best():\n    res = 1\n    for i in range(n):\n        row = col = 1\n        for j in range(1, n):\n            row = row + 1 if a[i][j] == a[i][j - 1] else 1\n            col = col + 1 if a[j][i] == a[j - 1][i] else 1\n            res = max(res, row, col)\n    return res\nans = best()\nfor i in range(n):\n    for j in range(n):\n        if j + 1 < n:\n            a[i][j], a[i][j + 1] = a[i][j + 1], a[i][j]\n            ans = max(ans, best())\n            a[i][j], a[i][j + 1] = a[i][j + 1], a[i][j]\n        if i + 1 < n:\n            a[i][j], a[i + 1][j] = a[i + 1][j], a[i][j]\n            ans = max(ans, best())\n            a[i][j], a[i + 1][j] = a[i + 1][j], a[i][j]\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/3085",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "5e99600c88d5",
+    "createdAt": 1779440392441
+  },
+  {
     "id": "3107",
     "slug": "string-3107",
     "categorySlug": "string",
@@ -1574,6 +1826,60 @@
     ],
     "hash": "6684ee895056",
     "createdAt": 1779193907416
+  },
+  {
+    "id": "3184",
+    "slug": "graph_traversal-3184",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-3184.py",
+        "code": "from collections import deque\nimport sys\ninput = sys.stdin.readline\nr, c = map(int, input().split())\na = [list(input().strip()) for _ in range(r)]\nsheep = wolves = 0\nfor i in range(r):\n    for j in range(c):\n        if a[i][j] == '#':\n            continue\n        q = deque([(i, j)])\n        s = w = 0\n        if a[i][j] == 'o':\n            s += 1\n        elif a[i][j] == 'v':\n            w += 1\n        a[i][j] = '#'\n        while q:\n            x, y = q.popleft()\n            for dx, dy in ((1,0),(-1,0),(0,1),(0,-1)):\n                nx, ny = x + dx, y + dy\n                if 0 <= nx < r and 0 <= ny < c and a[nx][ny] != '#':\n                    if a[nx][ny] == 'o':\n                        s += 1\n                    elif a[nx][ny] == 'v':\n                        w += 1\n                    a[nx][ny] = '#'\n                    q.append((nx, ny))\n        if s > w:\n            sheep += s\n        else:\n            wolves += w\nprint(sheep, wolves)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/3184",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "63c3836ede0b",
+    "createdAt": 1779440392441
+  },
+  {
+    "id": "3187",
+    "slug": "graph_traversal-3187",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-3187.py",
+        "code": "from collections import deque\nimport sys\ninput = sys.stdin.readline\nr, c = map(int, input().split())\na = [list(input().strip()) for _ in range(r)]\nsheep = wolves = 0\nfor i in range(r):\n    for j in range(c):\n        if a[i][j] == '#':\n            continue\n        q = deque([(i, j)])\n        s = w = 0\n        if a[i][j] == 'k':\n            s += 1\n        elif a[i][j] == 'v':\n            w += 1\n        a[i][j] = '#'\n        while q:\n            x, y = q.popleft()\n            for dx, dy in ((1,0),(-1,0),(0,1),(0,-1)):\n                nx, ny = x + dx, y + dy\n                if 0 <= nx < r and 0 <= ny < c and a[nx][ny] != '#':\n                    if a[nx][ny] == 'k':\n                        s += 1\n                    elif a[nx][ny] == 'v':\n                        w += 1\n                    a[nx][ny] = '#'\n                    q.append((nx, ny))\n        if s > w:\n            sheep += s\n        else:\n            wolves += w\nprint(sheep, wolves)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/3187",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "6a109bd5891d",
+    "createdAt": 1779440392441
+  },
+  {
+    "id": "3273",
+    "slug": "two_pointer-3273",
+    "categorySlug": "two_pointer",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/two_pointer-3273.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\na = sorted(map(int, input().split()))\nx = int(input())\nl, r = 0, n - 1\nans = 0\nwhile l < r:\n    s = a[l] + a[r]\n    if s == x:\n        ans += 1\n        l += 1\n        r -= 1\n    elif s < x:\n        l += 1\n    else:\n        r -= 1\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/3273",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "ce800fc65d69",
+    "createdAt": 1779440392441
   },
   {
     "id": "3343",
@@ -1628,6 +1934,24 @@
     ],
     "hash": "7effe76ce88c",
     "createdAt": 1779033474716
+  },
+  {
+    "id": "4097",
+    "slug": "dynamic_programming_1-4097",
+    "categorySlug": "dynamic_programming_1",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_1-4097.py",
+        "code": "import sys\ninput = sys.stdin.readline\nout = []\nwhile True:\n    n = int(input())\n    if n == 0:\n        break\n    best = cur = int(input())\n    for _ in range(n - 1):\n        x = int(input())\n        cur = max(x, cur + x)\n        best = max(best, cur)\n    out.append(str(best))\nprint('\\n'.join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/4097",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "3c0422bfa06d",
+    "createdAt": 1779440392441
   },
   {
     "id": "4446",
@@ -1689,6 +2013,24 @@
     "createdAt": 1778687533845
   },
   {
+    "id": "5014",
+    "slug": "graph_traversal-5014",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-5014.py",
+        "code": "from collections import deque\nimport sys\nf, s, g, u, d = map(int, sys.stdin.readline().split())\ndist = [-1] * (f + 1)\ndist[s] = 0\nq = deque([s])\nwhile q:\n    x = q.popleft()\n    for nx in (x + u, x - d):\n        if 1 <= nx <= f and dist[nx] == -1:\n            dist[nx] = dist[x] + 1\n            q.append(nx)\nprint(dist[g] if dist[g] != -1 else \"use the stairs\")\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/5014",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "c88b7d1d0687",
+    "createdAt": 1779440392441
+  },
+  {
     "id": "5534",
     "slug": "string-5534",
     "categorySlug": "string",
@@ -1723,6 +2065,24 @@
     ],
     "hash": "4ea5f1611ce5",
     "createdAt": 1779033474716
+  },
+  {
+    "id": "5567",
+    "slug": "graph_traversal-5567",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-5567.py",
+        "code": "from collections import deque\nimport sys\ninput = sys.stdin.readline\nn = int(input())\nm = int(input())\ng = [[] for _ in range(n + 1)]\nfor _ in range(m):\n    a, b = map(int, input().split())\n    g[a].append(b)\n    g[b].append(a)\ndist = [-1] * (n + 1)\ndist[1] = 0\nq = deque([1])\nwhile q:\n    x = q.popleft()\n    for y in g[x]:\n        if dist[y] == -1:\n            dist[y] = dist[x] + 1\n            q.append(y)\nprint(sum(1 for d in dist[2:] if 1 <= d <= 2))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/5567",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "103fac06c49a",
+    "createdAt": 1779440392441
   },
   {
     "id": "5766",

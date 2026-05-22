@@ -1134,3 +1134,40 @@ npx next build
 
 - 이번 배치 처리: 20개
 - 확장 후보 기준 남은 문제: 467개
+
+### Batch 06: exact compare 20문제 확장
+
+이번 배치는 정답 출력이 고유해서 exact compare로 안정적으로 채점 가능한 20문제를 추가했다. 정답이 여러 개 가능한 문제는 special judge가 준비될 때까지 제외한다.
+
+도입 문제:
+
+- `brute_force-1548`, `brute_force-1711`, `dynamic_programming_2-2225`, `dynamic_programming_1-2302`, `brute_force-2304`
+- `binary_search-2343`, `brute_force-2435`, `dynamic_programming_1-2491`, `two_pointer-2531`, `graph_traversal-2583`
+- `graph_traversal-2644`, `binary_search-2792`, `brute_force-2961`, `brute_force-3085`, `graph_traversal-3184`
+- `graph_traversal-3187`, `two_pointer-3273`, `dynamic_programming_1-4097`, `graph_traversal-5014`, `graph_traversal-5567`
+
+검증 명령:
+
+```bash
+node scripts/import-expansion-manual-batch-14.mjs
+python scripts/verify-judge-overrides.py brute_force-1548 brute_force-1711 dynamic_programming_2-2225 dynamic_programming_1-2302 brute_force-2304 binary_search-2343 brute_force-2435 dynamic_programming_1-2491 two_pointer-2531 graph_traversal-2583 graph_traversal-2644 binary_search-2792 brute_force-2961 brute_force-3085 graph_traversal-3184 graph_traversal-3187 two_pointer-3273 dynamic_programming_1-4097 graph_traversal-5014 graph_traversal-5567
+npm run data:map
+npm run judge:coverage
+npm run judge:lang-audit
+npm run judge:audit
+npx next build
+```
+
+검증 결과:
+
+- 신규 20문제 override self-judge: 모두 AC
+- 전체 포켓몬 매핑: 557개
+- judge coverage: 557개 전부 judge ready
+- missing case: 0개
+- Python/C++ 제출 가능성 audit: 통과
+- Next.js build: 통과
+
+현재 확정 상태:
+
+- 이번 배치 처리: 20개
+- 확장 후보 기준 남은 문제: 447개
