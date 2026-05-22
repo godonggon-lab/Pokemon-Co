@@ -1171,3 +1171,42 @@ npx next build
 
 - 이번 배치 처리: 20개
 - 확장 후보 기준 남은 문제: 447개
+
+### Batch 07: DP/문자열/기초 20문제 확장
+
+이번 배치는 출력 포맷이 명확하고 exact compare로 채점 가능한 DP, 문자열, 기초 구현 문제 20개를 추가했다.
+
+도입 문제:
+
+- `brute_force-2635`, `dynamic_programming_2-2688`, `brute_force-3040`, `dynamic_programming_2-3067`, `dynamic_programming_2-4811`
+- `trie-5052`, `simulation-5212`, `brute_force-5671`, `brute_force-5883`, `divide_and_conquer-5904`
+- `two_pointer-6159`, `tree-9372`, `data_structure2-9375`, `brute_force-9996`, `dynamic_programming_1-10211`
+- `brute_force-10448`, `dynamic_programming_1-10844`, `dynamic_programming_1-11051`, `dynamic_programming_1-11052`, `dynamic_programming_1-11057`
+
+검증 명령:
+
+```bash
+node scripts/import-expansion-manual-batch-15.mjs
+python scripts/verify-judge-overrides.py brute_force-2635 dynamic_programming_2-2688 brute_force-3040 dynamic_programming_2-3067 dynamic_programming_2-4811 trie-5052 simulation-5212 brute_force-5671 brute_force-5883 divide_and_conquer-5904 two_pointer-6159 tree-9372 data_structure2-9375 brute_force-9996 dynamic_programming_1-10211 brute_force-10448 dynamic_programming_1-10844 dynamic_programming_1-11051 dynamic_programming_1-11052 dynamic_programming_1-11057
+npm run data:map
+npm run judge:coverage
+npm run judge:lang-audit
+npm run judge:audit
+npx next build
+npm run judge:docker-check
+```
+
+검증 결과:
+
+- 신규 20문제 override self-judge: 모두 AC
+- 전체 포켓몬 매핑: 577개
+- judge coverage: 577개 전부 judge ready
+- missing case: 0개
+- Python/C++ 제출 가능성 audit: 통과
+- Next.js build: 통과
+- Docker runner check: 통과
+
+현재 확정 상태:
+
+- 이번 배치 처리: 20개
+- 확장 후보 기준 남은 문제: 427개
