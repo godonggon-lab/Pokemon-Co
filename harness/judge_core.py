@@ -132,7 +132,7 @@ class DockerRunner:
             "--name", cname,
             "--network", "none",
             "--read-only",
-            "--tmpfs", "/work:exec,size=64m",
+            "--tmpfs", "/work:exec,size=64m,mode=1777",
             "--memory", f"{memory_mb}m",
             "--cpus", "1.0",
             "--pids-limit", "128",
