@@ -252,6 +252,24 @@
     "createdAt": 1779464306674
   },
   {
+    "id": "1167",
+    "slug": "tree-1167",
+    "categorySlug": "tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/tree-1167.py",
+        "code": "from collections import deque\nimport sys\ninput = sys.stdin.readline\nv = int(input())\ng = [[] for _ in range(v + 1)]\nfor _ in range(v):\n    data = list(map(int, input().split()))\n    x = data[0]\n    i = 1\n    while data[i] != -1:\n        g[x].append((data[i], data[i + 1]))\n        i += 2\ndef far(start):\n    dist = [-1] * (v + 1)\n    dist[start] = 0\n    q = deque([start])\n    while q:\n        x = q.popleft()\n        for nx, w in g[x]:\n            if dist[nx] == -1:\n                dist[nx] = dist[x] + w\n                q.append(nx)\n    node = max(range(1, v + 1), key=lambda i: dist[i])\n    return node, dist[node]\na, _ = far(1)\n_, ans = far(a)\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1167",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "aa32244a8c8e",
+    "createdAt": 1779466335121
+  },
+  {
     "id": "1174",
     "slug": "backtracking-1174",
     "categorySlug": "backtracking",
@@ -340,6 +358,24 @@
     ],
     "hash": "201c0e8ea01b",
     "createdAt": 1779464306674
+  },
+  {
+    "id": "1248",
+    "slug": "backtracking-1248",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-1248.py",
+        "code": "import sys\nn = int(sys.stdin.readline())\ns = sys.stdin.readline().strip()\nsign = [[\"\"] * n for _ in range(n)]\nidx = 0\nfor i in range(n):\n    for j in range(i, n):\n        sign[i][j] = s[idx]\n        idx += 1\nans = []\ndef ok(pos):\n    total = 0\n    for i in range(pos, -1, -1):\n        total += ans[i]\n        c = sign[i][pos]\n        if c == \"+\" and total <= 0:\n            return False\n        if c == \"-\" and total >= 0:\n            return False\n        if c == \"0\" and total != 0:\n            return False\n    return True\ndef dfs(pos):\n    if pos == n:\n        print(*ans)\n        raise SystemExit\n    candidates = [0] if sign[pos][pos] == \"0\" else (range(1, 11) if sign[pos][pos] == \"+\" else range(-10, 0))\n    for x in candidates:\n        ans.append(x)\n        if ok(pos):\n            dfs(pos + 1)\n        ans.pop()\ndfs(0)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1248",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "16af15040584",
+    "createdAt": 1779466335123
   },
   {
     "id": "1251",
@@ -774,6 +810,24 @@
     "createdAt": 1779375186073
   },
   {
+    "id": "1493",
+    "slug": "divide_and_conquer-1493",
+    "categorySlug": "divide_and_conquer",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/divide_and_conquer-1493.py",
+        "code": "import sys\ninput = sys.stdin.readline\nl, w, h = map(int, input().split())\nn = int(input())\ncubes = [0] * 20\nfor _ in range(n):\n    a, b = map(int, input().split())\n    cubes[a] = b\nused = 0\nfilled = 0\nfor i in range(19, -1, -1):\n    filled *= 8\n    fit = (l >> i) * (w >> i) * (h >> i) - filled\n    take = min(fit, cubes[i])\n    used += take\n    filled += take\nprint(used if filled == l * w * h else -1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1493",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "2ebe95f7e0c0",
+    "createdAt": 1779466335123
+  },
+  {
     "id": "1495",
     "slug": "dynamic_programming_1-1495",
     "categorySlug": "dynamic_programming_1",
@@ -970,6 +1024,24 @@
     ],
     "hash": "48408dd987f9",
     "createdAt": 1779464306676
+  },
+  {
+    "id": "1595",
+    "slug": "tree-1595",
+    "categorySlug": "tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/tree-1595.py",
+        "code": "from collections import defaultdict, deque\nimport sys\ng = defaultdict(list)\nnodes = set()\nfor line in sys.stdin:\n    if not line.strip():\n        continue\n    a, b, c = map(int, line.split())\n    g[a].append((b, c))\n    g[b].append((a, c))\n    nodes.add(a); nodes.add(b)\nif not nodes:\n    print(0)\nelse:\n    def far(start):\n        dist = {start: 0}\n        q = deque([start])\n        while q:\n            x = q.popleft()\n            for nx, w in g[x]:\n                if nx not in dist:\n                    dist[nx] = dist[x] + w\n                    q.append(nx)\n        node = max(dist, key=dist.get)\n        return node, dist[node]\n    a, _ = far(next(iter(nodes)))\n    _, ans = far(a)\n    print(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1595",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "86adcb789143",
+    "createdAt": 1779466335123
   },
   {
     "id": "1600",
@@ -1278,6 +1350,24 @@
     "createdAt": 1779371113602
   },
   {
+    "id": "1753",
+    "slug": "shortest_path-1753",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-1753.py",
+        "code": "import heapq, sys\ninput = sys.stdin.readline\nv, e = map(int, input().split())\nk = int(input())\ng = [[] for _ in range(v + 1)]\nfor _ in range(e):\n    a, b, w = map(int, input().split())\n    g[a].append((b, w))\ndist = [10**18] * (v + 1)\ndist[k] = 0\npq = [(0, k)]\nwhile pq:\n    d, x = heapq.heappop(pq)\n    if d != dist[x]:\n        continue\n    for nx, w in g[x]:\n        nd = d + w\n        if nd < dist[nx]:\n            dist[nx] = nd\n            heapq.heappush(pq, (nd, nx))\nprint(\"\\n\".join(\"INF\" if dist[i] == 10**18 else str(dist[i]) for i in range(1, v + 1)))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1753",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "5c4d3cd33d6a",
+    "createdAt": 1779466335123
+  },
+  {
     "id": "1759",
     "slug": "backtracking-1759",
     "categorySlug": "backtracking",
@@ -1348,6 +1438,24 @@
     ],
     "hash": "c244c5afa10a",
     "createdAt": 1779439433535
+  },
+  {
+    "id": "1865",
+    "slug": "shortest_path-1865",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-1865.py",
+        "code": "import sys\ninput = sys.stdin.readline\nout = []\nfor _ in range(int(input())):\n    n, m, w = map(int, input().split())\n    edges = []\n    for _ in range(m):\n        s, e, t = map(int, input().split())\n        edges.append((s, e, t))\n        edges.append((e, s, t))\n    for _ in range(w):\n        s, e, t = map(int, input().split())\n        edges.append((s, e, -t))\n    dist = [0] * (n + 1)\n    neg = False\n    for i in range(n):\n        updated = False\n        for a, b, c in edges:\n            if dist[b] > dist[a] + c:\n                dist[b] = dist[a] + c\n                updated = True\n                if i == n - 1:\n                    neg = True\n                    break\n        if neg or not updated:\n            break\n    out.append(\"YES\" if neg else \"NO\")\nprint(\"\\n\".join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1865",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "b13cbdf25d99",
+    "createdAt": 1779466335123
   },
   {
     "id": "1895",
@@ -1440,6 +1548,42 @@
     "createdAt": 1779439433535
   },
   {
+    "id": "1937",
+    "slug": "dynamic_programming_2-1937",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-1937.py",
+        "code": "import sys\nsys.setrecursionlimit(10**6)\ninput = sys.stdin.readline\nn = int(input())\na = [list(map(int, input().split())) for _ in range(n)]\ndp = [[0] * n for _ in range(n)]\ndef dfs(x, y):\n    if dp[x][y]:\n        return dp[x][y]\n    dp[x][y] = 1\n    for dx, dy in ((1,0),(-1,0),(0,1),(0,-1)):\n        nx, ny = x + dx, y + dy\n        if 0 <= nx < n and 0 <= ny < n and a[nx][ny] > a[x][y]:\n            dp[x][y] = max(dp[x][y], dfs(nx, ny) + 1)\n    return dp[x][y]\nprint(max(dfs(i, j) for i in range(n) for j in range(n)))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1937",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "1c02a14568b8",
+    "createdAt": 1779466335123
+  },
+  {
+    "id": "1939",
+    "slug": "binary_search-1939",
+    "categorySlug": "binary_search",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/binary_search-1939.py",
+        "code": "from collections import deque\nimport sys\ninput = sys.stdin.readline\nn, m = map(int, input().split())\ng = [[] for _ in range(n + 1)]\nhi = 0\nfor _ in range(m):\n    a, b, c = map(int, input().split())\n    g[a].append((b, c))\n    g[b].append((a, c))\n    hi = max(hi, c)\ns, e = map(int, input().split())\ndef can(limit):\n    seen = [False] * (n + 1)\n    seen[s] = True\n    q = deque([s])\n    while q:\n        x = q.popleft()\n        if x == e:\n            return True\n        for nx, w in g[x]:\n            if not seen[nx] and w >= limit:\n                seen[nx] = True\n                q.append(nx)\n    return False\nlo, ans = 1, 0\nwhile lo <= hi:\n    mid = (lo + hi) // 2\n    if can(mid):\n        ans = mid\n        lo = mid + 1\n    else:\n        hi = mid - 1\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1939",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "2f59169f9b68",
+    "createdAt": 1779466335124
+  },
+  {
     "id": "1942",
     "slug": "string-1942",
     "categorySlug": "string",
@@ -1474,6 +1618,42 @@
     ],
     "hash": "ad5e65aee968",
     "createdAt": 1779371113602
+  },
+  {
+    "id": "1948",
+    "slug": "topological_sorting-1948",
+    "categorySlug": "topological_sorting",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/topological_sorting-1948.py",
+        "code": "from collections import deque\nimport sys\ninput = sys.stdin.readline\nn = int(input())\nm = int(input())\ng = [[] for _ in range(n + 1)]\nrev = [[] for _ in range(n + 1)]\nindeg = [0] * (n + 1)\nfor _ in range(m):\n    a, b, c = map(int, input().split())\n    g[a].append((b, c))\n    rev[b].append((a, c))\n    indeg[b] += 1\ns, e = map(int, input().split())\nq = deque([s])\ndist = [0] * (n + 1)\nwhile q:\n    x = q.popleft()\n    for nx, w in g[x]:\n        if dist[nx] < dist[x] + w:\n            dist[nx] = dist[x] + w\n        indeg[nx] -= 1\n        if indeg[nx] == 0:\n            q.append(nx)\ncnt = 0\nseen = [False] * (n + 1)\nseen[e] = True\nq = deque([e])\nwhile q:\n    x = q.popleft()\n    for px, w in rev[x]:\n        if dist[x] == dist[px] + w:\n            cnt += 1\n            if not seen[px]:\n                seen[px] = True\n                q.append(px)\nprint(dist[e])\nprint(cnt)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1948",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "ee0843f0b188",
+    "createdAt": 1779466335124
+  },
+  {
+    "id": "1956",
+    "slug": "shortest_path-1956",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-1956.py",
+        "code": "import sys\ninput = sys.stdin.readline\nv, e = map(int, input().split())\nINF = 10**12\nd = [[INF] * v for _ in range(v)]\nfor _ in range(e):\n    a, b, c = map(int, input().split())\n    d[a - 1][b - 1] = min(d[a - 1][b - 1], c)\nfor k in range(v):\n    for i in range(v):\n        for j in range(v):\n            if d[i][j] > d[i][k] + d[k][j]:\n                d[i][j] = d[i][k] + d[k][j]\nans = min(d[i][i] for i in range(v))\nprint(ans if ans < INF else -1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1956",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "df7d3e5d502d",
+    "createdAt": 1779466335124
   },
   {
     "id": "1965",
@@ -1512,6 +1692,24 @@
     "createdAt": 1779032187510
   },
   {
+    "id": "1987",
+    "slug": "backtracking-1987",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-1987.py",
+        "code": "import sys\ninput = sys.stdin.readline\nr, c = map(int, input().split())\nboard = [input().strip() for _ in range(r)]\nans = 0\ndef dfs(x, y, mask, depth):\n    global ans\n    ans = max(ans, depth)\n    for dx, dy in ((1,0),(-1,0),(0,1),(0,-1)):\n        nx, ny = x + dx, y + dy\n        if 0 <= nx < r and 0 <= ny < c:\n            bit = 1 << (ord(board[nx][ny]) - 65)\n            if not (mask & bit):\n                dfs(nx, ny, mask | bit, depth + 1)\ndfs(0, 0, 1 << (ord(board[0][0]) - 65), 1)\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1987",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "864780027538",
+    "createdAt": 1779466335124
+  },
+  {
     "id": "2003",
     "slug": "two_pointer-2003",
     "categorySlug": "two_pointer",
@@ -1548,6 +1746,78 @@
     "createdAt": 1779439433535
   },
   {
+    "id": "2022",
+    "slug": "binary_search-2022",
+    "categorySlug": "binary_search",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/binary_search-2022.py",
+        "code": "import math, sys\nx, y, c = map(float, sys.stdin.readline().split())\nlo, hi = 0.0, min(x, y)\nfor _ in range(100):\n    mid = (lo + hi) / 2\n    h1 = math.sqrt(x * x - mid * mid)\n    h2 = math.sqrt(y * y - mid * mid)\n    cc = h1 * h2 / (h1 + h2)\n    if cc > c:\n        lo = mid\n    else:\n        hi = mid\nprint(f\"{lo:.3f}\")\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2022",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "3e72757ef8b7",
+    "createdAt": 1779466335124
+  },
+  {
+    "id": "2023",
+    "slug": "backtracking-2023",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-2023.py",
+        "code": "import math, sys\nn = int(sys.stdin.readline())\ndef prime(x):\n    if x < 2:\n        return False\n    for i in range(2, int(math.isqrt(x)) + 1):\n        if x % i == 0:\n            return False\n    return True\nout = []\ndef dfs(x, length):\n    if length == n:\n        out.append(str(x))\n        return\n    for d in (1, 3, 7, 9):\n        nx = x * 10 + d\n        if prime(nx):\n            dfs(nx, length + 1)\nfor start in (2, 3, 5, 7):\n    dfs(start, 1)\nprint(\"\\n\".join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2023",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "d0f13ea513f6",
+    "createdAt": 1779466335125
+  },
+  {
+    "id": "2056",
+    "slug": "dynamic_programming_2-2056",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-2056.py",
+        "code": "from collections import deque\nimport sys\ninput = sys.stdin.readline\nn = int(input())\ntime = [0] * (n + 1)\ng = [[] for _ in range(n + 1)]\nindeg = [0] * (n + 1)\ndp = [0] * (n + 1)\nfor i in range(1, n + 1):\n    data = list(map(int, input().split()))\n    time[i] = data[0]\n    for pre in data[2:]:\n        g[pre].append(i)\n        indeg[i] += 1\nq = deque(i for i in range(1, n + 1) if indeg[i] == 0)\nfor i in q:\n    dp[i] = time[i]\nwhile q:\n    x = q.popleft()\n    for nx in g[x]:\n        dp[nx] = max(dp[nx], dp[x] + time[nx])\n        indeg[nx] -= 1\n        if indeg[nx] == 0:\n            q.append(nx)\nprint(max(dp))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2056",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "d27470625e25",
+    "createdAt": 1779466335125
+  },
+  {
+    "id": "2109",
+    "slug": "greedy-2109",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-2109.py",
+        "code": "import heapq, sys\ninput = sys.stdin.readline\nn = int(input())\njobs = sorted((tuple(map(int, input().split())) for _ in range(n)), key=lambda x: x[1])\nheap = []\nfor pay, day in jobs:\n    heapq.heappush(heap, pay)\n    if len(heap) > day:\n        heapq.heappop(heap)\nprint(sum(heap))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2109",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "49f0fdbbf335",
+    "createdAt": 1779466335125
+  },
+  {
     "id": "2115",
     "slug": "string-2115",
     "categorySlug": "string",
@@ -1566,6 +1836,24 @@
     "createdAt": 1779368220397
   },
   {
+    "id": "2118",
+    "slug": "two_pointer-2118",
+    "categorySlug": "two_pointer",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/two_pointer-2118.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\na = [int(input()) for _ in range(n)]\ntotal = sum(a)\nans = cur = 0\nr = 0\nfor l in range(n):\n    while cur * 2 < total:\n        cur += a[r % n]\n        r += 1\n    ans = max(ans, min(cur, total - cur))\n    cur -= a[l]\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2118",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "4d497a53b165",
+    "createdAt": 1779466335125
+  },
+  {
     "id": "2138",
     "slug": "greedy-2138",
     "categorySlug": "greedy",
@@ -1582,6 +1870,24 @@
     ],
     "hash": "e2a270931f75",
     "createdAt": 1779371113602
+  },
+  {
+    "id": "2146",
+    "slug": "graph_traversal-2146",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-2146.py",
+        "code": "from collections import deque\nimport sys\ninput = sys.stdin.readline\nn = int(input())\ngrid = [list(map(int, input().split())) for _ in range(n)]\nlabel = 1\nq = deque()\nfor i in range(n):\n    for j in range(n):\n        if grid[i][j] == 1:\n            label += 1\n            grid[i][j] = label\n            qq = deque([(i, j)])\n            while qq:\n                x, y = qq.popleft()\n                q.append((x, y))\n                for dx, dy in ((1,0),(-1,0),(0,1),(0,-1)):\n                    nx, ny = x + dx, y + dy\n                    if 0 <= nx < n and 0 <= ny < n and grid[nx][ny] == 1:\n                        grid[nx][ny] = label\n                        qq.append((nx, ny))\ndist = [[0] * n for _ in range(n)]\nans = 10**9\nwhile q:\n    x, y = q.popleft()\n    for dx, dy in ((1,0),(-1,0),(0,1),(0,-1)):\n        nx, ny = x + dx, y + dy\n        if 0 <= nx < n and 0 <= ny < n:\n            if grid[nx][ny] == 0:\n                grid[nx][ny] = grid[x][y]\n                dist[nx][ny] = dist[x][y] + 1\n                q.append((nx, ny))\n            elif grid[nx][ny] != grid[x][y]:\n                ans = min(ans, dist[nx][ny] + dist[x][y])\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2146",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "e5a092bcdbfc",
+    "createdAt": 1779466335125
   },
   {
     "id": "2156",
@@ -1643,6 +1949,24 @@
     "createdAt": 1779439433535
   },
   {
+    "id": "2224",
+    "slug": "shortest_path-2224",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-2224.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\nreach = [[False] * 52 for _ in range(52)]\ndef idx(ch):\n    return ord(ch) - 65 if ch <= \"Z\" else ord(ch) - 71\ndef ch(i):\n    return chr(i + 65) if i < 26 else chr(i + 71)\nfor _ in range(n):\n    a, _, b = input().split()\n    reach[idx(a)][idx(b)] = True\nfor k in range(52):\n    for i in range(52):\n        if reach[i][k]:\n            for j in range(52):\n                reach[i][j] = reach[i][j] or reach[k][j]\nout = []\nfor i in range(52):\n    for j in range(52):\n        if i != j and reach[i][j]:\n            out.append(f\"{ch(i)} => {ch(j)}\")\nprint(len(out))\nprint(\"\\n\".join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2224",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "31281d0eeb6f",
+    "createdAt": 1779466335125
+  },
+  {
     "id": "2225",
     "slug": "dynamic_programming_2-2225",
     "categorySlug": "dynamic_programming_2",
@@ -1659,6 +1983,24 @@
     ],
     "hash": "243b6f109730",
     "createdAt": 1779440392438
+  },
+  {
+    "id": "2252",
+    "slug": "topological_sorting-2252",
+    "categorySlug": "topological_sorting",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/topological_sorting-2252.py",
+        "code": "from collections import deque\nimport sys\ninput = sys.stdin.readline\nn, m = map(int, input().split())\ng = [[] for _ in range(n + 1)]\nindeg = [0] * (n + 1)\nfor _ in range(m):\n    a, b = map(int, input().split())\n    g[a].append(b)\n    indeg[b] += 1\nq = deque(i for i in range(1, n + 1) if indeg[i] == 0)\nout = []\nwhile q:\n    x = q.popleft()\n    out.append(x)\n    for nx in g[x]:\n        indeg[nx] -= 1\n        if indeg[nx] == 0:\n            q.append(nx)\nprint(*out)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2252",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "ea7759ff6c58",
+    "createdAt": 1779466335126
   },
   {
     "id": "2293",
@@ -1767,6 +2109,24 @@
     ],
     "hash": "f5ec80ded9be",
     "createdAt": 1779032187510
+  },
+  {
+    "id": "2458",
+    "slug": "shortest_path-2458",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-2458.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, m = map(int, input().split())\nreach = [[False] * n for _ in range(n)]\nfor _ in range(m):\n    a, b = map(int, input().split())\n    reach[a - 1][b - 1] = True\nfor k in range(n):\n    for i in range(n):\n        if reach[i][k]:\n            for j in range(n):\n                reach[i][j] = reach[i][j] or reach[k][j]\nans = 0\nfor i in range(n):\n    known = 0\n    for j in range(n):\n        if i != j and (reach[i][j] or reach[j][i]):\n            known += 1\n    if known == n - 1:\n        ans += 1\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2458",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "bf45f6cc1aa6",
+    "createdAt": 1779466335126
   },
   {
     "id": "2469",
