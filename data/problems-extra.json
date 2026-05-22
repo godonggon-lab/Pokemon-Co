@@ -666,6 +666,78 @@
     "createdAt": 1779032187510
   },
   {
+    "id": "1644",
+    "slug": "two_pointer-1644",
+    "categorySlug": "two_pointer",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/two_pointer-1644.py",
+        "code": "import sys\nn = int(sys.stdin.readline())\nif n < 2:\n    print(0)\nelse:\n    sieve = [True] * (n + 1)\n    sieve[0] = sieve[1] = False\n    for i in range(2, int(n ** 0.5) + 1):\n        if sieve[i]:\n            for j in range(i * i, n + 1, i):\n                sieve[j] = False\n    primes = [i for i in range(n + 1) if sieve[i]]\n    left = total = ans = 0\n    for right in range(len(primes)):\n        total += primes[right]\n        while total > n and left <= right:\n            total -= primes[left]\n            left += 1\n        if total == n:\n            ans += 1\n    print(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1644",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "e52d746fedc7",
+    "createdAt": 1779439433531
+  },
+  {
+    "id": "1655",
+    "slug": "data_structure2-1655",
+    "categorySlug": "data_structure2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/data_structure2-1655.py",
+        "code": "import heapq, sys\ninput = sys.stdin.readline\nn = int(input())\nlow, high = [], []\nout = []\nfor _ in range(n):\n    x = int(input())\n    if len(low) == len(high):\n        heapq.heappush(low, -x)\n    else:\n        heapq.heappush(high, x)\n    if high and -low[0] > high[0]:\n        a = -heapq.heappop(low)\n        b = heapq.heappop(high)\n        heapq.heappush(low, -b)\n        heapq.heappush(high, a)\n    out.append(str(-low[0]))\nprint('\\n'.join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1655",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "d1e06bcc1ce4",
+    "createdAt": 1779439433534
+  },
+  {
+    "id": "1660",
+    "slug": "dynamic_programming_1-1660",
+    "categorySlug": "dynamic_programming_1",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_1-1660.py",
+        "code": "import sys\nn = int(sys.stdin.readline())\ntetra = []\ns = 0\nfor i in range(1, 200):\n    s += i * (i + 1) // 2\n    if s > n:\n        break\n    tetra.append(s)\ndp = [10 ** 9] * (n + 1)\ndp[0] = 0\nfor x in tetra:\n    for v in range(x, n + 1):\n        dp[v] = min(dp[v], dp[v - x] + 1)\nprint(dp[n])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1660",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "2f7d4e42626a",
+    "createdAt": 1779439433534
+  },
+  {
+    "id": "1668",
+    "slug": "brute_force-1668",
+    "categorySlug": "brute_force",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/brute_force-1668.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\na = [int(input()) for _ in range(n)]\ndef count(seq):\n    best = ans = 0\n    for x in seq:\n        if x > best:\n            best = x\n            ans += 1\n    return ans\nprint(count(a))\nprint(count(reversed(a)))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1668",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "323632ec4a88",
+    "createdAt": 1779439433534
+  },
+  {
     "id": "1669",
     "slug": "math-1669",
     "categorySlug": "math",
@@ -700,6 +772,42 @@
     ],
     "hash": "a937ab9e8906",
     "createdAt": 1778687534770
+  },
+  {
+    "id": "1699",
+    "slug": "dynamic_programming_1-1699",
+    "categorySlug": "dynamic_programming_1",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_1-1699.py",
+        "code": "import sys\nn = int(sys.stdin.readline())\ndp = list(range(n + 1))\nfor i in range(1, int(n ** 0.5) + 1):\n    sq = i * i\n    for v in range(sq, n + 1):\n        if dp[v] > dp[v - sq] + 1:\n            dp[v] = dp[v - sq] + 1\nprint(dp[n])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1699",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "a975675ec89b",
+    "createdAt": 1779439433534
+  },
+  {
+    "id": "1713",
+    "slug": "simulation-1713",
+    "categorySlug": "simulation",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/simulation-1713.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\nm = int(input())\nrecs = list(map(int, input().split()))\nframes = {}\ntime = 0\nfor student in recs:\n    time += 1\n    if student in frames:\n        count, first = frames[student]\n        frames[student] = (count + 1, first)\n        continue\n    if len(frames) == n:\n        victim = min(frames, key=lambda s: (frames[s][0], frames[s][1]))\n        del frames[victim]\n    frames[student] = (1, time)\nprint(' '.join(map(str, sorted(frames))))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1713",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "0d49364bdd6e",
+    "createdAt": 1779439433534
   },
   {
     "id": "1715",
@@ -738,6 +846,24 @@
     "createdAt": 1779032187509
   },
   {
+    "id": "1743",
+    "slug": "graph_traversal-1743",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-1743.py",
+        "code": "from collections import deque\nimport sys\ninput = sys.stdin.readline\nn, m, k = map(int, input().split())\ngrid = [[False] * m for _ in range(n)]\nfor _ in range(k):\n    r, c = map(int, input().split())\n    grid[r - 1][c - 1] = True\nans = 0\nfor r in range(n):\n    for c in range(m):\n        if not grid[r][c]:\n            continue\n        grid[r][c] = False\n        q = deque([(r, c)])\n        size = 0\n        while q:\n            x, y = q.popleft()\n            size += 1\n            for dx, dy in ((1,0),(-1,0),(0,1),(0,-1)):\n                nx, ny = x + dx, y + dy\n                if 0 <= nx < n and 0 <= ny < m and grid[nx][ny]:\n                    grid[nx][ny] = False\n                    q.append((nx, ny))\n        ans = max(ans, size)\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1743",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "45664a4e9426",
+    "createdAt": 1779439433534
+  },
+  {
     "id": "1744",
     "slug": "greedy-1744",
     "categorySlug": "greedy",
@@ -754,6 +880,168 @@
     ],
     "hash": "8ebd832e2798",
     "createdAt": 1779371113602
+  },
+  {
+    "id": "1759",
+    "slug": "backtracking-1759",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-1759.py",
+        "code": "from itertools import combinations\nimport sys\nl, c = map(int, sys.stdin.readline().split())\nletters = sorted(sys.stdin.readline().split())\nvowels = set('aeiou')\nout = []\nfor comb in combinations(letters, l):\n    v = sum(ch in vowels for ch in comb)\n    if v >= 1 and l - v >= 2:\n        out.append(''.join(comb))\nprint('\\n'.join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1759",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "9efbec0132c0",
+    "createdAt": 1779439433534
+  },
+  {
+    "id": "1766",
+    "slug": "topological_sorting-1766",
+    "categorySlug": "topological_sorting",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/topological_sorting-1766.py",
+        "code": "import heapq, sys\ninput = sys.stdin.readline\nn, m = map(int, input().split())\ng = [[] for _ in range(n + 1)]\nindeg = [0] * (n + 1)\nfor _ in range(m):\n    a, b = map(int, input().split())\n    g[a].append(b)\n    indeg[b] += 1\nheap = [i for i in range(1, n + 1) if indeg[i] == 0]\nheapq.heapify(heap)\nout = []\nwhile heap:\n    x = heapq.heappop(heap)\n    out.append(str(x))\n    for y in g[x]:\n        indeg[y] -= 1\n        if indeg[y] == 0:\n            heapq.heappush(heap, y)\nprint(' '.join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1766",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "a92b1f2aebb8",
+    "createdAt": 1779439433535
+  },
+  {
+    "id": "1780",
+    "slug": "divide_and_conquer-1780",
+    "categorySlug": "divide_and_conquer",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/divide_and_conquer-1780.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\na = [list(map(int, input().split())) for _ in range(n)]\nans = {-1: 0, 0: 0, 1: 0}\ndef solve(r, c, size):\n    first = a[r][c]\n    ok = True\n    for i in range(r, r + size):\n        for j in range(c, c + size):\n            if a[i][j] != first:\n                ok = False\n                break\n        if not ok:\n            break\n    if ok:\n        ans[first] += 1\n        return\n    step = size // 3\n    for dr in range(3):\n        for dc in range(3):\n            solve(r + dr * step, c + dc * step, step)\nsolve(0, 0, n)\nprint(ans[-1])\nprint(ans[0])\nprint(ans[1])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1780",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "8ab24c3d8987",
+    "createdAt": 1779439433535
+  },
+  {
+    "id": "1863",
+    "slug": "data_structure-1863",
+    "categorySlug": "data_structure",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/data_structure-1863.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\nstack = []\nans = 0\nfor _ in range(n):\n    _, h = map(int, input().split())\n    while stack and stack[-1] > h:\n        stack.pop()\n        ans += 1\n    if h and (not stack or stack[-1] < h):\n        stack.append(h)\nwhile stack:\n    stack.pop()\n    ans += 1\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1863",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "c244c5afa10a",
+    "createdAt": 1779439433535
+  },
+  {
+    "id": "1895",
+    "slug": "brute_force-1895",
+    "categorySlug": "brute_force",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/brute_force-1895.py",
+        "code": "import sys\ninput = sys.stdin.readline\nr, c = map(int, input().split())\na = [list(map(int, input().split())) for _ in range(r)]\nt = int(input())\nans = 0\nfor i in range(r - 2):\n    for j in range(c - 2):\n        vals = []\n        for x in range(i, i + 3):\n            for y in range(j, j + 3):\n                vals.append(a[x][y])\n        vals.sort()\n        ans += vals[4] >= t\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1895",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "d6c04769f61f",
+    "createdAt": 1779439433535
+  },
+  {
+    "id": "1915",
+    "slug": "dynamic_programming_2-1915",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-1915.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, m = map(int, input().split())\ndp = [[0] * (m + 1) for _ in range(n + 1)]\nbest = 0\nfor i in range(1, n + 1):\n    row = input().strip()\n    for j, ch in enumerate(row, 1):\n        if ch == '1':\n            dp[i][j] = min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]) + 1\n            best = max(best, dp[i][j])\nprint(best * best)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1915",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "585305871cbd",
+    "createdAt": 1779439433535
+  },
+  {
+    "id": "1916",
+    "slug": "shortest_path-1916",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-1916.py",
+        "code": "import heapq, sys\ninput = sys.stdin.readline\nn = int(input())\nm = int(input())\ng = [[] for _ in range(n + 1)]\nfor _ in range(m):\n    a, b, c = map(int, input().split())\n    g[a].append((b, c))\ns, e = map(int, input().split())\ndist = [10 ** 18] * (n + 1)\ndist[s] = 0\nheap = [(0, s)]\nwhile heap:\n    d, x = heapq.heappop(heap)\n    if d != dist[x]:\n        continue\n    if x == e:\n        break\n    for y, w in g[x]:\n        nd = d + w\n        if nd < dist[y]:\n            dist[y] = nd\n            heapq.heappush(heap, (nd, y))\nprint(dist[e])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1916",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "73cb9bed47fc",
+    "createdAt": 1779439433535
+  },
+  {
+    "id": "1926",
+    "slug": "graph_traversal-1926",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-1926.py",
+        "code": "from collections import deque\nimport sys\ninput = sys.stdin.readline\nn, m = map(int, input().split())\na = [list(map(int, input().split())) for _ in range(n)]\ncount = best = 0\nfor r in range(n):\n    for c in range(m):\n        if a[r][c] == 0:\n            continue\n        count += 1\n        a[r][c] = 0\n        q = deque([(r, c)])\n        size = 0\n        while q:\n            x, y = q.popleft()\n            size += 1\n            for dx, dy in ((1,0),(-1,0),(0,1),(0,-1)):\n                nx, ny = x + dx, y + dy\n                if 0 <= nx < n and 0 <= ny < m and a[nx][ny]:\n                    a[nx][ny] = 0\n                    q.append((nx, ny))\n        best = max(best, size)\nprint(count)\nprint(best)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1926",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "515d5139ef73",
+    "createdAt": 1779439433535
+  },
+  {
+    "id": "1932",
+    "slug": "dynamic_programming_1-1932",
+    "categorySlug": "dynamic_programming_1",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_1-1932.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\ndp = []\nfor i in range(n):\n    row = list(map(int, input().split()))\n    if i == 0:\n        dp = row\n    else:\n        ndp = [0] * (i + 1)\n        for j in range(i + 1):\n            best = 0\n            if j < i:\n                best = max(best, dp[j])\n            if j > 0:\n                best = max(best, dp[j - 1])\n            ndp[j] = best + row[j]\n        dp = ndp\nprint(max(dp))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1932",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "ec9fbfc962d0",
+    "createdAt": 1779439433535
   },
   {
     "id": "1942",
@@ -792,6 +1080,24 @@
     "createdAt": 1779371113602
   },
   {
+    "id": "1965",
+    "slug": "dynamic_programming_1-1965",
+    "categorySlug": "dynamic_programming_1",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_1-1965.py",
+        "code": "import bisect, sys\ninput = sys.stdin.readline\nn = int(input())\na = list(map(int, input().split()))\nlis = []\nfor x in a:\n    i = bisect.bisect_left(lis, x)\n    if i == len(lis):\n        lis.append(x)\n    else:\n        lis[i] = x\nprint(len(lis))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1965",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "1cdcbceff57c",
+    "createdAt": 1779439433535
+  },
+  {
     "id": "1972",
     "slug": "string-1972",
     "categorySlug": "string",
@@ -808,6 +1114,42 @@
     ],
     "hash": "e9dfeca13b5a",
     "createdAt": 1779032187510
+  },
+  {
+    "id": "2003",
+    "slug": "two_pointer-2003",
+    "categorySlug": "two_pointer",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/two_pointer-2003.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, m = map(int, input().split())\na = list(map(int, input().split()))\nleft = total = ans = 0\nfor right in range(n):\n    total += a[right]\n    while total > m and left <= right:\n        total -= a[left]\n        left += 1\n    if total == m:\n        ans += 1\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2003",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "2bd03191632c",
+    "createdAt": 1779439433535
+  },
+  {
+    "id": "2011",
+    "slug": "dynamic_programming_1-2011",
+    "categorySlug": "dynamic_programming_1",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_1-2011.py",
+        "code": "import sys\ns = sys.stdin.readline().strip()\nmod = 1000000\nif not s or s[0] == '0':\n    print(0)\nelse:\n    n = len(s)\n    dp = [0] * (n + 1)\n    dp[0] = dp[1] = 1\n    for i in range(2, n + 1):\n        if s[i - 1] != '0':\n            dp[i] += dp[i - 1]\n        two = int(s[i - 2:i])\n        if 10 <= two <= 26:\n            dp[i] += dp[i - 2]\n        dp[i] %= mod\n    print(dp[n])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2011",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "ca22e4acc918",
+    "createdAt": 1779439433535
   },
   {
     "id": "2115",
@@ -885,6 +1227,24 @@
     ],
     "hash": "6835058f03bf",
     "createdAt": 1779032187510
+  },
+  {
+    "id": "2193",
+    "slug": "dynamic_programming_1-2193",
+    "categorySlug": "dynamic_programming_1",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_1-2193.py",
+        "code": "import sys\nn = int(sys.stdin.readline())\ndp = [0] * (max(3, n + 1))\ndp[1] = 1\ndp[2] = 1\nfor i in range(3, n + 1):\n    dp[i] = dp[i - 1] + dp[i - 2]\nprint(dp[n])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2193",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "9642dacb6c07",
+    "createdAt": 1779439433535
   },
   {
     "id": "2293",
