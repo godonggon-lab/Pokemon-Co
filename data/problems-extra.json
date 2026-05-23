@@ -1098,6 +1098,24 @@
     "createdAt": 1779032187510
   },
   {
+    "id": "1633",
+    "slug": "dynamic_programming_1-1633",
+    "categorySlug": "dynamic_programming_1",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_1-1633.py",
+        "code": "import sys\nplayers = [tuple(map(int, line.split())) for line in sys.stdin if line.strip()]\ndp = [[-1] * 16 for _ in range(16)]\ndp[0][0] = 0\nfor white, black in players:\n    nxt = [row[:] for row in dp]\n    for w in range(16):\n        for b in range(16):\n            if dp[w][b] < 0:\n                continue\n            if w < 15:\n                nxt[w + 1][b] = max(nxt[w + 1][b], dp[w][b] + white)\n            if b < 15:\n                nxt[w][b + 1] = max(nxt[w][b + 1], dp[w][b] + black)\n    dp = nxt\nprint(dp[15][15])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1633",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "39bc3018d6c6",
+    "createdAt": 1779518793206
+  },
+  {
     "id": "1644",
     "slug": "two_pointer-1644",
     "categorySlug": "two_pointer",
@@ -1944,6 +1962,24 @@
     "createdAt": 1779466335125
   },
   {
+    "id": "2121",
+    "slug": "binary_search-2121",
+    "categorySlug": "binary_search",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/binary_search-2121.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\nw, h = map(int, input().split())\npoints = [tuple(map(int, input().split())) for _ in range(n)]\ns = set(points)\nans = 0\nfor x, y in points:\n    if (x + w, y) in s and (x, y + h) in s and (x + w, y + h) in s:\n        ans += 1\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2121",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "2b1e058df83c",
+    "createdAt": 1779518793209
+  },
+  {
     "id": "2138",
     "slug": "greedy-2138",
     "categorySlug": "greedy",
@@ -2692,6 +2728,78 @@
     "createdAt": 1779440392440
   },
   {
+    "id": "2660",
+    "slug": "shortest_path-2660",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-2660.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\nINF = 10**9\nd = [[INF] * n for _ in range(n)]\nfor i in range(n):\n    d[i][i] = 0\nwhile True:\n    a, b = map(int, input().split())\n    if a == -1 and b == -1:\n        break\n    d[a - 1][b - 1] = d[b - 1][a - 1] = 1\nfor k in range(n):\n    for i in range(n):\n        for j in range(n):\n            if d[i][j] > d[i][k] + d[k][j]:\n                d[i][j] = d[i][k] + d[k][j]\nscores = [max(row) for row in d]\nbest = min(scores)\ncands = [i + 1 for i, x in enumerate(scores) if x == best]\nprint(best, len(cands))\nprint(*cands)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2660",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "f3d2342d4beb",
+    "createdAt": 1779518793209
+  },
+  {
+    "id": "2661",
+    "slug": "backtracking-2661",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-2661.py",
+        "code": "import sys\nn = int(sys.stdin.readline())\ndef good(s):\n    for length in range(1, len(s) // 2 + 1):\n        if s[-length:] == s[-2 * length:-length]:\n            return False\n    return True\ndef dfs(s):\n    if len(s) == n:\n        print(s)\n        raise SystemExit\n    for ch in \"123\":\n        ns = s + ch\n        if good(ns):\n            dfs(ns)\ndfs(\"\")\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2661",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "971df84612f2",
+    "createdAt": 1779518793209
+  },
+  {
+    "id": "2665",
+    "slug": "graph_traversal-2665",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-2665.py",
+        "code": "from collections import deque\nimport sys\ninput = sys.stdin.readline\nn = int(input())\ngrid = [input().strip() for _ in range(n)]\ndist = [[10**9] * n for _ in range(n)]\ndist[0][0] = 0\ndq = deque([(0, 0)])\nwhile dq:\n    x, y = dq.popleft()\n    for dx, dy in ((1,0),(-1,0),(0,1),(0,-1)):\n        nx, ny = x + dx, y + dy\n        if 0 <= nx < n and 0 <= ny < n:\n            cost = 1 if grid[nx][ny] == \"0\" else 0\n            if dist[nx][ny] > dist[x][y] + cost:\n                dist[nx][ny] = dist[x][y] + cost\n                (dq.append if cost else dq.appendleft)((nx, ny))\nprint(dist[n - 1][n - 1])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2665",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "1f65716b6cbe",
+    "createdAt": 1779518793209
+  },
+  {
+    "id": "2668",
+    "slug": "graph_traversal-2668",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-2668.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\na = [0] + [int(input()) for _ in range(n)]\nans = []\nfor start in range(1, n + 1):\n    seen = set()\n    x = start\n    while x not in seen:\n        seen.add(x)\n        x = a[x]\n    if x == start:\n        ans.append(start)\nprint(len(ans))\nprint(\"\\n\".join(map(str, ans)))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2668",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "2f6c87e8ff21",
+    "createdAt": 1779518793209
+  },
+  {
     "id": "2670",
     "slug": "dynamic_programming_1-2670",
     "categorySlug": "dynamic_programming_1",
@@ -2834,6 +2942,24 @@
     ],
     "hash": "21eb228ed73a",
     "createdAt": 1779032187510
+  },
+  {
+    "id": "2866",
+    "slug": "binary_search-2866",
+    "categorySlug": "binary_search",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/binary_search-2866.py",
+        "code": "import sys\ninput = sys.stdin.readline\nr, c = map(int, input().split())\nrows = [input().strip() for _ in range(r)]\ncols = [\"\".join(rows[i][j] for i in range(r)) for j in range(c)]\nans = 0\nfor cut in range(r):\n    seen = set()\n    ok = True\n    for col in cols:\n        tail = col[cut:]\n        if tail in seen:\n            ok = False\n            break\n        seen.add(tail)\n    if ok:\n        ans = cut\n    else:\n        break\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2866",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "730c9e119fe6",
+    "createdAt": 1779518793209
   },
   {
     "id": "2876",
@@ -2996,6 +3122,24 @@
     ],
     "hash": "efbc82493c73",
     "createdAt": 1779455878876
+  },
+  {
+    "id": "3055",
+    "slug": "graph_traversal-3055",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-3055.py",
+        "code": "from collections import deque\nimport sys\ninput = sys.stdin.readline\nr, c = map(int, input().split())\ngrid = [list(input().strip()) for _ in range(r)]\nwater = deque()\nq = deque()\nfor i in range(r):\n    for j in range(c):\n        if grid[i][j] == \"*\":\n            water.append((i, j))\n        elif grid[i][j] == \"S\":\n            q.append((i, j, 0))\n            grid[i][j] = \".\"\nwhile q:\n    for _ in range(len(water)):\n        x, y = water.popleft()\n        for dx, dy in ((1,0),(-1,0),(0,1),(0,-1)):\n            nx, ny = x + dx, y + dy\n            if 0 <= nx < r and 0 <= ny < c and grid[nx][ny] == \".\":\n                grid[nx][ny] = \"*\"\n                water.append((nx, ny))\n    for _ in range(len(q)):\n        x, y, d = q.popleft()\n        for dx, dy in ((1,0),(-1,0),(0,1),(0,-1)):\n            nx, ny = x + dx, y + dy\n            if 0 <= nx < r and 0 <= ny < c:\n                if grid[nx][ny] == \"D\":\n                    print(d + 1)\n                    raise SystemExit\n                if grid[nx][ny] == \".\":\n                    grid[nx][ny] = \"S\"\n                    q.append((nx, ny, d + 1))\nprint(\"KAKTUS\")\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/3055",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "55e03d916015",
+    "createdAt": 1779518793209
   },
   {
     "id": "3067",
@@ -3178,6 +3322,24 @@
     "createdAt": 1779033474716
   },
   {
+    "id": "3980",
+    "slug": "backtracking-3980",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-3980.py",
+        "code": "import sys\ninput = sys.stdin.readline\nout = []\nfor _ in range(int(input())):\n    a = [list(map(int, input().split())) for _ in range(11)]\n    best = 0\n    used = [False] * 11\n    def dfs(player, total):\n        nonlocal_best[0] = max(nonlocal_best[0], total) if player == 11 else nonlocal_best[0]\n        if player == 11:\n            return\n        for pos in range(11):\n            if not used[pos] and a[player][pos]:\n                used[pos] = True\n                dfs(player + 1, total + a[player][pos])\n                used[pos] = False\n    nonlocal_best = [0]\n    dfs(0, 0)\n    out.append(str(nonlocal_best[0]))\nprint(\"\\n\".join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/3980",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "b6df599be735",
+    "createdAt": 1779518793209
+  },
+  {
     "id": "4095",
     "slug": "dynamic_programming_2-4095",
     "categorySlug": "dynamic_programming_2",
@@ -3248,6 +3410,24 @@
     ],
     "hash": "ef9d722425a8",
     "createdAt": 1779463720911
+  },
+  {
+    "id": "4803",
+    "slug": "tree-4803",
+    "categorySlug": "tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/tree-4803.py",
+        "code": "import sys\ninput = sys.stdin.readline\ncase = 1\nout = []\nwhile True:\n    n, m = map(int, input().split())\n    if n == 0 and m == 0:\n        break\n    parent = list(range(n + 1))\n    cycle = [False] * (n + 1)\n    def find(x):\n        while parent[x] != x:\n            parent[x] = parent[parent[x]]\n            x = parent[x]\n        return x\n    for _ in range(m):\n        a, b = map(int, input().split())\n        ra, rb = find(a), find(b)\n        if ra == rb:\n            cycle[ra] = True\n        else:\n            parent[rb] = ra\n            cycle[ra] = cycle[ra] or cycle[rb]\n    roots = set(find(i) for i in range(1, n + 1))\n    trees = sum(not cycle[find(r)] for r in roots)\n    if trees == 0:\n        msg = \"No trees.\"\n    elif trees == 1:\n        msg = \"There is one tree.\"\n    else:\n        msg = f\"A forest of {trees} trees.\"\n    out.append(f\"Case {case}: {msg}\")\n    case += 1\nprint(\"\\n\".join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/4803",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "0d3086a88096",
+    "createdAt": 1779518793209
   },
   {
     "id": "4811",
@@ -3363,6 +3543,24 @@
     "createdAt": 1779455878876
   },
   {
+    "id": "5427",
+    "slug": "graph_traversal-5427",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-5427.py",
+        "code": "from collections import deque\nimport sys\ninput = sys.stdin.readline\nout = []\nfor _ in range(int(input())):\n    w, h = map(int, input().split())\n    grid = [list(input().strip()) for _ in range(h)]\n    fire = deque()\n    q = deque()\n    for i in range(h):\n        for j in range(w):\n            if grid[i][j] == \"*\":\n                fire.append((i, j))\n            elif grid[i][j] == \"@\":\n                q.append((i, j, 0))\n                grid[i][j] = \".\"\n    escaped = None\n    while q and escaped is None:\n        for _ in range(len(fire)):\n            x, y = fire.popleft()\n            for dx, dy in ((1,0),(-1,0),(0,1),(0,-1)):\n                nx, ny = x + dx, y + dy\n                if 0 <= nx < h and 0 <= ny < w and grid[nx][ny] == \".\":\n                    grid[nx][ny] = \"*\"\n                    fire.append((nx, ny))\n        for _ in range(len(q)):\n            x, y, d = q.popleft()\n            for dx, dy in ((1,0),(-1,0),(0,1),(0,-1)):\n                nx, ny = x + dx, y + dy\n                if not (0 <= nx < h and 0 <= ny < w):\n                    escaped = d + 1\n                    break\n                if grid[nx][ny] == \".\":\n                    grid[nx][ny] = \"@\"\n                    q.append((nx, ny, d + 1))\n            if escaped is not None:\n                break\n    out.append(str(escaped) if escaped is not None else \"IMPOSSIBLE\")\nprint(\"\\n\".join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/5427",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "94f900d9147e",
+    "createdAt": 1779518793209
+  },
+  {
     "id": "5534",
     "slug": "string-5534",
     "categorySlug": "string",
@@ -3415,6 +3613,42 @@
     ],
     "hash": "103fac06c49a",
     "createdAt": 1779440392441
+  },
+  {
+    "id": "5582",
+    "slug": "dynamic_programming_2-5582",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-5582.py",
+        "code": "import sys\na = sys.stdin.readline().strip()\nb = sys.stdin.readline().strip()\nprev = [0] * (len(b) + 1)\nans = 0\nfor i in range(1, len(a) + 1):\n    cur = [0] * (len(b) + 1)\n    for j in range(1, len(b) + 1):\n        if a[i - 1] == b[j - 1]:\n            cur[j] = prev[j - 1] + 1\n            ans = max(ans, cur[j])\n    prev = cur\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/5582",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "9b09368382dd",
+    "createdAt": 1779518793209
+  },
+  {
+    "id": "5639",
+    "slug": "tree-5639",
+    "categorySlug": "tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/tree-5639.py",
+        "code": "import sys\npre = [int(x) for x in sys.stdin.read().split()]\nsys.setrecursionlimit(10**6)\nout = []\ndef build(l, r):\n    if l >= r:\n        return\n    root = pre[l]\n    mid = l + 1\n    while mid < r and pre[mid] < root:\n        mid += 1\n    build(l + 1, mid)\n    build(mid, r)\n    out.append(str(root))\nbuild(0, len(pre))\nprint(\"\\n\".join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/5639",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "aa00e98f7ac7",
+    "createdAt": 1779518793209
   },
   {
     "id": "5671",
@@ -3615,6 +3849,42 @@
     "createdAt": 1779463720912
   },
   {
+    "id": "6443",
+    "slug": "backtracking-6443",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-6443.py",
+        "code": "from collections import Counter\nimport sys\ninput = sys.stdin.readline\nout = []\nfor _ in range(int(input())):\n    s = input().strip()\n    cnt = Counter(s)\n    chars = sorted(cnt)\n    cur = []\n    def dfs():\n        if len(cur) == len(s):\n            out.append(\"\".join(cur))\n            return\n        for ch in chars:\n            if cnt[ch]:\n                cnt[ch] -= 1\n                cur.append(ch)\n                dfs()\n                cur.pop()\n                cnt[ch] += 1\n    dfs()\nprint(\"\\n\".join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/6443",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "00258def68fd",
+    "createdAt": 1779518793209
+  },
+  {
+    "id": "6603",
+    "slug": "backtracking-6603",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-6603.py",
+        "code": "import itertools, sys\nout = []\nfor line in sys.stdin:\n    data = list(map(int, line.split()))\n    if data[0] == 0:\n        break\n    nums = data[1:]\n    for comb in itertools.combinations(nums, 6):\n        out.append(\" \".join(map(str, comb)))\n    out.append(\"\")\nprint(\"\\n\".join(out).rstrip())\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/6603",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "1317de6d0eb7",
+    "createdAt": 1779518793209
+  },
+  {
     "id": "6996",
     "slug": "string-6996",
     "categorySlug": "string",
@@ -3649,6 +3919,42 @@
     ],
     "hash": "c7a548ecaf8b",
     "createdAt": 1779033474716
+  },
+  {
+    "id": "7490",
+    "slug": "backtracking-7490",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-7490.py",
+        "code": "import sys\ninput = sys.stdin.readline\ndef value(expr):\n    return eval(expr.replace(\" \", \"\"))\nout = []\nfor tc in range(int(input())):\n    n = int(input())\n    res = []\n    def dfs(i, expr):\n        if i == n:\n            if value(expr) == 0:\n                res.append(expr)\n            return\n        for op in (\" \", \"+\", \"-\"):\n            dfs(i + 1, expr + op + str(i + 1))\n    dfs(1, \"1\")\n    out.extend(res)\n    if tc != 0 or True:\n        out.append(\"\")\nprint(\"\\n\".join(out).rstrip())\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/7490",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "00f0e4a0c90a",
+    "createdAt": 1779518793209
+  },
+  {
+    "id": "7511",
+    "slug": "disjoint_set-7511",
+    "categorySlug": "disjoint_set",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/disjoint_set-7511.py",
+        "code": "import sys\ninput = sys.stdin.readline\nout = []\nfor case in range(1, int(input()) + 1):\n    n = int(input())\n    parent = list(range(n))\n    def find(x):\n        while parent[x] != x:\n            parent[x] = parent[parent[x]]\n            x = parent[x]\n        return x\n    def union(a, b):\n        ra, rb = find(a), find(b)\n        if ra != rb:\n            parent[rb] = ra\n    for _ in range(int(input())):\n        a, b = map(int, input().split())\n        union(a, b)\n    out.append(f\"Scenario {case}:\")\n    for _ in range(int(input())):\n        a, b = map(int, input().split())\n        out.append(\"1\" if find(a) == find(b) else \"0\")\n    out.append(\"\")\nprint(\"\\n\".join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/7511",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "209b0397fef0",
+    "createdAt": 1779518793209
   },
   {
     "id": "7562",
@@ -3721,6 +4027,24 @@
     ],
     "hash": "3c58542695d8",
     "createdAt": 1779462490285
+  },
+  {
+    "id": "9019",
+    "slug": "graph_traversal-9019",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-9019.py",
+        "code": "from collections import deque\nimport sys\ninput = sys.stdin.readline\ndef solve(a, b):\n    prev = [-1] * 10000\n    how = [\"\"] * 10000\n    q = deque([a])\n    prev[a] = a\n    while q:\n        x = q.popleft()\n        if x == b:\n            break\n        nxts = ((x * 2) % 10000, \"D\"), ((x - 1) % 10000, \"S\"), ((x % 1000) * 10 + x // 1000, \"L\"), ((x % 10) * 1000 + x // 10, \"R\")\n        for nx, op in nxts:\n            if prev[nx] == -1:\n                prev[nx] = x\n                how[nx] = op\n                q.append(nx)\n    ops = []\n    cur = b\n    while cur != a:\n        ops.append(how[cur])\n        cur = prev[cur]\n    return \"\".join(reversed(ops))\nprint(\"\\n\".join(solve(*map(int, input().split())) for _ in range(int(input()))))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/9019",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "536ea89b287f",
+    "createdAt": 1779518793209
   },
   {
     "id": "9081",
@@ -3975,6 +4299,24 @@
     "createdAt": 1779463720913
   },
   {
+    "id": "10159",
+    "slug": "shortest_path-10159",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-10159.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\nm = int(input())\nreach = [[False] * n for _ in range(n)]\nfor _ in range(m):\n    a, b = map(int, input().split())\n    reach[a - 1][b - 1] = True\nfor k in range(n):\n    for i in range(n):\n        if reach[i][k]:\n            for j in range(n):\n                reach[i][j] = reach[i][j] or reach[k][j]\nout = []\nfor i in range(n):\n    known = sum(1 for j in range(n) if i != j and (reach[i][j] or reach[j][i]))\n    out.append(str(n - 1 - known))\nprint(\"\\n\".join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/10159",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "4af3e8e0965f",
+    "createdAt": 1779518793209
+  },
+  {
     "id": "10211",
     "slug": "dynamic_programming_1-10211",
     "categorySlug": "dynamic_programming_1",
@@ -4135,6 +4477,24 @@
     ],
     "hash": "0b9bde85ec7b",
     "createdAt": 1779455878878
+  },
+  {
+    "id": "10942",
+    "slug": "dynamic_programming_2-10942",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-10942.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\na = [0] + list(map(int, input().split()))\ndp = [[False] * (n + 1) for _ in range(n + 1)]\nfor i in range(1, n + 1):\n    dp[i][i] = True\nfor i in range(1, n):\n    dp[i][i + 1] = a[i] == a[i + 1]\nfor length in range(3, n + 1):\n    for l in range(1, n - length + 2):\n        r = l + length - 1\n        dp[l][r] = a[l] == a[r] and dp[l + 1][r - 1]\nout = []\nfor _ in range(int(input())):\n    s, e = map(int, input().split())\n    out.append(\"1\" if dp[s][e] else \"0\")\nprint(\"\\n\".join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/10942",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "92020480203f",
+    "createdAt": 1779518793209
   },
   {
     "id": "10988",
