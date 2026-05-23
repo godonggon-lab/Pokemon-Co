@@ -1314,6 +1314,24 @@
     "createdAt": 1779032187509
   },
   {
+    "id": "1727",
+    "slug": "dynamic_programming_2-1727",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-1727.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, m = map(int, input().split())\na = sorted(map(int, input().split()))\nb = sorted(map(int, input().split()))\nif n > m:\n    a, b = b, a\n    n, m = m, n\nINF = 10**18\ndp = [[INF] * (m + 1) for _ in range(n + 1)]\nfor j in range(m + 1):\n    dp[0][j] = 0\nfor i in range(1, n + 1):\n    for j in range(1, m + 1):\n        dp[i][j] = min(dp[i][j - 1], dp[i - 1][j - 1] + abs(a[i - 1] - b[j - 1]))\nprint(dp[n][m])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1727",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "f2520e788a2b",
+    "createdAt": 1779518204620
+  },
+  {
     "id": "1743",
     "slug": "graph_traversal-1743",
     "categorySlug": "graph_traversal",
@@ -1368,6 +1386,24 @@
     "createdAt": 1779466335123
   },
   {
+    "id": "1757",
+    "slug": "dynamic_programming_2-1757",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-1757.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, m = map(int, input().split())\nd = [int(input()) for _ in range(n)]\nNEG = -10**15\ndp = [[NEG] * (m + 1) for _ in range(n + 1)]\ndp[0][0] = 0\nfor i in range(n):\n    for tired in range(m + 1):\n        if dp[i][tired] == NEG:\n            continue\n        if tired == 0:\n            dp[i + 1][0] = max(dp[i + 1][0], dp[i][0])\n        else:\n            dp[i + 1][tired - 1] = max(dp[i + 1][tired - 1], dp[i][tired])\n        if tired < m:\n            dp[i + 1][tired + 1] = max(dp[i + 1][tired + 1], dp[i][tired] + d[i])\nprint(dp[n][0])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1757",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "27d32d9f9c43",
+    "createdAt": 1779518204622
+  },
+  {
     "id": "1759",
     "slug": "backtracking-1759",
     "categorySlug": "backtracking",
@@ -1420,6 +1456,24 @@
     ],
     "hash": "8ab24c3d8987",
     "createdAt": 1779439433535
+  },
+  {
+    "id": "1823",
+    "slug": "dynamic_programming_2-1823",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-1823.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\na = [int(input()) for _ in range(n)]\ndp = [[0] * n for _ in range(n)]\nfor length in range(1, n + 1):\n    day = n - length + 1\n    for l in range(n - length + 1):\n        r = l + length - 1\n        if l == r:\n            dp[l][r] = day * a[l]\n        else:\n            dp[l][r] = max(dp[l + 1][r] + day * a[l], dp[l][r - 1] + day * a[r])\nprint(dp[0][n - 1])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1823",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "64b51b83044f",
+    "createdAt": 1779518204622
   },
   {
     "id": "1863",
@@ -1656,6 +1710,24 @@
     "createdAt": 1779466335124
   },
   {
+    "id": "1958",
+    "slug": "dynamic_programming_2-1958",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-1958.py",
+        "code": "import sys\na = sys.stdin.readline().strip()\nb = sys.stdin.readline().strip()\nc = sys.stdin.readline().strip()\ndp = [[[0] * (len(c) + 1) for _ in range(len(b) + 1)] for __ in range(len(a) + 1)]\nfor i in range(1, len(a) + 1):\n    for j in range(1, len(b) + 1):\n        for k in range(1, len(c) + 1):\n            if a[i - 1] == b[j - 1] == c[k - 1]:\n                dp[i][j][k] = dp[i - 1][j - 1][k - 1] + 1\n            else:\n                dp[i][j][k] = max(dp[i - 1][j][k], dp[i][j - 1][k], dp[i][j][k - 1])\nprint(dp[-1][-1][-1])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1958",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "ac3c4221c117",
+    "createdAt": 1779518204622
+  },
+  {
     "id": "1965",
     "slug": "dynamic_programming_1-1965",
     "categorySlug": "dynamic_programming_1",
@@ -1800,6 +1872,24 @@
     "createdAt": 1779466335125
   },
   {
+    "id": "2073",
+    "slug": "dynamic_programming_2-2073",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-2073.py",
+        "code": "import sys\ninput = sys.stdin.readline\nd, p = map(int, input().split())\ndp = [0] * (d + 1)\ndp[0] = 10**9\nfor _ in range(p):\n    length, cap = map(int, input().split())\n    for x in range(d, length - 1, -1):\n        dp[x] = max(dp[x], min(dp[x - length], cap))\nprint(dp[d])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2073",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "3d811ba1b940",
+    "createdAt": 1779518204623
+  },
+  {
     "id": "2109",
     "slug": "greedy-2109",
     "categorySlug": "greedy",
@@ -1913,6 +2003,42 @@
     "createdAt": 1778687535211
   },
   {
+    "id": "2157",
+    "slug": "dynamic_programming_2-2157",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-2157.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, m, k = map(int, input().split())\nedges = [[] for _ in range(n + 1)]\nfor _ in range(k):\n    a, b, c = map(int, input().split())\n    if a < b:\n        edges[a].append((b, c))\nNEG = -10**15\ndp = [[NEG] * (n + 1) for _ in range(m + 1)]\ndp[1][1] = 0\nfor cnt in range(1, m):\n    for city in range(1, n + 1):\n        if dp[cnt][city] == NEG:\n            continue\n        for nxt, score in edges[city]:\n            dp[cnt + 1][nxt] = max(dp[cnt + 1][nxt], dp[cnt][city] + score)\nprint(max(dp[cnt][n] for cnt in range(1, m + 1)))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2157",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "1d32556f2507",
+    "createdAt": 1779518204623
+  },
+  {
+    "id": "2160",
+    "slug": "brute_force-2160",
+    "categorySlug": "brute_force",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/brute_force-2160.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\npics = [[\"\".join(input().strip() for _ in range(5))] for __ in range(n)]\nbest = (10**9, 1, 2)\nfor i in range(n):\n    for j in range(i + 1, n):\n        diff = sum(x != y for x, y in zip(pics[i][0], pics[j][0]))\n        if diff < best[0]:\n            best = (diff, i + 1, j + 1)\nprint(best[1], best[2])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2160",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "80233a183db7",
+    "createdAt": 1779518204623
+  },
+  {
     "id": "2168",
     "slug": "math-2168",
     "categorySlug": "math",
@@ -1985,6 +2111,42 @@
     "createdAt": 1779440392438
   },
   {
+    "id": "2228",
+    "slug": "dynamic_programming_2-2228",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-2228.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, m = map(int, input().split())\na = [0] + [int(input()) for _ in range(n)]\nprefix = [0] * (n + 1)\nfor i in range(1, n + 1):\n    prefix[i] = prefix[i - 1] + a[i]\nNEG = -10**15\ndp = [[NEG] * (m + 1) for _ in range(n + 1)]\nfor i in range(n + 1):\n    dp[i][0] = 0\nfor i in range(1, n + 1):\n    for j in range(1, m + 1):\n        dp[i][j] = dp[i - 1][j]\n        for k in range(1, i + 1):\n            prev = 0 if k <= 2 and j == 1 else (dp[k - 2][j - 1] if k >= 2 else NEG)\n            if prev != NEG:\n                dp[i][j] = max(dp[i][j], prev + prefix[i] - prefix[k - 1])\nprint(dp[n][m])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2228",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "b8a2f6b289a4",
+    "createdAt": 1779518204623
+  },
+  {
+    "id": "2229",
+    "slug": "dynamic_programming_2-2229",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-2229.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\na = [0] + list(map(int, input().split()))\ndp = [0] * (n + 1)\nfor i in range(1, n + 1):\n    mn = mx = a[i]\n    for j in range(i, 0, -1):\n        mn = min(mn, a[j])\n        mx = max(mx, a[j])\n        dp[i] = max(dp[i], dp[j - 1] + mx - mn)\nprint(dp[n])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2229",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "11737a45f93a",
+    "createdAt": 1779518204623
+  },
+  {
     "id": "2252",
     "slug": "topological_sorting-2252",
     "categorySlug": "topological_sorting",
@@ -2001,6 +2163,42 @@
     ],
     "hash": "ea7759ff6c58",
     "createdAt": 1779466335126
+  },
+  {
+    "id": "2253",
+    "slug": "dynamic_programming_2-2253",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-2253.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn, m = map(int, input().split())\nbad = {int(input()) for _ in range(m)}\nINF = 10**9\nlimit = int((2 * n) ** 0.5) + 3\ndp = [[INF] * (limit + 1) for _ in range(n + 1)]\ndp[1][0] = 0\nfor pos in range(1, n + 1):\n    if pos in bad:\n        continue\n    for jump in range(limit + 1):\n        if dp[pos][jump] == INF:\n            continue\n        for nj in (jump - 1, jump, jump + 1):\n            if nj > 0 and nj <= limit and pos + nj <= n and pos + nj not in bad:\n                dp[pos + nj][nj] = min(dp[pos + nj][nj], dp[pos][jump] + 1)\nans = min(dp[n])\nprint(ans if ans < INF else -1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2253",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "5ad0fd4d1006",
+    "createdAt": 1779518204623
+  },
+  {
+    "id": "2285",
+    "slug": "greedy-2285",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-2285.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\nvillages = sorted(tuple(map(int, input().split())) for _ in range(n))\ntotal = sum(p for _, p in villages)\nacc = 0\nfor x, p in villages:\n    acc += p\n    if acc * 2 >= total:\n        print(x)\n        break\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2285",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "be5664897338",
+    "createdAt": 1779518204623
   },
   {
     "id": "2293",
@@ -2075,6 +2273,42 @@
     "createdAt": 1779440392439
   },
   {
+    "id": "2412",
+    "slug": "binary_search-2412",
+    "categorySlug": "binary_search",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/binary_search-2412.py",
+        "code": "from collections import defaultdict, deque\nimport sys\ninput = sys.stdin.readline\nn, t = map(int, input().split())\nby_y = defaultdict(list)\nfor _ in range(n):\n    x, y = map(int, input().split())\n    by_y[y].append(x)\nseen = {(0, 0)}\nq = deque([(0, 0, 0)])\nwhile q:\n    x, y, d = q.popleft()\n    if y == t:\n        print(d)\n        break\n    for ny in range(y - 2, y + 3):\n        for nx in by_y.get(ny, []):\n            if abs(nx - x) <= 2 and (nx, ny) not in seen:\n                seen.add((nx, ny))\n                q.append((nx, ny, d + 1))\nelse:\n    print(-1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2412",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "4b0f9f52dbf1",
+    "createdAt": 1779518204623
+  },
+  {
+    "id": "2428",
+    "slug": "two_pointer-2428",
+    "categorySlug": "two_pointer",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/two_pointer-2428.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\na = sorted(map(int, input().split()))\nans = 0\nr = 0\nfor l in range(n):\n    while r < n and a[l] * 10 >= a[r] * 9:\n        r += 1\n    ans += r - l - 1\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2428",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "6e5cfb72ee18",
+    "createdAt": 1779518204624
+  },
+  {
     "id": "2435",
     "slug": "brute_force-2435",
     "categorySlug": "brute_force",
@@ -2111,6 +2345,24 @@
     "createdAt": 1779032187510
   },
   {
+    "id": "2457",
+    "slug": "greedy-2457",
+    "categorySlug": "greedy",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/greedy-2457.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\nflowers = []\nfor _ in range(n):\n    sm, sd, em, ed = map(int, input().split())\n    flowers.append((sm * 100 + sd, em * 100 + ed))\nflowers.sort()\ntarget = 1201\ncur = 301\ni = ans = 0\nwhile cur < target:\n    best = cur\n    while i < n and flowers[i][0] <= cur:\n        best = max(best, flowers[i][1])\n        i += 1\n    if best == cur:\n        print(0)\n        break\n    ans += 1\n    cur = best\nelse:\n    print(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2457",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "8e173684de61",
+    "createdAt": 1779518204624
+  },
+  {
     "id": "2458",
     "slug": "shortest_path-2458",
     "categorySlug": "shortest_path",
@@ -2127,6 +2379,24 @@
     ],
     "hash": "bf45f6cc1aa6",
     "createdAt": 1779466335126
+  },
+  {
+    "id": "2467",
+    "slug": "binary_search-2467",
+    "categorySlug": "binary_search",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/binary_search-2467.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\na = list(map(int, input().split()))\nl, r = 0, n - 1\nbest = 10**18\nans = (a[l], a[r])\nwhile l < r:\n    s = a[l] + a[r]\n    if abs(s) < best:\n        best = abs(s)\n        ans = (a[l], a[r])\n    if s < 0:\n        l += 1\n    else:\n        r -= 1\nprint(*ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2467",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "7a7a60731582",
+    "createdAt": 1779518204624
   },
   {
     "id": "2469",
@@ -2165,6 +2435,24 @@
     "createdAt": 1779440392439
   },
   {
+    "id": "2529",
+    "slug": "backtracking-2529",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-2529.py",
+        "code": "import sys\nk = int(sys.stdin.readline())\nops = sys.stdin.readline().split()\nanswers = []\nused = [False] * 10\ndef good(a, op, b):\n    return a < b if op == \"<\" else a > b\ndef dfs(path):\n    if len(path) == k + 1:\n        answers.append(\"\".join(map(str, path)))\n        return\n    for d in range(10):\n        if not used[d] and (not path or good(path[-1], ops[len(path) - 1], d)):\n            used[d] = True\n            path.append(d)\n            dfs(path)\n            path.pop()\n            used[d] = False\ndfs([])\nprint(max(answers))\nprint(min(answers))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2529",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "33135e8f32c7",
+    "createdAt": 1779518204624
+  },
+  {
     "id": "2531",
     "slug": "two_pointer-2531",
     "categorySlug": "two_pointer",
@@ -2199,6 +2487,24 @@
     ],
     "hash": "a7e9d24c8c93",
     "createdAt": 1779032187510
+  },
+  {
+    "id": "2565",
+    "slug": "dynamic_programming_1-2565",
+    "categorySlug": "dynamic_programming_1",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_1-2565.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\nwires = sorted(tuple(map(int, input().split())) for _ in range(n))\ndp = [1] * n\nfor i in range(n):\n    for j in range(i):\n        if wires[j][1] < wires[i][1]:\n            dp[i] = max(dp[i], dp[j] + 1)\nprint(n - max(dp))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2565",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "2efda08064a1",
+    "createdAt": 1779518204624
   },
   {
     "id": "2571",
@@ -2258,6 +2564,60 @@
     ],
     "hash": "63e136de2fb2",
     "createdAt": 1778862835077
+  },
+  {
+    "id": "2616",
+    "slug": "dynamic_programming_2-2616",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-2616.py",
+        "code": "import sys\ninput = sys.stdin.readline\nn = int(input())\na = [0] + list(map(int, input().split()))\nm = int(input())\nprefix = [0] * (n + 1)\nfor i in range(1, n + 1):\n    prefix[i] = prefix[i - 1] + a[i]\ndp = [[0] * (n + 1) for _ in range(4)]\nfor train in range(1, 4):\n    for i in range(train * m, n + 1):\n        block = prefix[i] - prefix[i - m]\n        dp[train][i] = max(dp[train][i - 1], dp[train - 1][i - m] + block)\nprint(dp[3][n])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2616",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "b93d45477dc8",
+    "createdAt": 1779518204624
+  },
+  {
+    "id": "2623",
+    "slug": "topological_sorting-2623",
+    "categorySlug": "topological_sorting",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/topological_sorting-2623.py",
+        "code": "from collections import deque\nimport sys\ninput = sys.stdin.readline\nn, m = map(int, input().split())\ng = [[] for _ in range(n + 1)]\nindeg = [0] * (n + 1)\nfor _ in range(m):\n    data = list(map(int, input().split()))\n    for a, b in zip(data[1:], data[2:]):\n        g[a].append(b)\n        indeg[b] += 1\nq = deque(i for i in range(1, n + 1) if indeg[i] == 0)\nout = []\nwhile q:\n    x = q.popleft()\n    out.append(x)\n    for nx in g[x]:\n        indeg[nx] -= 1\n        if indeg[nx] == 0:\n            q.append(nx)\nprint(\"\\n\".join(map(str, out)) if len(out) == n else \"0\")\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2623",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "2c7f3abc5e38",
+    "createdAt": 1779518204624
+  },
+  {
+    "id": "2624",
+    "slug": "dynamic_programming_2-2624",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-2624.py",
+        "code": "import sys\ninput = sys.stdin.readline\nt = int(input())\nk = int(input())\ndp = [0] * (t + 1)\ndp[0] = 1\nfor _ in range(k):\n    coin, count = map(int, input().split())\n    nxt = dp[:]\n    for amount in range(t + 1):\n        if dp[amount]:\n            for c in range(1, count + 1):\n                if amount + coin * c <= t:\n                    nxt[amount + coin * c] += dp[amount]\n    dp = nxt\nprint(dp[t])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2624",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "e8b5abb327f9",
+    "createdAt": 1779518204624
   },
   {
     "id": "2635",
