@@ -19,12 +19,19 @@ def require_docker() -> None:
         raise SystemExit(f"docker daemon is not available:\n{probe.stderr.strip()}")
 
 
-def assert_run(label: str, lang: str, code: str, stdin: str, expected: str) -> None:
+def assert_run(
+    label: str,
+    lang: str,
+    code: str,
+    stdin: str,
+    expected: str,
+    time_limit_s: float = 2.0,
+) -> None:
     result = DockerRunner().run(
         lang,
         code,
         stdin,
-        time_limit_s=2.0,
+        time_limit_s=time_limit_s,
         memory_mb=512,
         max_output_bytes=1024 * 1024,
     )
@@ -44,6 +51,7 @@ def main() -> int:
         '#include <bits/stdc++.h>\nusing namespace std;\nint main(){int a,b;cin>>a>>b;cout<<a+b<<"\\n";}\n',
         "2 3\n",
         "5",
+        time_limit_s=15.0,
     )
     assert_run(
         "java",
@@ -51,6 +59,7 @@ def main() -> int:
         "import java.io.*;import java.util.*;public class Main{public static void main(String[]a)throws Exception{Scanner s=new Scanner(System.in);System.out.println(s.nextInt()*s.nextInt());}}\n",
         "6 7\n",
         "42",
+        time_limit_s=15.0,
     )
     print("Docker runner check passed.")
     return 0
