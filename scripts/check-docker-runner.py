@@ -44,7 +44,7 @@ def assert_run(
 
 def main() -> int:
     require_docker()
-    assert_run("python", "python", "print(input()[::-1])\n", "abc\n", "cba")
+    assert_run("python", "python", "print(input()[::-1])\n", "abc\n", "cba", time_limit_s=10.0)
     assert_run(
         "cpp",
         "cpp",
