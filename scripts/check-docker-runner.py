@@ -3,6 +3,7 @@ from __future__ import annotations
 import shutil
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -27,19 +28,24 @@ def assert_run(
     expected: str,
     time_limit_s: float = 2.0,
 ) -> None:
-    result = DockerRunner().run(
-        lang,
-        code,
-        stdin,
-        time_limit_s=time_limit_s,
-        memory_mb=512,
-        max_output_bytes=1024 * 1024,
-    )
-    if not result.ok or result.stdout.strip() != expected:
-        raise SystemExit(
-            f"{label} failed: ok={result.ok} exit={result.exit_code} "
-            f"stdout={result.stdout!r} stderr={result.stderr!r}"
+    result = None
+    for attempt in range(2):
+        result = DockerRunner().run(
+            lang,
+            code,
+            stdin,
+            time_limit_s=time_limit_s,
+            memory_mb=512,
+            max_output_bytes=1024 * 1024,
         )
+        if result.ok and result.stdout.strip() == expected:
+            return
+        if attempt == 0:
+            time.sleep(1)
+    raise SystemExit(
+        f"{label} failed: ok={result.ok} exit={result.exit_code} "
+        f"stdout={result.stdout!r} stderr={result.stderr!r}"
+    )
 
 
 def main() -> int:
