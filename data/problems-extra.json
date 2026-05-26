@@ -72,6 +72,24 @@
     "createdAt": 1779464306672
   },
   {
+    "id": "1030",
+    "slug": "divide_and_conquer-1030",
+    "categorySlug": "divide_and_conquer",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/divide_and_conquer-1030.py",
+        "code": "import sys\ns,n,k,r1,r2,c1,c2=map(int,sys.stdin.readline().split())\ndef black(r,c,size,level):\n if level==0: return False\n unit=size//n; a=r//unit; b=c//unit; lo=(n-k)//2; hi=lo+k\n if lo<=a<hi and lo<=b<hi: return True\n return black(r%unit,c%unit,unit,level-1)\nsize=n**s\nprint('\\n'.join(''.join('1' if black(r,c,size,s) else '0' for c in range(c1,c2+1)) for r in range(r1,r2+1)))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1030",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "ccb57eb3d16b",
+    "createdAt": 1779801022678
+  },
+  {
     "id": "1034",
     "slug": "brute_force-1034",
     "categorySlug": "brute_force",
@@ -342,6 +360,24 @@
     "createdAt": 1779032187509
   },
   {
+    "id": "1219",
+    "slug": "shortest_path-1219",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-1219.py",
+        "code": "import sys\ninput=sys.stdin.readline\nn,s,e,m=map(int,input().split()); edges=[tuple(map(int,input().split())) for _ in range(m)]; earn=list(map(int,input().split()))\nINF=-10**18; dist=[INF]*n; dist[s]=earn[s]\nfor i in range(n+100):\n updated=False\n for a,b,c in edges:\n  if dist[a]==INF: continue\n  val=dist[a]-c+earn[b]\n  if dist[b]<val:\n   dist[b]=10**18 if i>=n-1 else val; updated=True\n  if dist[a]==10**18: dist[b]=10**18\nif dist[e]==INF: print('gg')\nelif dist[e]==10**18: print('Gee')\nelse: print(dist[e])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1219",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "8c1ab66dfc06",
+    "createdAt": 1779801022680
+  },
+  {
     "id": "1238",
     "slug": "shortest_path-1238",
     "categorySlug": "shortest_path",
@@ -466,6 +502,24 @@
     ],
     "hash": "1760136cada8",
     "createdAt": 1779464306674
+  },
+  {
+    "id": "1277",
+    "slug": "shortest_path-1277",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-1277.py",
+        "code": "import heapq,math,sys\ninput=sys.stdin.readline\nn,w=map(int,input().split()); limit=float(input()); pts=[None]+[tuple(map(int,input().split())) for _ in range(n)]\ng=[[] for _ in range(n+1)]\nfor _ in range(w):\n a,b=map(int,input().split()); g[a].append((b,0)); g[b].append((a,0))\nfor i in range(1,n+1):\n for j in range(i+1,n+1):\n  d=math.hypot(pts[i][0]-pts[j][0],pts[i][1]-pts[j][1])\n  if d<=limit: g[i].append((j,d)); g[j].append((i,d))\ndist=[10**18]*(n+1); dist[1]=0; q=[(0,1)]\nwhile q:\n d,x=heapq.heappop(q)\n if d!=dist[x]: continue\n for y,w in g[x]:\n  nd=d+w\n  if nd<dist[y]: dist[y]=nd; heapq.heappush(q,(nd,y))\nprint(int(dist[n]*1000))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1277",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "f4c3f1a958c9",
+    "createdAt": 1779801022680
   },
   {
     "id": "1283",
@@ -700,6 +754,24 @@
     ],
     "hash": "c0511d64f2c6",
     "createdAt": 1779371113602
+  },
+  {
+    "id": "1445",
+    "slug": "shortest_path-1445",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-1445.py",
+        "code": "import heapq,sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); a=[list(input().strip()) for _ in range(n)]\nnear=[[False]*m for _ in range(n)]\nfor i in range(n):\n for j in range(m):\n  if a[i][j]=='g':\n   for dx,dy in ((1,0),(-1,0),(0,1),(0,-1)):\n    x,y=i+dx,j+dy\n    if 0<=x<n and 0<=y<m and a[x][y]=='.': near[x][y]=True\n  if a[i][j]=='S': s=(i,j)\n  if a[i][j]=='F': f=(i,j)\ndist=[[(10**9,10**9)]*m for _ in range(n)]; dist[s[0]][s[1]]=(0,0); q=[(0,0,*s)]\nwhile q:\n g,b,x,y=heapq.heappop(q)\n if (g,b)!=dist[x][y]: continue\n for dx,dy in ((1,0),(-1,0),(0,1),(0,-1)):\n  nx,ny=x+dx,y+dy\n  if 0<=nx<n and 0<=ny<m:\n   ng,nb=g+(a[nx][ny]=='g'), b+(near[nx][ny] and a[nx][ny] not in 'SF')\n   if (ng,nb)<dist[nx][ny]: dist[nx][ny]=(ng,nb); heapq.heappush(q,(ng,nb,nx,ny))\nprint(*dist[f[0]][f[1]])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1445",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "fe51276a9e82",
+    "createdAt": 1779801022680
   },
   {
     "id": "1446",
@@ -1710,6 +1782,24 @@
     "createdAt": 1779792469690
   },
   {
+    "id": "1944",
+    "slug": "minimum_spanning_tree-1944",
+    "categorySlug": "minimum_spanning_tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/minimum_spanning_tree-1944.py",
+        "code": "from collections import deque\nimport sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); grid=[input().strip() for _ in range(n)]\npts=[(i,j) for i in range(n) for j in range(n) if grid[i][j] in 'SK']; idx={p:i for i,p in enumerate(pts)}\nedges=[]\nfor si,sj in pts:\n d=[[-1]*n for _ in range(n)]; d[si][sj]=0; q=deque([(si,sj)])\n while q:\n  x,y=q.popleft()\n  for dx,dy in ((1,0),(-1,0),(0,1),(0,-1)):\n   nx,ny=x+dx,y+dy\n   if 0<=nx<n and 0<=ny<n and grid[nx][ny]!='1' and d[nx][ny]==-1:\n    d[nx][ny]=d[x][y]+1; q.append((nx,ny))\n for p in pts:\n  if p!=(si,sj) and d[p[0]][p[1]]!=-1: edges.append((d[p[0]][p[1]],idx[(si,sj)],idx[p]))\np=list(range(len(pts)))\ndef f(x):\n while p[x]!=x: p[x]=p[p[x]]; x=p[x]\n return x\nans=cnt=0\nfor w,a,b in sorted(edges):\n ra,rb=f(a),f(b)\n if ra!=rb: p[rb]=ra; ans+=w; cnt+=1\nprint(ans if cnt==len(pts)-1 else -1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1944",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "298de9a927c9",
+    "createdAt": 1779801022680
+  },
+  {
     "id": "1946",
     "slug": "greedy-1946",
     "categorySlug": "greedy",
@@ -2147,6 +2237,24 @@
     "createdAt": 1779439433535
   },
   {
+    "id": "2194",
+    "slug": "graph_traversal-2194",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-2194.py",
+        "code": "from collections import deque\nimport sys\ninput=sys.stdin.readline\nn,m,a,b,k=map(int,input().split()); ps=[[0]*(m+1) for _ in range(n+1)]\nfor _ in range(k):\n x,y=map(int,input().split()); ps[x][y]=1\nfor i in range(1,n+1):\n for j in range(1,m+1): ps[i][j]+=ps[i-1][j]+ps[i][j-1]-ps[i-1][j-1]\nsr,sc=map(int,input().split()); er,ec=map(int,input().split())\ndef ok(x,y):\n if x<1 or y<1 or x+a-1>n or y+b-1>m: return False\n return ps[x+a-1][y+b-1]-ps[x-1][y+b-1]-ps[x+a-1][y-1]+ps[x-1][y-1]==0\nd=[[-1]*(m+1) for _ in range(n+1)]; d[sr][sc]=0; q=deque([(sr,sc)])\nwhile q:\n x,y=q.popleft()\n if (x,y)==(er,ec): print(d[x][y]); break\n for dx,dy in ((1,0),(-1,0),(0,1),(0,-1)):\n  nx,ny=x+dx,y+dy\n  if 1<=nx<=n and 1<=ny<=m and d[nx][ny]==-1 and ok(nx,ny): d[nx][ny]=d[x][y]+1; q.append((nx,ny))\nelse: print(-1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2194",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "59e521ba05cc",
+    "createdAt": 1779801022681
+  },
+  {
     "id": "2224",
     "slug": "shortest_path-2224",
     "categorySlug": "shortest_path",
@@ -2289,6 +2397,24 @@
     ],
     "hash": "5ad0fd4d1006",
     "createdAt": 1779518204623
+  },
+  {
+    "id": "2263",
+    "slug": "tree-2263",
+    "categorySlug": "tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/tree-2263.py",
+        "code": "import sys\nsys.setrecursionlimit(10**6); input=sys.stdin.readline\nn=int(input()); ino=list(map(int,input().split())); post=list(map(int,input().split())); pos={v:i for i,v in enumerate(ino)}; out=[]\ndef rec(il,ir,pl,pr):\n if il>ir: return\n root=post[pr]; out.append(root); k=pos[root]; left=k-il\n rec(il,k-1,pl,pl+left-1); rec(k+1,ir,pl+left,pr-1)\nrec(0,n-1,0,n-1); print(*out)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2263",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "3ba109242817",
+    "createdAt": 1779801022681
   },
   {
     "id": "2285",
@@ -3176,6 +3302,24 @@
     ],
     "hash": "53a156e88af6",
     "createdAt": 1779440392440
+  },
+  {
+    "id": "2982",
+    "slug": "shortest_path-2982",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-2982.py",
+        "code": "import heapq,sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); a,b,k,g=map(int,input().split()); route=list(map(int,input().split()))\ngraph=[[] for _ in range(n+1)]; weight={}\nfor _ in range(m):\n x,y,l=map(int,input().split()); graph[x].append((y,l)); graph[y].append((x,l)); weight[(x,y)]=weight[(y,x)]=l\nbusy={}; t=0\nfor u,v in zip(route,route[1:]): busy[(u,v)]=busy[(v,u)]=(t,t+weight[(u,v)]); t+=weight[(u,v)]\nd=[10**18]*(n+1); d[a]=k; pq=[(k,a)]\nwhile pq:\n time,x=heapq.heappop(pq)\n if time!=d[x]: continue\n for y,w in graph[x]:\n  nt=time\n  if (x,y) in busy:\n   s,e=busy[(x,y)]\n   if s<=nt<e: nt=e\n  nt+=w\n  if nt<d[y]: d[y]=nt; heapq.heappush(pq,(nt,y))\nprint(d[b]-k)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2982",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "4093b7693e56",
+    "createdAt": 1779801022681
   },
   {
     "id": "3005",
@@ -4405,6 +4549,24 @@
     ],
     "hash": "9a68fb302a56",
     "createdAt": 1779201736799
+  },
+  {
+    "id": "9370",
+    "slug": "shortest_path-9370",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-9370.py",
+        "code": "import heapq,sys\ninput=sys.stdin.readline\ndef dij(n,g,s):\n d=[10**15]*(n+1); d[s]=0; q=[(0,s)]\n while q:\n  dist,x=heapq.heappop(q)\n  if dist!=d[x]: continue\n  for y,w in g[x]:\n   nd=dist+w\n   if nd<d[y]: d[y]=nd; heapq.heappush(q,(nd,y))\n return d\nout=[]\nfor _ in range(int(input())):\n n,m,t=map(int,input().split()); s,g,h=map(int,input().split()); graph=[[] for _ in range(n+1)]; gh=0\n for _ in range(m):\n  a,b,d=map(int,input().split()); graph[a].append((b,d)); graph[b].append((a,d))\n  if {a,b}=={g,h}: gh=d\n cand=[int(input()) for _ in range(t)]\n ds,dg,dh=dij(n,graph,s),dij(n,graph,g),dij(n,graph,h)\n ans=sorted(x for x in cand if ds[x]==ds[g]+gh+dh[x] or ds[x]==ds[h]+gh+dg[x])\n out.append(' '.join(map(str,ans)))\nprint('\\n'.join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/9370",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "963a9d403033",
+    "createdAt": 1779801022681
   },
   {
     "id": "9372",
@@ -6523,6 +6685,24 @@
     "createdAt": 1779462490287
   },
   {
+    "id": "14923",
+    "slug": "graph_traversal-14923",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-14923.py",
+        "code": "from collections import deque\nimport sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); hx,hy=map(lambda x:int(x)-1,input().split()); ex,ey=map(lambda x:int(x)-1,input().split()); a=[list(map(int,input().split())) for _ in range(n)]\nd=[[[-1]*2 for _ in range(m)] for __ in range(n)]; d[hx][hy][0]=0; q=deque([(hx,hy,0)])\nwhile q:\n x,y,b=q.popleft()\n if (x,y)==(ex,ey): print(d[x][y][b]); break\n for dx,dy in ((1,0),(-1,0),(0,1),(0,-1)):\n  nx,ny=x+dx,y+dy\n  if 0<=nx<n and 0<=ny<m:\n   nb=b+a[nx][ny]\n   if nb<2 and d[nx][ny][nb]==-1: d[nx][ny][nb]=d[x][y][b]+1; q.append((nx,ny,nb))\nelse: print(-1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/14923",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "8ad577d664da",
+    "createdAt": 1779801022681
+  },
+  {
     "id": "14925",
     "slug": "dynamic_programming_2-14925",
     "categorySlug": "dynamic_programming_2",
@@ -7027,6 +7207,24 @@
     "createdAt": 1779462490288
   },
   {
+    "id": "16118",
+    "slug": "shortest_path-16118",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-16118.py",
+        "code": "import heapq,sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); g=[[] for _ in range(n+1)]\nfor _ in range(m):\n a,b,d=map(int,input().split()); d*=2; g[a].append((b,d)); g[b].append((a,d))\ndef fox():\n d=[10**18]*(n+1); d[1]=0; q=[(0,1)]\n while q:\n  dist,x=heapq.heappop(q)\n  if dist!=d[x]: continue\n  for y,w in g[x]:\n   if dist+w<d[y]: d[y]=dist+w; heapq.heappush(q,(d[y],y))\n return d\nfd=fox(); wd=[[10**18]*2 for _ in range(n+1)]; wd[1][0]=0; q=[(0,1,0)]\nwhile q:\n dist,x,state=heapq.heappop(q)\n if dist!=wd[x][state]: continue\n for y,w in g[x]:\n  nw=w//2 if state==0 else w*2; ns=1-state\n  if dist+nw<wd[y][ns]: wd[y][ns]=dist+nw; heapq.heappush(q,(wd[y][ns],y,ns))\nprint(sum(fd[i]<min(wd[i]) for i in range(2,n+1)))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/16118",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "e8135ee3b218",
+    "createdAt": 1779801022681
+  },
+  {
     "id": "16139",
     "slug": "prefix_sum-16139",
     "categorySlug": "prefix_sum",
@@ -7115,6 +7313,24 @@
     ],
     "hash": "18fd034817c6",
     "createdAt": 1779462490289
+  },
+  {
+    "id": "16202",
+    "slug": "minimum_spanning_tree-16202",
+    "categorySlug": "minimum_spanning_tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/minimum_spanning_tree-16202.py",
+        "code": "import sys\ninput=sys.stdin.readline\nn,m,k=map(int,input().split()); edges=[(i+1,*map(int,input().split())) for i in range(m)]\ndef mst(start):\n p=list(range(n+1))\n def f(x):\n  while p[x]!=x: p[x]=p[p[x]]; x=p[x]\n  return x\n cost=cnt=0\n for w,a,b in edges[start:]:\n  ra,rb=f(a),f(b)\n  if ra!=rb: p[rb]=ra; cost+=w; cnt+=1\n return cost if cnt==n-1 else 0\nprint(*[mst(i) for i in range(k)])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/16202",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "d18eaf19b39a",
+    "createdAt": 1779801022681
   },
   {
     "id": "16206",
@@ -7639,6 +7855,24 @@
     "createdAt": 1779794563456
   },
   {
+    "id": "16985",
+    "slug": "graph_traversal-16985",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-16985.py",
+        "code": "from itertools import permutations,product\nfrom collections import deque\nimport sys\ndata=[[list(map(int,sys.stdin.readline().split())) for _ in range(5)] for __ in range(5)]\ndef rot(layer):\n return [[layer[4-j][i] for j in range(5)] for i in range(5)]\nrots=[]\nfor lay in data:\n arr=[lay]\n for _ in range(3): arr.append(rot(arr[-1]))\n rots.append(arr)\nans=10**9\nfor perm in permutations(range(5)):\n for rs in product(range(4), repeat=5):\n  if ans==12:\n   print(12); sys.exit()\n  cube=[rots[perm[i]][rs[i]] for i in range(5)]\n  if not cube[0][0][0] or not cube[4][4][4]: continue\n  d=[[[-1]*5 for _ in range(5)] for __ in range(5)]; d[0][0][0]=0; q=deque([(0,0,0)])\n  while q:\n   z,x,y=q.popleft()\n   if d[z][x][y]>=ans: continue\n   if (z,x,y)==(4,4,4): ans=min(ans,d[z][x][y]); break\n   for dz,dx,dy in ((1,0,0),(-1,0,0),(0,1,0),(0,-1,0),(0,0,1),(0,0,-1)):\n    nz,nx,ny=z+dz,x+dx,y+dy\n    if 0<=nz<5 and 0<=nx<5 and 0<=ny<5 and cube[nz][nx][ny] and d[nz][nx][ny]==-1:\n     d[nz][nx][ny]=d[z][x][y]+1; q.append((nz,nx,ny))\nprint(ans if ans<10**9 else -1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/16985",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "c19e1a27d21d",
+    "createdAt": 1779801022681
+  },
+  {
     "id": "16987",
     "slug": "backtracking-16987",
     "categorySlug": "backtracking",
@@ -7999,6 +8233,24 @@
     "createdAt": 1779782113065
   },
   {
+    "id": "17216",
+    "slug": "dynamic_programming_2-17216",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-17216.py",
+        "code": "import sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); val=[0]+list(map(int,input().split())); g=[[] for _ in range(n+1)]\nfor _ in range(m):\n a,b=map(int,input().split()); g[b].append(a)\nsys.setrecursionlimit(10**6)\ndp=[None]*(n+1)\ndef f(x):\n if dp[x] is not None: return dp[x]\n dp[x]=val[x]+max([f(y) for y in g[x]] or [0]); return dp[x]\nprint(max(f(i) for i in range(1,n+1)))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/17216",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "ed93ed4497e3",
+    "createdAt": 1779801022681
+  },
+  {
     "id": "17255",
     "slug": "data_structure2-17255",
     "categorySlug": "data_structure2",
@@ -8231,6 +8483,24 @@
     ],
     "hash": "80570752c29e",
     "createdAt": 1779198150930
+  },
+  {
+    "id": "17472",
+    "slug": "minimum_spanning_tree-17472",
+    "categorySlug": "minimum_spanning_tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/minimum_spanning_tree-17472.py",
+        "code": "from collections import deque\nimport sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); a=[list(map(int,input().split())) for _ in range(n)]\nidx=0; seen=[[False]*m for _ in range(n)]\nfor i in range(n):\n for j in range(m):\n  if a[i][j]==1 and not seen[i][j]:\n   idx+=1; seen[i][j]=True; a[i][j]=idx; q=deque([(i,j)])\n   while q:\n    x,y=q.popleft()\n    for dx,dy in ((1,0),(-1,0),(0,1),(0,-1)):\n     nx,ny=x+dx,y+dy\n     if 0<=nx<n and 0<=ny<m and a[nx][ny]==1 and not seen[nx][ny]:\n      seen[nx][ny]=True; a[nx][ny]=idx; q.append((nx,ny))\nedges=[]\nfor i in range(n):\n for j in range(m):\n  if a[i][j]>0:\n   for dx,dy in ((1,0),(-1,0),(0,1),(0,-1)):\n    x,y=i+dx,j+dy; l=0\n    while 0<=x<n and 0<=y<m and a[x][y]==0: l+=1; x+=dx; y+=dy\n    if 0<=x<n and 0<=y<m and a[x][y]!=a[i][j] and l>=2: edges.append((l,a[i][j],a[x][y]))\np=list(range(idx+1))\ndef f(x):\n while p[x]!=x: p[x]=p[p[x]]; x=p[x]\n return x\nans=cnt=0\nfor w,u,v in sorted(edges):\n ru,rv=f(u),f(v)\n if ru!=rv: p[rv]=ru; ans+=w; cnt+=1\nprint(ans if cnt==idx-1 else -1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/17472",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "c536ca927458",
+    "createdAt": 1779801022681
   },
   {
     "id": "17484",
@@ -8627,6 +8897,24 @@
     ],
     "hash": "067a92a29e2e",
     "createdAt": 1779782113065
+  },
+  {
+    "id": "18769",
+    "slug": "minimum_spanning_tree-18769",
+    "categorySlug": "minimum_spanning_tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/minimum_spanning_tree-18769.py",
+        "code": "import sys\nit=iter(map(int,sys.stdin.read().split())); t=next(it); outs=[]\nfor _ in range(t):\n r=next(it); c=next(it); edges=[]; node=lambda i,j:i*c+j\n for i in range(r):\n  for j in range(c-1): edges.append((next(it),node(i,j),node(i,j+1)))\n for i in range(r-1):\n  for j in range(c): edges.append((next(it),node(i,j),node(i+1,j)))\n p=list(range(r*c))\n def f(x):\n  while p[x]!=x: p[x]=p[p[x]]; x=p[x]\n  return x\n ans=0\n for w,a,b in sorted(edges):\n  ra,rb=f(a),f(b)\n  if ra!=rb: p[rb]=ra; ans+=w\n outs.append(str(ans))\nprint('\\n'.join(outs))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/18769",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "c0522acdf4d7",
+    "createdAt": 1779801022681
   },
   {
     "id": "18866",
@@ -9115,6 +9403,42 @@
     "createdAt": 1779799636125
   },
   {
+    "id": "20182",
+    "slug": "shortest_path-20182",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-20182.py",
+        "code": "import heapq,sys\ninput=sys.stdin.readline\nn,m,a,b,c=map(int,input().split()); g=[[] for _ in range(n+1)]\nfor _ in range(m):\n x,y,z=map(int,input().split()); g[x].append((y,z)); g[y].append((x,z))\ndef ok(limit):\n d=[10**18]*(n+1); d[a]=0; q=[(0,a)]\n while q:\n  cost,x=heapq.heappop(q)\n  if cost!=d[x]: continue\n  for y,w in g[x]:\n   if w>limit: continue\n   nd=cost+w\n   if nd<d[y]: d[y]=nd; heapq.heappush(q,(nd,y))\n return d[b]<=c\nlo,hi=1,10**9; ans=-1\nwhile lo<=hi:\n mid=(lo+hi)//2\n if ok(mid): ans=mid; hi=mid-1\n else: lo=mid+1\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/20182",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "e566d6ccfd23",
+    "createdAt": 1779801022682
+  },
+  {
+    "id": "20183",
+    "slug": "shortest_path-20183",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-20183.py",
+        "code": "import heapq,sys\ninput=sys.stdin.readline\nn,m,a,b,c=map(int,input().split()); g=[[] for _ in range(n+1)]\nfor _ in range(m):\n x,y,z=map(int,input().split()); g[x].append((y,z)); g[y].append((x,z))\ndef ok(limit):\n d=[10**18]*(n+1); d[a]=0; q=[(0,a)]\n while q:\n  cost,x=heapq.heappop(q)\n  if cost!=d[x]: continue\n  for y,w in g[x]:\n   if w>limit: continue\n   nd=cost+w\n   if nd<d[y]: d[y]=nd; heapq.heappush(q,(nd,y))\n return d[b]<=c\nlo,hi=1,10**9; ans=-1\nwhile lo<=hi:\n mid=(lo+hi)//2\n if ok(mid): ans=mid; hi=mid-1\n else: lo=mid+1\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/20183",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "69bf8db30a46",
+    "createdAt": 1779801022682
+  },
+  {
     "id": "20208",
     "slug": "backtracking-20208",
     "categorySlug": "backtracking",
@@ -9349,6 +9673,24 @@
     "createdAt": 1779786274767
   },
   {
+    "id": "21609",
+    "slug": "simulation-21609",
+    "categorySlug": "simulation",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/simulation-21609.py",
+        "code": "from collections import deque\nimport sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); a=[list(map(int,input().split())) for _ in range(n)]\ndef gravity():\n for j in range(n):\n  empty=n-1\n  for i in range(n-1,-1,-1):\n   if a[i][j]==-2: continue\n   if a[i][j]==-1: empty=i-1\n   else:\n    a[empty][j],a[i][j]=a[i][j],-2; empty-=1\ndef rotate(): return [list(row) for row in zip(*a)][::-1]\nscore=0\nwhile True:\n seen=[[False]*n for _ in range(n)]; groups=[]\n for i in range(n):\n  for j in range(n):\n   if a[i][j]>0 and not seen[i][j]:\n    color=a[i][j]; q=deque([(i,j)]); seen[i][j]=True; cells=[]; rain=[]; base=(i,j)\n    while q:\n     x,y=q.popleft(); cells.append((x,y))\n     if a[x][y]==0: rain.append((x,y))\n     for dx,dy in ((1,0),(-1,0),(0,1),(0,-1)):\n      nx,ny=x+dx,y+dy\n      if 0<=nx<n and 0<=ny<n and not seen[nx][ny] and (a[nx][ny]==0 or a[nx][ny]==color):\n       seen[nx][ny]=True; q.append((nx,ny))\n    for x,y in rain: seen[x][y]=False\n    normals=[c for c in cells if a[c[0]][c[1]]==color]\n    if len(cells)>=2: groups.append((len(cells),len(rain),max(normals),cells))\n if not groups: break\n _,_,_,cells=max(groups)\n score+=len(cells)**2\n for x,y in cells: a[x][y]=-2\n gravity(); a=rotate(); gravity()\nprint(score)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/21609",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "1163283a9946",
+    "createdAt": 1779801022682
+  },
+  {
     "id": "21611",
     "slug": "implementation-21611",
     "categorySlug": "implementation",
@@ -9455,6 +9797,24 @@
     ],
     "hash": "33f394908e30",
     "createdAt": 1779799636126
+  },
+  {
+    "id": "21940",
+    "slug": "shortest_path-21940",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-21940.py",
+        "code": "import sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); INF=10**9; d=[[INF]*(n+1) for _ in range(n+1)]\nfor i in range(1,n+1): d[i][i]=0\nfor _ in range(m):\n a,b,t=map(int,input().split()); d[a][b]=min(d[a][b],t)\nk=int(input()); friends=list(map(int,input().split()))\nfor x in range(1,n+1):\n for i in range(1,n+1):\n  for j in range(1,n+1):\n   if d[i][j]>d[i][x]+d[x][j]: d[i][j]=d[i][x]+d[x][j]\nbest=INF; ans=[]\nfor room in range(1,n+1):\n val=max(d[f][room]+d[room][f] for f in friends)\n if val<best: best=val; ans=[room]\n elif val==best: ans.append(room)\nprint(*ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/21940",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "dd11b595da1d",
+    "createdAt": 1779801022682
   },
   {
     "id": "21941",
