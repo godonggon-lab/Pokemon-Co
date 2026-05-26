@@ -2219,6 +2219,42 @@
     "createdAt": 1779518204623
   },
   {
+    "id": "2234",
+    "slug": "graph_traversal-2234",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-2234.py",
+        "code": "from collections import deque\nimport sys\ninput=sys.stdin.readline\nm,n=map(int,input().split())\na=[list(map(int,input().split())) for _ in range(n)]\nroom=[[-1]*m for _ in range(n)]\nsizes=[]\ndirs=[(0,-1),( -1,0),(0,1),(1,0)]\nfor i in range(n):\n    for j in range(m):\n        if room[i][j]!=-1: continue\n        idx=len(sizes); q=deque([(i,j)]); room[i][j]=idx; cnt=0\n        while q:\n            x,y=q.popleft(); cnt+=1\n            for bit,(dx,dy) in enumerate(dirs):\n                if a[x][y]&(1<<bit): continue\n                nx,ny=x+dx,y+dy\n                if 0<=nx<n and 0<=ny<m and room[nx][ny]==-1:\n                    room[nx][ny]=idx; q.append((nx,ny))\n        sizes.append(cnt)\nbest=max(sizes); merged=best\nfor i in range(n):\n    for j in range(m):\n        for dx,dy in ((1,0),(0,1)):\n            ni,nj=i+dx,j+dy\n            if ni<n and nj<m and room[i][j]!=room[ni][nj]:\n                merged=max(merged,sizes[room[i][j]]+sizes[room[ni][nj]])\nprint(len(sizes)); print(best); print(merged)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2234",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "b2992a995549",
+    "createdAt": 1779797354677
+  },
+  {
+    "id": "2250",
+    "slug": "tree-2250",
+    "categorySlug": "tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/tree-2250.py",
+        "code": "import sys\ninput=sys.stdin.readline\nn=int(input())\nchildren={}; has_parent=set()\nfor _ in range(n):\n    x,l,r=map(int,input().split()); children[x]=(l,r)\n    if l!=-1: has_parent.add(l)\n    if r!=-1: has_parent.add(r)\nroot=next(x for x in children if x not in has_parent)\nlevel_pos={}\ncol=0\ndef dfs(x,level):\n    global col\n    if x==-1: return\n    l,r=children[x]\n    dfs(l,level+1)\n    col+=1\n    level_pos.setdefault(level,[]).append(col)\n    dfs(r,level+1)\ndfs(root,1)\nans=(1,1)\nfor lv,arr in level_pos.items():\n    width=max(arr)-min(arr)+1\n    if width>ans[1]: ans=(lv,width)\nprint(*ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2250",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "cfd225faf96d",
+    "createdAt": 1779797354683
+  },
+  {
     "id": "2252",
     "slug": "topological_sorting-2252",
     "categorySlug": "topological_sorting",
@@ -3394,6 +3430,24 @@
     "createdAt": 1779032187510
   },
   {
+    "id": "3665",
+    "slug": "topological_sorting-3665",
+    "categorySlug": "topological_sorting",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/topological_sorting-3665.py",
+        "code": "from collections import deque\nimport sys\ninput=sys.stdin.readline\nout=[]\nfor _ in range(int(input())):\n    n=int(input()); rank=list(map(int,input().split()))\n    adj=[[False]*(n+1) for _ in range(n+1)]\n    indeg=[0]*(n+1)\n    for i in range(n):\n        for j in range(i+1,n):\n            adj[rank[i]][rank[j]]=True; indeg[rank[j]]+=1\n    for _ in range(int(input())):\n        a,b=map(int,input().split())\n        if adj[a][b]:\n            adj[a][b]=False; adj[b][a]=True; indeg[b]-=1; indeg[a]+=1\n        else:\n            adj[b][a]=False; adj[a][b]=True; indeg[a]-=1; indeg[b]+=1\n    q=deque([i for i in range(1,n+1) if indeg[i]==0]); res=[]; amb=False\n    for _ in range(n):\n        if not q: res=None; break\n        if len(q)>1: amb=True\n        x=q.popleft(); res.append(x)\n        for y in range(1,n+1):\n            if adj[x][y]:\n                indeg[y]-=1\n                if indeg[y]==0: q.append(y)\n    out.append(\"IMPOSSIBLE\" if res is None else (\"?\" if amb else \" \".join(map(str,res))))\nprint(\"\\n\".join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/3665",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "5b3e347fa198",
+    "createdAt": 1779797354683
+  },
+  {
     "id": "3673",
     "slug": "prefix_sum-3673",
     "categorySlug": "prefix_sum",
@@ -3741,6 +3795,24 @@
     "createdAt": 1779518793209
   },
   {
+    "id": "5670",
+    "slug": "trie-5670",
+    "categorySlug": "trie",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/trie-5670.py",
+        "code": "import sys\nlines=sys.stdin.read().splitlines(); idx=0; outs=[]\nwhile idx<len(lines):\n    if lines[idx]==\"\": idx+=1; continue\n    n=int(lines[idx]); idx+=1\n    words=lines[idx:idx+n]; idx+=n\n    trie={}\n    end=\"*\"\n    for w in words:\n        node=trie\n        for ch in w: node=node.setdefault(ch,{})\n        node[end]={}\n    total=0\n    for w in words:\n        node=trie; cnt=0\n        for i,ch in enumerate(w):\n            if i==0 or len(node)>1 or end in node: cnt+=1\n            node=node[ch]\n        total+=cnt\n    outs.append(f\"{total/n:.2f}\")\nprint(\"\\n\".join(outs))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/5670",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "5b98796b1287",
+    "createdAt": 1779797354683
+  },
+  {
     "id": "5671",
     "slug": "brute_force-5671",
     "categorySlug": "brute_force",
@@ -3867,6 +3939,24 @@
     "createdAt": 1779371113602
   },
   {
+    "id": "6087",
+    "slug": "graph_traversal-6087",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-6087.py",
+        "code": "from collections import deque\nimport sys\ninput=sys.stdin.readline\nw,h=map(int,input().split())\ng=[input().strip() for _ in range(h)]\ncs=[(i,j) for i in range(h) for j in range(w) if g[i][j]=='C']\n(sx,sy),(tx,ty)=cs\nINF=10**9; dist=[[[INF]*4 for _ in range(w)] for __ in range(h)]\nq=deque()\nfor d in range(4): dist[sx][sy][d]=0; q.append((sx,sy,d))\ndirs=[(1,0),(-1,0),(0,1),(0,-1)]\nwhile q:\n    x,y,d=q.popleft()\n    for nd,(dx,dy) in enumerate(dirs):\n        nx,ny=x+dx,y+dy\n        if not(0<=nx<h and 0<=ny<w) or g[nx][ny]=='*': continue\n        cost=dist[x][y][d]+(d!=nd)\n        if dist[nx][ny][nd]>cost:\n            dist[nx][ny][nd]=cost\n            (q.append if d!=nd else q.appendleft)((nx,ny,nd))\nprint(min(dist[tx][ty]))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/6087",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "b4e38b279f91",
+    "createdAt": 1779797354683
+  },
+  {
     "id": "6118",
     "slug": "graph_traversal-6118",
     "categorySlug": "graph_traversal",
@@ -3937,6 +4027,24 @@
     ],
     "hash": "01b100bc0b23",
     "createdAt": 1779463720912
+  },
+  {
+    "id": "6416",
+    "slug": "tree-6416",
+    "categorySlug": "tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/tree-6416.py",
+        "code": "import sys\nnums=list(map(int,sys.stdin.read().split())); i=0; case=1; out=[]\nwhile i<len(nums):\n    edges=[]; nodes=set(); indeg={}\n    while i<len(nums):\n        a,b=nums[i],nums[i+1]; i+=2\n        if a==-1 and b==-1:\n            print(\"\\n\".join(out)); raise SystemExit\n        if a==0 and b==0: break\n        edges.append((a,b)); nodes.update((a,b)); indeg[b]=indeg.get(b,0)+1; indeg.setdefault(a,0)\n    ok=True\n    roots=[x for x in nodes if indeg.get(x,0)==0]\n    if edges:\n        ok=len(roots)==1 and all(indeg.get(x,0)<=1 for x in nodes) and len(edges)==len(nodes)-1\n    out.append(f\"Case {case} is {'a tree.' if ok else 'not a tree.'}\"); case+=1\nprint(\"\\n\".join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/6416",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "51d8339602a3",
+    "createdAt": 1779797354683
   },
   {
     "id": "6443",
@@ -4063,6 +4171,24 @@
     ],
     "hash": "95ab6225e0be",
     "createdAt": 1779463720912
+  },
+  {
+    "id": "7682",
+    "slug": "backtracking-7682",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-7682.py",
+        "code": "import sys\ndef win(s,ch):\n    lines=[(0,1,2),(3,4,5),(6,7,8),(0,3,6),(1,4,7),(2,5,8),(0,4,8),(2,4,6)]\n    return any(all(s[i]==ch for i in line) for line in lines)\nout=[]\nfor s in sys.stdin.read().split():\n    if s==\"end\": break\n    x=s.count('X'); o=s.count('O'); wx=win(s,'X'); wo=win(s,'O')\n    ok=False\n    if x==o+1 and wx and not wo: ok=True\n    if x==o and wo and not wx: ok=True\n    if x==5 and o==4 and not wx and not wo: ok=True\n    out.append(\"valid\" if ok else \"invalid\")\nprint(\"\\n\".join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/7682",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "a9f97e134fd9",
+    "createdAt": 1779797354683
   },
   {
     "id": "7795",
@@ -4315,6 +4441,24 @@
     ],
     "hash": "a9518238b835",
     "createdAt": 1779794563456
+  },
+  {
+    "id": "9489",
+    "slug": "tree-9489",
+    "categorySlug": "tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/tree-9489.py",
+        "code": "import sys\nout=[]; data=sys.stdin.read().split(); it=iter(data)\nfor n_s in it:\n    n=int(n_s); k=int(next(it))\n    if n==0 and k==0: break\n    arr=[int(next(it)) for _ in range(n)]\n    parent=[-1]*n; p=-1\n    for i in range(1,n):\n        if i==1 or arr[i]!=arr[i-1]+1: p+=1\n        parent[i]=p\n    idx=arr.index(k); gp=parent[parent[idx]] if parent[idx]!=-1 else -1\n    ans=sum(1 for i in range(n) if parent[i]!=parent[idx] and parent[i]!=-1 and parent[parent[i]]==gp)\n    out.append(str(ans))\nprint(\"\\n\".join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/9489",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "15bbe0b5e478",
+    "createdAt": 1779797354683
   },
   {
     "id": "9536",
@@ -5402,6 +5546,24 @@
     "createdAt": 1779786274765
   },
   {
+    "id": "12896",
+    "slug": "tree-12896",
+    "categorySlug": "tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/tree-12896.py",
+        "code": "from collections import deque\nimport sys\ninput=sys.stdin.readline\nn=int(input()); g=[[] for _ in range(n+1)]\nfor _ in range(n-1):\n    a,b=map(int,input().split()); g[a].append(b); g[b].append(a)\ndef far(s):\n    d=[-1]*(n+1); d[s]=0; q=deque([s])\n    while q:\n        x=q.popleft()\n        for y in g[x]:\n            if d[y]==-1: d[y]=d[x]+1; q.append(y)\n    v=max(range(1,n+1), key=lambda i:d[i]); return v,d[v]\na,_=far(1); b,diam=far(a)\nprint((diam+1)//2)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/12896",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "e823638f1243",
+    "createdAt": 1779797354684
+  },
+  {
     "id": "12919",
     "slug": "brute_force-12919",
     "categorySlug": "brute_force",
@@ -5600,6 +5762,42 @@
     "createdAt": 1779778886847
   },
   {
+    "id": "13459",
+    "slug": "simulation-13459",
+    "categorySlug": "simulation",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/simulation-13459.py",
+        "code": "from collections import deque\nimport sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); board=[list(input().strip()) for _ in range(n)]\nfor i in range(n):\n for j in range(m):\n  if board[i][j]=='R': rx,ry=i,j; board[i][j]='.'\n  if board[i][j]=='B': bx,by=i,j; board[i][j]='.'\ndirs=[(1,0),(-1,0),(0,1),(0,-1)]\ndef move(x,y,dx,dy):\n c=0\n while board[x+dx][y+dy]!='#' and board[x][y]!='O':\n  x+=dx; y+=dy; c+=1\n return x,y,c\nq=deque([(rx,ry,bx,by,0)]); seen={(rx,ry,bx,by)}\nwhile q:\n rx,ry,bx,by,t=q.popleft()\n if t>=10: continue\n for dx,dy in dirs:\n  nrx,nry,rc=move(rx,ry,dx,dy); nbx,nby,bc=move(bx,by,dx,dy)\n  if board[nbx][nby]=='O': continue\n  if board[nrx][nry]=='O': print(1); raise SystemExit\n  if (nrx,nry)==(nbx,nby):\n   if rc>bc: nrx-=dx; nry-=dy\n   else: nbx-=dx; nby-=dy\n  st=(nrx,nry,nbx,nby)\n  if st not in seen: seen.add(st); q.append((*st,t+1))\nprint(0)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/13459",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "17f640c02232",
+    "createdAt": 1779797354684
+  },
+  {
+    "id": "13460",
+    "slug": "simulation-13460",
+    "categorySlug": "simulation",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/simulation-13460.py",
+        "code": "from collections import deque\nimport sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); board=[list(input().strip()) for _ in range(n)]\nfor i in range(n):\n for j in range(m):\n  if board[i][j]=='R': rx,ry=i,j; board[i][j]='.'\n  if board[i][j]=='B': bx,by=i,j; board[i][j]='.'\ndirs=[(1,0),(-1,0),(0,1),(0,-1)]\ndef move(x,y,dx,dy):\n c=0\n while board[x+dx][y+dy]!='#' and board[x][y]!='O':\n  x+=dx; y+=dy; c+=1\n return x,y,c\nq=deque([(rx,ry,bx,by,0)]); seen={(rx,ry,bx,by)}\nwhile q:\n rx,ry,bx,by,t=q.popleft()\n if t>=10: continue\n for dx,dy in dirs:\n  nrx,nry,rc=move(rx,ry,dx,dy); nbx,nby,bc=move(bx,by,dx,dy)\n  if board[nbx][nby]=='O': continue\n  if board[nrx][nry]=='O': print(t+1); raise SystemExit\n  if (nrx,nry)==(nbx,nby):\n   if rc>bc: nrx-=dx; nry-=dy\n   else: nbx-=dx; nby-=dy\n  st=(nrx,nry,nbx,nby)\n  if st not in seen: seen.add(st); q.append((*st,t+1))\nprint(-1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/13460",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "0bbe8840bb02",
+    "createdAt": 1779797354684
+  },
+  {
     "id": "13565",
     "slug": "graph_traversal-13565",
     "categorySlug": "graph_traversal",
@@ -5636,6 +5834,42 @@
     "createdAt": 1779461724553
   },
   {
+    "id": "13905",
+    "slug": "minimum_spanning_tree-13905",
+    "categorySlug": "minimum_spanning_tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/minimum_spanning_tree-13905.py",
+        "code": "import sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); s,e=map(int,input().split())\nedges=[tuple(map(int,input().split())) for _ in range(m)]\np=list(range(n+1))\ndef f(x):\n while p[x]!=x: p[x]=p[p[x]]; x=p[x]\n return x\nfor a,b,c in sorted(edges,key=lambda x:-x[2]):\n ra,rb=f(a),f(b)\n if ra!=rb: p[rb]=ra\n if f(s)==f(e): print(c); break\nelse: print(0)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/13905",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "1aa9b5b70873",
+    "createdAt": 1779797354684
+  },
+  {
+    "id": "13908",
+    "slug": "backtracking-13908",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-13908.py",
+        "code": "import sys,itertools\ndata=list(map(int,sys.stdin.read().split()))\nn,m=data[0],data[1]; req=set(data[2:])\nans=0\nfor p in itertools.product(range(10), repeat=n):\n if req.issubset(p): ans+=1\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/13908",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "edb8364acc2c",
+    "createdAt": 1779797354684
+  },
+  {
     "id": "13910",
     "slug": "dynamic_programming_1-13910",
     "categorySlug": "dynamic_programming_1",
@@ -5652,6 +5886,24 @@
     ],
     "hash": "88d18f85de42",
     "createdAt": 1779792469694
+  },
+  {
+    "id": "13911",
+    "slug": "shortest_path-13911",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-13911.py",
+        "code": "import heapq,sys\ninput=sys.stdin.readline\nv,e=map(int,input().split()); g=[[] for _ in range(v+1)]\nfor _ in range(e):\n a,b,c=map(int,input().split()); g[a].append((b,c)); g[b].append((a,c))\nm,x=map(int,input().split()); mac=list(map(int,input().split()))\ns,y=map(int,input().split()); star=list(map(int,input().split()))\nINF=10**18\ndef dij(starts):\n d=[INF]*(v+1); q=[]\n for st in starts: d[st]=0; heapq.heappush(q,(0,st))\n while q:\n  dist,node=heapq.heappop(q)\n  if dist!=d[node]: continue\n  for nxt,w in g[node]:\n   nd=dist+w\n   if nd<d[nxt]: d[nxt]=nd; heapq.heappush(q,(nd,nxt))\n return d\ndm,ds=dij(mac),dij(star); special=set(mac+star); ans=INF\nfor i in range(1,v+1):\n if i not in special and dm[i]<=x and ds[i]<=y: ans=min(ans,dm[i]+ds[i])\nprint(ans if ans<INF else -1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/13911",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "6baaf8753d84",
+    "createdAt": 1779797354684
   },
   {
     "id": "13975",
@@ -5994,6 +6246,24 @@
     ],
     "hash": "97c006abeddb",
     "createdAt": 1779461724553
+  },
+  {
+    "id": "14657",
+    "slug": "tree-14657",
+    "categorySlug": "tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/tree-14657.py",
+        "code": "from collections import deque\nimport sys,math\ninput=sys.stdin.readline\nn,t=map(int,input().split()); g=[[] for _ in range(n+1)]\nfor _ in range(n-1):\n a,b,c=map(int,input().split()); g[a].append((b,c)); g[b].append((a,c))\ndef far(s):\n d=[-1]*(n+1); d[s]=0; q=deque([s])\n while q:\n  x=q.popleft()\n  for y,w in g[x]:\n   if d[y]==-1: d[y]=d[x]+w; q.append(y)\n v=max(range(1,n+1), key=lambda i:d[i]); return v,d[v]\na,_=far(1); _,diam=far(a)\nprint((diam+t-1)//t)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/14657",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "9edd0696d09e",
+    "createdAt": 1779797354684
   },
   {
     "id": "14675",
@@ -6343,6 +6613,24 @@
     "createdAt": 1779461724554
   },
   {
+    "id": "15653",
+    "slug": "simulation-15653",
+    "categorySlug": "simulation",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/simulation-15653.py",
+        "code": "from collections import deque\nimport sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); board=[list(input().strip()) for _ in range(n)]\nfor i in range(n):\n for j in range(m):\n  if board[i][j]=='R': rx,ry=i,j; board[i][j]='.'\n  if board[i][j]=='B': bx,by=i,j; board[i][j]='.'\ndirs=[(1,0),(-1,0),(0,1),(0,-1)]\ndef move(x,y,dx,dy):\n c=0\n while board[x+dx][y+dy]!='#' and board[x][y]!='O':\n  x+=dx; y+=dy; c+=1\n return x,y,c\nq=deque([(rx,ry,bx,by,0)]); seen={(rx,ry,bx,by)}\nwhile q:\n rx,ry,bx,by,t=q.popleft()\n for dx,dy in dirs:\n  nrx,nry,rc=move(rx,ry,dx,dy); nbx,nby,bc=move(bx,by,dx,dy)\n  if board[nbx][nby]=='O': continue\n  if board[nrx][nry]=='O': print(t+1); raise SystemExit\n  if (nrx,nry)==(nbx,nby):\n   if rc>bc: nrx-=dx; nry-=dy\n   else: nbx-=dx; nby-=dy\n  st=(nrx,nry,nbx,nby)\n  if st not in seen: seen.add(st); q.append((*st,t+1))\nprint(-1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/15653",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "5f2e35a86bca",
+    "createdAt": 1779797354684
+  },
+  {
     "id": "15659",
     "slug": "backtracking-15659",
     "categorySlug": "backtracking",
@@ -6359,6 +6647,42 @@
     ],
     "hash": "cc18e9269aef",
     "createdAt": 1779794563456
+  },
+  {
+    "id": "15684",
+    "slug": "backtracking-15684",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-15684.py",
+        "code": "import sys\ninput=sys.stdin.readline\nn,m,h=map(int,input().split()); a=[[False]*(n+1) for _ in range(h+1)]\nfor _ in range(m):\n x,y=map(int,input().split()); a[x][y]=True\ndef ok():\n for start in range(1,n+1):\n  cur=start\n  for r in range(1,h+1):\n   if a[r][cur]: cur+=1\n   elif cur>1 and a[r][cur-1]: cur-=1\n  if cur!=start: return False\n return True\ndef dfs(pos,cnt,limit):\n if cnt==limit: return ok()\n for idx in range(pos,h*(n-1)):\n  r=idx//(n-1)+1; c=idx%(n-1)+1\n  if a[r][c] or (c>1 and a[r][c-1]) or (c<n-1 and a[r][c+1]): continue\n  a[r][c]=True\n  if dfs(idx+1,cnt+1,limit): return True\n  a[r][c]=False\n return False\nfor lim in range(4):\n if dfs(0,0,lim): print(lim); break\nelse: print(-1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/15684",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "ecdc300abaa9",
+    "createdAt": 1779797354684
+  },
+  {
+    "id": "15685",
+    "slug": "simulation-15685",
+    "categorySlug": "simulation",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/simulation-15685.py",
+        "code": "import sys\ninput=sys.stdin.readline\nn=int(input()); grid=[[False]*101 for _ in range(101)]\ndirs=[(1,0),(0,-1),(-1,0),(0,1)]\nfor _ in range(n):\n x,y,d,g=map(int,input().split()); seq=[d]\n for _ in range(g): seq += [(v+1)%4 for v in reversed(seq)]\n grid[y][x]=True\n for v in seq:\n  dx,dy=dirs[v]; x+=dx; y+=dy; grid[y][x]=True\nans=0\nfor i in range(100):\n for j in range(100):\n  if grid[i][j] and grid[i+1][j] and grid[i][j+1] and grid[i+1][j+1]: ans+=1\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/15685",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "5c1c77577e5c",
+    "createdAt": 1779797354684
   },
   {
     "id": "15686",
@@ -7243,6 +7567,24 @@
     "createdAt": 1779794563456
   },
   {
+    "id": "16988",
+    "slug": "graph_traversal-16988",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-16988.py",
+        "code": "from collections import deque\nfrom itertools import combinations\nimport sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); board=[list(map(int,input().split())) for _ in range(n)]\nzeros=[(i,j) for i in range(n) for j in range(m) if board[i][j]==0]\ndef score(picks):\n for x,y in picks: board[x][y]=1\n seen=[[False]*m for _ in range(n)]; total=0\n for i in range(n):\n  for j in range(m):\n   if board[i][j]!=2 or seen[i][j]: continue\n   q=deque([(i,j)]); seen[i][j]=True; cnt=0; liberty=False\n   while q:\n    x,y=q.popleft(); cnt+=1\n    for dx,dy in ((1,0),(-1,0),(0,1),(0,-1)):\n     nx,ny=x+dx,y+dy\n     if 0<=nx<n and 0<=ny<m:\n      if board[nx][ny]==0: liberty=True\n      elif board[nx][ny]==2 and not seen[nx][ny]: seen[nx][ny]=True; q.append((nx,ny))\n   if not liberty: total+=cnt\n for x,y in picks: board[x][y]=0\n return total\nans=0\nfor picks in combinations(zeros,2): ans=max(ans,score(picks))\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/16988",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "39cb6fe54b2b",
+    "createdAt": 1779797354684
+  },
+  {
     "id": "17069",
     "slug": "dynamic_programming_2-17069",
     "categorySlug": "dynamic_programming_2",
@@ -7421,6 +7763,24 @@
     ],
     "hash": "267a9b072119",
     "createdAt": 1779783237242
+  },
+  {
+    "id": "17135",
+    "slug": "simulation-17135",
+    "categorySlug": "simulation",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/simulation-17135.py",
+        "code": "from itertools import combinations\nimport sys\ninput=sys.stdin.readline\nn,m,d=map(int,input().split()); orig=[list(map(int,input().split())) for _ in range(n)]\ndef play(cols):\n board=[row[:] for row in orig]; killed=0\n for turn in range(n):\n  targets=set()\n  for c in cols:\n   best=None\n   for i in range(n-1,-1,-1):\n    for j in range(m):\n     if board[i][j] and abs(n-i)+abs(c-j)<=d:\n      cand=(abs(n-i)+abs(c-j),j,i)\n      if best is None or cand<best: best=cand\n   if best: targets.add((best[2],best[1]))\n  for x,y in targets:\n   if board[x][y]: board[x][y]=0; killed+=1\n  board.pop(); board.insert(0,[0]*m)\n return killed\nprint(max(play(cols) for cols in combinations(range(m),3)))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/17135",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "621f4fdc1285",
+    "createdAt": 1779797354684
   },
   {
     "id": "17142",
