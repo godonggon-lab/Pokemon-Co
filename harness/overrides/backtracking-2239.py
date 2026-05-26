@@ -1,0 +1,10 @@
+from __future__ import annotations
+from typing import List
+from harness.cases import GeneratedCase, edge, stress
+
+def gen_inputs(_seed: int) -> List[GeneratedCase]:
+    return [
+        edge("534678912\n672195348\n198342567\n859761423\n426853791\n713924856\n961537284\n287419635\n345286179\n"),
+        edge("034678912\n672195348\n198342567\n859761423\n426853791\n713924856\n961537284\n287419635\n345286179\n"),
+        stress("003678912\n672195348\n198342567\n859761423\n426853791\n713924856\n961537284\n287419635\n345286179\n"),
+    ]
