@@ -6662,6 +6662,24 @@
     "createdAt": 1779461724553
   },
   {
+    "id": "13707",
+    "slug": "dynamic_programming_2-13707",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-13707.py",
+        "code": "import sys\nMOD=1000000000\nn,k=map(int,sys.stdin.readline().split())\ndp=[0]*(n+1)\ndp[0]=1\nfor _ in range(k):\n    nd=[0]*(n+1)\n    s=0\n    for i in range(n+1):\n        s=(s+dp[i])%MOD\n        nd[i]=s\n    dp=nd\nprint(dp[n])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/13707",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "6e6a0205811d",
+    "createdAt": 1780241257676
+  },
+  {
     "id": "13902",
     "slug": "dynamic_programming_2-13902",
     "categorySlug": "dynamic_programming_2",
@@ -10663,6 +10681,24 @@
     "createdAt": 1779799636125
   },
   {
+    "id": "20495",
+    "slug": "binary_search-20495",
+    "categorySlug": "binary_search",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/binary_search-20495.py",
+        "code": "import bisect,sys\ninput=sys.stdin.readline\nn=int(input())\ndata=[tuple(map(int,input().split())) for _ in range(n)]\nlo=sorted(x-d for x,d in data)\nhi=sorted(x+d for x,d in data)\nout=[]\nfor x,d in data:\n    best=n-bisect.bisect_right(lo,x+d)+1\n    worst=n-bisect.bisect_left(hi,x-d)\n    out.append(f\"{best} {worst}\")\nprint(\"\\n\".join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/20495",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "cb42518ff959",
+    "createdAt": 1780241257680
+  },
+  {
     "id": "20542",
     "slug": "dynamic_programming_2-20542",
     "categorySlug": "dynamic_programming_2",
@@ -11273,5 +11309,59 @@
     ],
     "hash": "54172567c01d",
     "createdAt": 1779799636126
+  },
+  {
+    "id": "22946",
+    "slug": "graph_traversal-22946",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-22946.py",
+        "code": "from collections import deque\nimport sys\ninput=sys.stdin.readline\nn=int(input())\ncircles=[None]+[tuple(map(int,input().split())) for _ in range(n)]\nparent=[0]*(n+1)\nfor i in range(1,n+1):\n    xi,yi,ri=circles[i]\n    best=0\n    best_r=10**30\n    for j in range(1,n+1):\n        if i==j: continue\n        xj,yj,rj=circles[j]\n        if rj<=ri: continue\n        if (xi-xj)**2+(yi-yj)**2 < (rj-ri)**2 and rj<best_r:\n            best=j\n            best_r=rj\n    parent[i]=best\ng=[[] for _ in range(n+1)]\nfor i in range(1,n+1):\n    g[i].append(parent[i])\n    g[parent[i]].append(i)\ndef far(src):\n    dist=[-1]*(n+1)\n    dist[src]=0\n    q=deque([src])\n    while q:\n        x=q.popleft()\n        for y in g[x]:\n            if dist[y]==-1:\n                dist[y]=dist[x]+1\n                q.append(y)\n    node=max(range(1,n+1), key=lambda v: dist[v])\n    return node,dist[node]\nif n==0:\n    print(0)\nelse:\n    a,_=far(1)\n    _,ans=far(a)\n    print(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/22946",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "8265079dc991",
+    "createdAt": 1780241257680
+  },
+  {
+    "id": "22948",
+    "slug": "graph_traversal-22948",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-22948.py",
+        "code": "from collections import deque\nimport sys\ninput=sys.stdin.readline\nn=int(input())\nitems=[]\nfor _ in range(n):\n    idx,x,r=map(int,input().split())\n    items.append((idx,x-r,x+r))\na,b=map(int,input().split())\nids=[idx for idx,_,_ in items]\nby_id={idx:(l,r) for idx,l,r in items}\nparent={idx:0 for idx in ids}\nfor i,l,r in items:\n    best=0\n    best_len=10**30\n    for j,lj,rj in items:\n        if i==j: continue\n        if lj<l and r<rj and rj-lj<best_len:\n            best=j\n            best_len=rj-lj\n    parent[i]=best\ng={0:[]}\nfor idx in ids:\n    g.setdefault(idx,[])\nfor idx,p in parent.items():\n    g[idx].append(p)\n    g.setdefault(p,[]).append(idx)\nprev={a:None}\nq=deque([a])\nwhile q:\n    x=q.popleft()\n    if x==b: break\n    for y in g[x]:\n        if y not in prev:\n            prev[y]=x\n            q.append(y)\npath=[]\ncur=b\nwhile cur is not None:\n    if cur!=0:\n        path.append(cur)\n    cur=prev[cur]\npath.reverse()\nprint(len(path))\nprint(*path)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/22948",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "9d303b6deb65",
+    "createdAt": 1780241257680
+  },
+  {
+    "id": "22949",
+    "slug": "graph_traversal-22949",
+    "categorySlug": "graph_traversal",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/graph_traversal-22949.py",
+        "code": "from collections import deque\nimport sys\ninput=sys.stdin.readline\nn=int(input())\nsize=4*n\narr=[[['' for _ in range(size)] for _ in range(size)] for _ in range(4)]\nstart=None\ndef rot_pos(r,c):\n    br=r//4*4\n    bc=c//4*4\n    rr=r%4\n    cc=c%4\n    return br+cc,bc+3-rr\nfor r in range(size):\n    row=input().strip()\n    for c in range(size):\n        ch=row[c]\n        arr[0][r][c]=ch\n        if ch=='S':\n            start=(r,c,0,0)\n        tr,tc=r,c\n        for d in range(1,4):\n            tr,tc=rot_pos(tr,tc)\n            arr[d][tr][tc]=ch\ndef div(r,c):\n    if r<0 or c<0 or r>=size or c>=size:\n        return -1\n    return r//4*4+c//4\ndr=[0,1,-1,0,0]\ndc=[0,0,0,1,-1]\nq=deque([start])\nseen={(0,start[0],start[1])}\nwhile q:\n    r,c,d,dist=q.popleft()\n    if arr[d][r][c]=='E':\n        print(dist)\n        break\n    cur_div=div(r,c)\n    for k in range(5):\n        nr=r+dr[k]\n        nc=c+dc[k]\n        ndv=div(nr,nc)\n        if ndv==-1:\n            continue\n        nd=(d+1)%4 if ndv==cur_div else 1\n        nr,nc=rot_pos(nr,nc)\n        state=(nd,nr,nc)\n        if state in seen or arr[nd][nr][nc]=='#':\n            continue\n        seen.add(state)\n        q.append((nr,nc,nd,dist+1))\nelse:\n    print(-1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/22949",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "e2fede16d842",
+    "createdAt": 1780241257680
   }
 ]
