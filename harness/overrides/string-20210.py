@@ -3,7 +3,7 @@ from __future__ import annotations
 import functools
 from typing import List
 
-from harness.cases import GeneratedCase, edge
+from harness.cases import GeneratedCase, edge, stress
 
 ORDER = {ch: i for i, ch in enumerate("AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz")}
 
@@ -59,4 +59,11 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "6\nimg12\nimg0012\nimg2\nImg1\n1abc\nabc1\n",
         "4\nZ9\nz9\nA000\na0\n",
     ]
-    return [edge(stdin, _solve(stdin)) for stdin in inputs]
+    cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
+    hard_items = [
+        "a0001", "A1", "a1", "A00001", "b10", "B0009", "1a", "001A",
+        "Z99", "z099", "m12n003", "M12n3",
+    ]
+    hard = str(len(hard_items)) + "\n" + "\n".join(hard_items) + "\n"
+    cases.append(stress(hard, _solve(hard)))
+    return cases

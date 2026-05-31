@@ -250,9 +250,9 @@ def judge(*,
           time_limit_s: float = 2.0,
           memory_limit_mb: int = 256,
           max_output_bytes: int | None = None) -> dict:
-    from .generators import generate, get_checker
+    from .generators import generate, get_checker, replaces_samples
     checker = get_checker(problem_slug)
-    sample_cases = _load_sample_cases(problem_slug)
+    sample_cases = [] if replaces_samples(problem_slug) else _load_sample_cases(problem_slug)
     fuzz_cases: list[JudgeCase] = []
     try:
         generated_cases = generate(problem_slug, category_slug, count=case_count)

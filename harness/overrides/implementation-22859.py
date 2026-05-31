@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 from typing import List
 
-from harness.cases import GeneratedCase, edge
+from harness.cases import GeneratedCase, edge, stress
 
 
 def _solve(stdin: str) -> str:
@@ -25,4 +25,7 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         '<main><div title="A"><p> hello   <b>world</b> </p></div><div title="B"><p><i>x</i>  y</p></div></main>\n',
         '<main><div title="empty"><p>   many     spaces   </p></div></main>\n',
     ]
-    return [edge(stdin, _solve(stdin)) for stdin in inputs]
+    cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
+    hard = '<main><div title="A"><p> alpha   <b>beta</b> gamma </p><p><i>delta</i></p></div><div title="B"><p>one <span>two</span> three</p></div></main>\n'
+    cases.append(stress(hard, _solve(hard)))
+    return cases

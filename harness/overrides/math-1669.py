@@ -29,4 +29,7 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "45 50\n",
         "1 1000000000\n",
     ]
-    return [edge(stdin, _solve(stdin)) for stdin in inputs]
+    cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
+    hard = "123456789 987654321\n"
+    cases.append(stress(hard, _solve(hard)))
+    return cases

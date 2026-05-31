@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List
 
-from harness.cases import GeneratedCase, edge
+from harness.cases import GeneratedCase, edge, stress
 
 
 def _check(line: str) -> str:
@@ -49,4 +49,7 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "jiggle dip clap stomp clap\nfoo bar\n",
         "twirl clap stomp clap\n",
     ]
-    return [edge(stdin, _solve(stdin)) for stdin in inputs]
+    cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
+    hard = "dip dip dip clap stomp clap\njiggle dip twirl hop clap stomp clap\njiggle jiggle dip twirl clap stomp clap\n"
+    cases.append(stress(hard, _solve(hard)))
+    return cases

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List
 
-from harness.cases import GeneratedCase, edge
+from harness.cases import GeneratedCase, edge, stress
 
 PATTERNS = [
     ["***", "* *", "* *", "* *", "***"],
@@ -42,4 +42,7 @@ def _solve(stdin: str) -> str:
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
     valid = [_render("12"), _render("18"), _render("100002")]
     invalid = _render("12").replace("*", " ", 1)
-    return [edge(stdin, _solve(stdin)) for stdin in [*valid, invalid]]
+    cases = [edge(stdin, _solve(stdin)) for stdin in [*valid, invalid]]
+    hard = _render("123456")
+    cases.append(stress(hard, _solve(hard)))
+    return cases

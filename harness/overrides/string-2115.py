@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List
 
-from harness.cases import GeneratedCase, edge
+from harness.cases import GeneratedCase, edge, stress
 
 
 def _solve(stdin: str) -> str:
@@ -38,4 +38,7 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "3 3\nX..\nX..\n...\n",
         "4 4\nXX..\nXX..\n..XX\n..XX\n",
     ]
-    return [edge(stdin, _solve(stdin)) for stdin in inputs]
+    cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
+    hard = "6 8\nXX..XX..\nXX..XX..\n........\n..XX..XX\n..XX..XX\n........\n"
+    cases.append(stress(hard, _solve(hard)))
+    return cases

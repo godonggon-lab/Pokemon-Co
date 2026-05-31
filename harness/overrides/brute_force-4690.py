@@ -1,4 +1,4 @@
-from harness.cases import edge
+from harness.cases import stress
 
 
 REPLACE_SAMPLES = True
@@ -18,4 +18,4 @@ def _solve() -> str:
 
 
 def gen_inputs(_seed):
-    return [edge("", _solve())]
+    return [stress("", _solve())]

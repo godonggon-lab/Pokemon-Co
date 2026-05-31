@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections import defaultdict
 from typing import List
 
-from harness.cases import GeneratedCase, edge
+from harness.cases import GeneratedCase, edge, stress
 
 
 def _solve(stdin: str) -> str:
@@ -42,4 +42,25 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "1 2\nmain docs 1\ndocs a 0\ndocs b 0\n1\nmain/docs\n",
         "0 2\nmain a 0\nmain a 0\n1\nmain\n",
     ]
-    return [edge(stdin, _solve(stdin)) for stdin in inputs]
+    cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
+    lines = [
+        "4 6",
+        "main a 1",
+        "main b 1",
+        "a c 1",
+        "b d 1",
+        "a x 0",
+        "a y 0",
+        "c x 0",
+        "b z 0",
+        "d z 0",
+        "d w 0",
+        "4",
+        "main",
+        "main/a",
+        "main/a/c",
+        "main/b/d",
+    ]
+    hard = "\n".join(lines) + "\n"
+    cases.append(stress(hard, _solve(hard)))
+    return cases
