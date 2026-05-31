@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List
 
-from harness.cases import GeneratedCase, edge
+from harness.cases import GeneratedCase, edge, stress
 
 
 def _solve(stdin: str) -> str:
@@ -25,4 +25,10 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "09:00 10:00 11:00\n08:59 anna\n10:30 anna\n10:30 bob\n",
         "12:00 13:00 14:00\n12:01 late\n13:30 late\n",
     ]
-    return [edge(stdin, _solve(stdin)) for stdin in inputs]
+    cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
+    logs = [f"08:{i:02d} user{i}" for i in range(50)]
+    logs += [f"10:{i:02d} user{i}" for i in range(0, 50, 2)]
+    logs += [f"11:{i:02d} late{i}" for i in range(10)]
+    hard = "09:00 10:00 11:00\n" + "\n".join(logs) + "\n"
+    cases.append(stress(hard, _solve(hard)))
+    return cases

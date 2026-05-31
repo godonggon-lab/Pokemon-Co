@@ -29,4 +29,11 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "3\n0 2 5\n2 0 2\n5 2 0\n",
         "4\n0 1 3 4\n1 0 2 3\n3 2 0 1\n4 3 1 0\n",
     ]
-    return [edge(stdin, _solve(stdin)) for stdin in inputs]
+    cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
+    n = 12
+    rows = []
+    for i in range(n):
+        rows.append(" ".join(str(abs(i - j)) for j in range(n)))
+    hard = f"{n}\n" + "\n".join(rows) + "\n"
+    cases.append(stress(hard, _solve(hard)))
+    return cases

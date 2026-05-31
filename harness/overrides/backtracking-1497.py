@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import List
 
-from harness.cases import GeneratedCase, edge
+from harness.cases import GeneratedCase, edge, stress
 
 
 def _solve(stdin: str) -> str:
@@ -38,4 +38,11 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "2 3\na NNN\nb NNN\n",
         "4 4\na YYNN\nb NNYY\nc YNYN\nd NYNY\n",
     ]
-    return [edge(stdin, _solve(stdin)) for stdin in inputs]
+    cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
+    rows = []
+    for i in range(10):
+        songs = "".join("Y" if (i + j) % 3 != 0 else "N" for j in range(12))
+        rows.append(f"g{i} {songs}")
+    hard = "10 12\n" + "\n".join(rows) + "\n"
+    cases.append(stress(hard, _solve(hard)))
+    return cases

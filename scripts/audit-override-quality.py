@@ -48,8 +48,17 @@ def score(row: dict[str, Any]) -> tuple[int, list[str]]:
     return min(points, 100), gaps
 
 
+def load_problems() -> list[dict[str, Any]]:
+    problems: list[dict[str, Any]] = []
+    for name in ("problems.json", "problems-extra.json"):
+        path = ROOT / "data" / name
+        if path.exists():
+            problems.extend(json.loads(path.read_text(encoding="utf-8")))
+    return sorted({problem["slug"]: problem for problem in problems}.values(), key=lambda item: item["slug"])
+
+
 def main() -> int:
-    problems = json.loads((ROOT / "data" / "problems.json").read_text(encoding="utf-8"))
+    problems = load_problems()
     rows = []
     for problem in problems:
         path = OVERRIDES / f"{problem['slug']}.py"

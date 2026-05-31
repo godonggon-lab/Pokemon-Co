@@ -4,7 +4,7 @@ import itertools
 from collections import deque
 from typing import List
 
-from harness.cases import GeneratedCase, edge
+from harness.cases import GeneratedCase, edge, stress
 
 
 def _solve(stdin: str) -> str:
@@ -51,4 +51,17 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "3 2\n2 2 2\n2 2 2\n2 2 2\n",
         "5 2\n2 0 1 0 2\n0 0 1 0 0\n1 1 1 1 1\n0 0 1 0 0\n2 0 1 0 2\n",
     ]
-    return [edge(stdin, _solve(stdin)) for stdin in inputs]
+    cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
+    hard = "\n".join([
+        "8 3",
+        "2 0 0 0 0 0 0 2",
+        "0 1 1 1 1 1 1 0",
+        "0 1 2 0 0 2 1 0",
+        "0 1 0 1 1 0 1 0",
+        "0 1 0 0 0 0 1 0",
+        "0 1 2 0 0 2 1 0",
+        "0 1 1 1 1 1 1 0",
+        "2 0 0 0 0 0 0 2",
+    ]) + "\n"
+    cases.append(stress(hard, _solve(hard)))
+    return cases

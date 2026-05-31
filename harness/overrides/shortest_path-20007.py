@@ -3,7 +3,7 @@ from __future__ import annotations
 import heapq
 from typing import List
 
-from harness.cases import GeneratedCase, edge
+from harness.cases import GeneratedCase, edge, stress
 
 
 def _solve(stdin: str) -> str:
@@ -46,4 +46,10 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "3 1 4 0\n0 1 3\n",
         "5 5 8 2\n0 2 1\n1 2 2\n2 3 1\n3 4 2\n0 4 5\n",
     ]
-    return [edge(stdin, _solve(stdin)) for stdin in inputs]
+    cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
+    n = 25
+    edges = [f"{i} {i + 1} 1" for i in range(n - 1)]
+    edges += [f"{i} {i + 2} 3" for i in range(n - 2)]
+    hard = f"{n} {len(edges)} 20 0\n" + "\n".join(edges) + "\n"
+    cases.append(stress(hard, _solve(hard)))
+    return cases

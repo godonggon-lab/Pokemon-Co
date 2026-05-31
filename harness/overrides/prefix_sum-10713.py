@@ -30,4 +30,10 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "2 2\n1 2\n3 2 10\n",
         "5 5\n5 1 3 2 4\n1 1 100\n2 1 1\n3 2 1\n4 1 20\n",
     ]
-    return [edge(stdin, _solve(stdin)) for stdin in inputs]
+    cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
+    n = 20
+    route = [1, 20, 2, 19, 3, 18, 4, 17, 5, 16, 6, 15]
+    costs = [f"{i + 2} {i % 5 + 1} {i * 3}" for i in range(1, n)]
+    hard = f"{n} {len(route)}\n" + " ".join(map(str, route)) + "\n" + "\n".join(costs) + "\n"
+    cases.append(stress(hard, _solve(hard)))
+    return cases
