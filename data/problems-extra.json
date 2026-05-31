@@ -1620,6 +1620,24 @@
     "createdAt": 1779518204620
   },
   {
+    "id": "1729",
+    "slug": "backtracking-1729",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-1729.py",
+        "code": "n=int(input())\ndef s(x): return sum(map(int,str(x)))\nprint(sum(1 for i in range(1,n+1) if i%s(i)==0))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1729",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "97725920d2f1",
+    "createdAt": 1780243396361
+  },
+  {
     "id": "1743",
     "slug": "graph_traversal-1743",
     "categorySlug": "graph_traversal",
@@ -2230,6 +2248,24 @@
     ],
     "hash": "d27470625e25",
     "createdAt": 1779466335125
+  },
+  {
+    "id": "2058",
+    "slug": "dynamic_programming_on_trees-2058",
+    "categorySlug": "dynamic_programming_on_trees",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_on_trees-2058.py",
+        "code": "import sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); states=[int(input()) for _ in range(n)]; e=[int(input()) for _ in range(m)]\nS=set(states); g={x:[] for x in states}\nfor x in states:\n for d in e:\n  for y in (x-d,x+d):\n   if y in S: g[x].append(y)\nseen=set()\ndef dfs(x):\n seen.add(x); take=x; skip=0\n for y in g[x]:\n  if y not in seen:\n   a,b=dfs(y); take+=b; skip+=max(a,b)\n return take,skip\nans=0\nfor x in states:\n if x not in seen:\n  ans+=max(dfs(x))\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2058",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "9526122fe7a5",
+    "createdAt": 1780243396363
   },
   {
     "id": "2073",
@@ -4114,6 +4150,24 @@
     "createdAt": 1779440392441
   },
   {
+    "id": "4315",
+    "slug": "tree-4315",
+    "categorySlug": "tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/tree-4315.py",
+        "code": "import sys\ninput=sys.stdin.readline\nsys.setrecursionlimit(100000)\nouts=[]\nwhile True:\n n=int(input())\n if n==0: break\n g=[[] for _ in range(n+1)]; mar=[0]*(n+1)\n for _ in range(n):\n  row=list(map(int,input().split()))\n  node,m,k=row[:3]; mar[node]=m\n  for c in row[3:]:\n   g[node].append(c); g[c].append(node)\n ans=0\n def dfs(x,p):\n  global ans\n  bal=mar[x]-1\n  for y in g[x]:\n   if y!=p:\n    b=dfs(y,x); ans+=abs(b); bal+=b\n  return bal\n dfs(1,0); outs.append(str(ans))\nprint(\"\\n\".join(outs))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/4315",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "d3303d11284d",
+    "createdAt": 1780243396364
+  },
+  {
     "id": "4446",
     "slug": "string-4446",
     "categorySlug": "string",
@@ -4202,6 +4256,24 @@
     ],
     "hash": "9edb88548e08",
     "createdAt": 1779368220400
+  },
+  {
+    "id": "4933",
+    "slug": "tree-4933",
+    "categorySlug": "tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/tree-4933.py",
+        "code": "import sys\ninput=sys.stdin.readline\ndef parse(tokens,idx):\n val=tokens[idx]; idx-=1\n if val==\"nil\": return (\"nil\",),idx\n right,idx=parse(tokens,idx)\n left,idx=parse(tokens,idx)\n kids=sorted([left,right])\n return (val,tuple(kids)),idx\nt=int(input()); out=[]\nfor _ in range(t):\n a=input().split(); b=input().split()\n if len(a)!=len(b): out.append(\"false\"); continue\n ta,_=parse(a,len(a)-1); tb,_=parse(b,len(b)-1)\n out.append(\"true\" if ta==tb else \"false\")\nprint(\"\\n\".join(out))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/4933",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "320e9c03dad1",
+    "createdAt": 1780243396364
   },
   {
     "id": "4949",
@@ -5343,6 +5415,24 @@
     "createdAt": 1779455878877
   },
   {
+    "id": "10421",
+    "slug": "backtracking-10421",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-10421.py",
+        "code": "import itertools,sys\ninput=sys.stdin.readline\nn=int(input()); s=list(map(int,input().split())); k=int(input()); digs=list(map(str,input().split()))\ndef ok(num,ln):\n st=str(num)\n return len(st)==ln and all(ch in digs for ch in st)\nans=0\nfor a in map(lambda x:int(''.join(x)), itertools.product(digs, repeat=s[0])):\n for b in map(lambda x:int(''.join(x)), itertools.product(digs, repeat=s[1])):\n  bs=str(b)[::-1]\n  if all(ok(a*int(bs[i]),s[2+i]) for i in range(s[1])) and ok(a*b,s[-1]):\n   ans+=1\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/10421",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "885a1bec3e18",
+    "createdAt": 1780243396364
+  },
+  {
     "id": "10423",
     "slug": "minimum_spanning_tree-10423",
     "categorySlug": "minimum_spanning_tree",
@@ -6392,6 +6482,24 @@
     "createdAt": 1779803098948
   },
   {
+    "id": "12912",
+    "slug": "tree-12912",
+    "categorySlug": "tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/tree-12912.py",
+        "code": "import sys\ninput=sys.stdin.readline\nn=int(input()); g=[{} for _ in range(n)]; edges=[]\nfor _ in range(n-1):\n a,b,w=map(int,input().split()); g[a][b]=w; g[b][a]=w; edges.append((a,b,w))\ndef diameter_sum():\n vis=[0]*n; total=0\n def far(st,tag):\n  stack=[(st,0)]; vis[st]+=1; best=(st,0)\n  while stack:\n   x,d=stack.pop()\n   if d>best[1]: best=(x,d)\n   for y,w in g[x].items():\n    if vis[y]==tag:\n     vis[y]+=1; stack.append((y,d+w))\n  return best\n for i in range(n):\n  if vis[i]==0:\n   a,_=far(i,0); _,d=far(a,1); total+=d\n return total\nans=diameter_sum()\nfor a,b,w in edges:\n del g[a][b]; del g[b][a]\n ans=max(ans,diameter_sum()+w)\n g[a][b]=w; g[b][a]=w\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/12912",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "754c266c45c9",
+    "createdAt": 1780243396364
+  },
+  {
     "id": "12919",
     "slug": "brute_force-12919",
     "categorySlug": "brute_force",
@@ -6426,6 +6534,24 @@
     ],
     "hash": "8890aeb5d34a",
     "createdAt": 1779033474716
+  },
+  {
+    "id": "12978",
+    "slug": "dynamic_programming_on_trees-12978",
+    "categorySlug": "dynamic_programming_on_trees",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_on_trees-12978.py",
+        "code": "import sys\ninput=sys.stdin.readline\nsys.setrecursionlimit(300000)\nn=int(input()); g=[[] for _ in range(n+1)]\nfor _ in range(n-1):\n a,b=map(int,input().split()); g[a].append(b); g[b].append(a)\ndef dfs(x,p):\n take=1; skip=0\n for y in g[x]:\n  if y!=p:\n   a,b=dfs(y,x); take+=min(a,b); skip+=a\n return take,skip\nprint(min(dfs(1,0)))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/12978",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "fef6326daa59",
+    "createdAt": 1780243396364
   },
   {
     "id": "13019",
@@ -7405,6 +7531,24 @@
     "createdAt": 1779786274765
   },
   {
+    "id": "14945",
+    "slug": "dynamic_programming_2-14945",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-14945.py",
+        "code": "MOD=10007\nn=int(input())\nif n==1: print(0); raise SystemExit\ndp=[[0]*(n+2) for _ in range(n+1)]\ndp[2][1]=2\nfor i in range(3,n+1):\n for d in range(1,i):\n  dp[i][d]=(dp[i-1][d]*2+dp[i-1][d-1]+dp[i-1][d+1])%MOD\nprint(sum(dp[n][1:n])%MOD)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/14945",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "618428681a20",
+    "createdAt": 1780243396364
+  },
+  {
     "id": "14950",
     "slug": "minimum_spanning_tree-14950",
     "categorySlug": "minimum_spanning_tree",
@@ -7691,6 +7835,24 @@
     ],
     "hash": "6a17fda441b3",
     "createdAt": 1779782113060
+  },
+  {
+    "id": "15779",
+    "slug": "brute_force-15779",
+    "categorySlug": "brute_force",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/brute_force-15779.py",
+        "code": "n=int(input()); a=list(map(int,input().split()))\nif n<=2: print(n); raise SystemExit\nbest=cur=2\nfor i in range(n-2):\n if (a[i]<=a[i+1]<=a[i+2]) or (a[i]>=a[i+1]>=a[i+2]): cur=2\n else: cur+=1\n best=max(best,cur)\nprint(best)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/15779",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "32a72ac06db6",
+    "createdAt": 1780243396364
   },
   {
     "id": "15789",
@@ -10465,6 +10627,24 @@
     "createdAt": 1779794563457
   },
   {
+    "id": "20162",
+    "slug": "dynamic_programming_1-20162",
+    "categorySlug": "dynamic_programming_1",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_1-20162.py",
+        "code": "n=int(input()); a=[int(input()) for _ in range(n)]\ndp=a[:]; ans=0\nfor i in range(n):\n ans=max(ans,dp[i])\n for j in range(i+1,n):\n  if a[i]<a[j]: dp[j]=max(dp[j],dp[i]+a[j])\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/20162",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "9a6c90b513da",
+    "createdAt": 1780243396364
+  },
+  {
     "id": "20164",
     "slug": "implementation-20164",
     "categorySlug": "implementation",
@@ -10753,6 +10933,24 @@
     "createdAt": 1779804376404
   },
   {
+    "id": "20667",
+    "slug": "dynamic_programming_2-20667",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-20667.py",
+        "code": "import sys\ninput=sys.stdin.readline\nn,m,k=map(int,input().split()); tabs=[tuple(map(int,input().split())) for _ in range(n)]\nINF=-10**18; dp=[[INF]*501 for _ in range(m+1)]; dp[0][0]=0\nfor cpu,mem,imp in tabs:\n nd=[row[:] for row in dp]\n for c in range(m+1):\n  for p in range(501-imp):\n   if dp[c][p]!=INF:\n    nc=min(m,c+cpu); nd[nc][p+imp]=max(nd[nc][p+imp],dp[c][p]+mem)\n dp=nd\nfor p,v in enumerate(dp[m]):\n if v>=k: print(p); break\nelse: print(-1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/20667",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "171d11d83913",
+    "createdAt": 1780243396364
+  },
+  {
     "id": "20944",
     "slug": "string-20944",
     "categorySlug": "string",
@@ -10841,6 +11039,24 @@
     ],
     "hash": "74d073e6654f",
     "createdAt": 1779198150930
+  },
+  {
+    "id": "21279",
+    "slug": "two_pointer-21279",
+    "categorySlug": "two_pointer",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/two_pointer-21279.py",
+        "code": "import sys\ninput=sys.stdin.readline\nn,c=map(int,input().split()); pts=[tuple(map(int,input().split())) for _ in range(n)]\nxs=sorted(set([0]+[x for x,_,_ in pts])); ys=sorted(set([0]+[y for _,y,_ in pts])); ans=0\nfor X in xs:\n for Y in ys:\n  inside=[v for x,y,v in pts if x<=X and y<=Y]\n  if len(inside)<=c: ans=max(ans,sum(inside))\nprint(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/21279",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "bd2422c369a1",
+    "createdAt": 1780243396365
   },
   {
     "id": "21313",

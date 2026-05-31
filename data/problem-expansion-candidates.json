@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-31T15:28:25.410Z",
+  "generatedAt": "2026-05-31T16:03:38.958Z",
   "source": {
     "repository": "godonggon-lab/baekjoon",
     "ref": "main",
@@ -7,130 +7,23 @@
   },
   "summary": {
     "targetProblemCount": 1025,
-    "currentAppProblems": 977,
-    "additionalNeeded": 48,
+    "currentAppProblems": 989,
+    "additionalNeeded": 36,
     "algorithmListFiles": 23,
     "algorithmListedUniqueProblems": 993,
     "remoteSolutionUniqueProblems": 353,
-    "listedProblemsAlreadyInAppById": 975,
-    "listedSlugMatchesApp": 974,
-    "expansionCandidates": 18,
-    "selectedForDex": 18,
+    "listedProblemsAlreadyInAppById": 987,
+    "listedSlugMatchesApp": 986,
+    "expansionCandidates": 6,
+    "selectedForDex": 6,
     "statusCounts": {
-      "needs_oracle": 18
+      "needs_oracle": 6
     },
     "selectedTierCounts": {
-      "unknown": 18
+      "unknown": 6
     }
   },
   "selectedForDex": [
-    {
-      "id": "1729",
-      "slug": "backtracking-1729",
-      "categories": [
-        "backtracking"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "2058",
-      "slug": "dynamic_programming_on_trees-2058",
-      "categories": [
-        "dynamic_programming_on_trees",
-        "tree"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "4315",
-      "slug": "tree-4315",
-      "categories": [
-        "tree"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "4933",
-      "slug": "tree-4933",
-      "categories": [
-        "tree"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "10421",
-      "slug": "backtracking-10421",
-      "categories": [
-        "backtracking"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "12912",
-      "slug": "tree-12912",
-      "categories": [
-        "tree"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "12978",
-      "slug": "dynamic_programming_on_trees-12978",
-      "categories": [
-        "dynamic_programming_on_trees",
-        "tree"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
     {
       "id": "14600",
       "slug": "divide_and_conquer-14600",
@@ -151,21 +44,6 @@
       "slug": "divide_and_conquer-14601",
       "categories": [
         "divide_and_conquer"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "14945",
-      "slug": "dynamic_programming_2-14945",
-      "categories": [
-        "dynamic_programming_2"
       ],
       "checkedInList": false,
       "hasRepoSolution": false,
@@ -207,72 +85,12 @@
       "status": "needs_oracle"
     },
     {
-      "id": "15779",
-      "slug": "brute_force-15779",
-      "categories": [
-        "brute_force"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
       "id": "16438",
       "slug": "divide_and_conquer-16438",
       "categories": [
         "divide_and_conquer"
       ],
       "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "20162",
-      "slug": "dynamic_programming_1-20162",
-      "categories": [
-        "dynamic_programming_1"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "20667",
-      "slug": "dynamic_programming_2-20667",
-      "categories": [
-        "dynamic_programming_2"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "21279",
-      "slug": "two_pointer-21279",
-      "categories": [
-        "two_pointer"
-      ],
-      "checkedInList": true,
       "hasRepoSolution": false,
       "repoSolutionCategories": [],
       "hasExternalSolution": false,
@@ -299,113 +117,6 @@
   ],
   "candidates": [
     {
-      "id": "1729",
-      "slug": "backtracking-1729",
-      "categories": [
-        "backtracking"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "2058",
-      "slug": "dynamic_programming_on_trees-2058",
-      "categories": [
-        "dynamic_programming_on_trees",
-        "tree"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "4315",
-      "slug": "tree-4315",
-      "categories": [
-        "tree"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "4933",
-      "slug": "tree-4933",
-      "categories": [
-        "tree"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "10421",
-      "slug": "backtracking-10421",
-      "categories": [
-        "backtracking"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "12912",
-      "slug": "tree-12912",
-      "categories": [
-        "tree"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "12978",
-      "slug": "dynamic_programming_on_trees-12978",
-      "categories": [
-        "dynamic_programming_on_trees",
-        "tree"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
       "id": "14600",
       "slug": "divide_and_conquer-14600",
       "categories": [
@@ -425,21 +136,6 @@
       "slug": "divide_and_conquer-14601",
       "categories": [
         "divide_and_conquer"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "14945",
-      "slug": "dynamic_programming_2-14945",
-      "categories": [
-        "dynamic_programming_2"
       ],
       "checkedInList": false,
       "hasRepoSolution": false,
@@ -481,72 +177,12 @@
       "status": "needs_oracle"
     },
     {
-      "id": "15779",
-      "slug": "brute_force-15779",
-      "categories": [
-        "brute_force"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
       "id": "16438",
       "slug": "divide_and_conquer-16438",
       "categories": [
         "divide_and_conquer"
       ],
       "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "20162",
-      "slug": "dynamic_programming_1-20162",
-      "categories": [
-        "dynamic_programming_1"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "20667",
-      "slug": "dynamic_programming_2-20667",
-      "categories": [
-        "dynamic_programming_2"
-      ],
-      "checkedInList": false,
-      "hasRepoSolution": false,
-      "repoSolutionCategories": [],
-      "hasExternalSolution": false,
-      "externalSolutionUrls": [],
-      "solvedLevel": null,
-      "solvedTier": null,
-      "status": "needs_oracle"
-    },
-    {
-      "id": "21279",
-      "slug": "two_pointer-21279",
-      "categories": [
-        "two_pointer"
-      ],
-      "checkedInList": true,
       "hasRepoSolution": false,
       "repoSolutionCategories": [],
       "hasExternalSolution": false,
