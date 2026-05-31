@@ -108,6 +108,24 @@
     "createdAt": 1779193907417
   },
   {
+    "id": "1045",
+    "slug": "minimum_spanning_tree-1045",
+    "categorySlug": "minimum_spanning_tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/minimum_spanning_tree-1045.py",
+        "code": "import sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); a=[input().strip() for _ in range(n)]\nedges=[(i,j) for i in range(n) for j in range(i+1,n) if a[i][j]=='Y']\nif len(edges)<m: print(-1); sys.exit()\np=list(range(n)); deg=[0]*n; chosen=[]\ndef f(x):\n while p[x]!=x: p[x]=p[p[x]]; x=p[x]\n return x\nfor i,j in edges:\n ri,rj=f(i),f(j)\n if ri!=rj:\n  p[rj]=ri; deg[i]+=1; deg[j]+=1; chosen.append((i,j))\nif len(chosen)!=n-1 or m<n-1: print(-1); sys.exit()\nused=set(chosen)\nfor e in edges:\n if len(chosen)==m: break\n if e not in used:\n  i,j=e; deg[i]+=1; deg[j]+=1; chosen.append(e)\nprint(*deg)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1045",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "366704228dd7",
+    "createdAt": 1780240649164
+  },
+  {
     "id": "1059",
     "slug": "brute_force-1059",
     "categorySlug": "brute_force",
@@ -576,6 +594,24 @@
     "createdAt": 1779464306674
   },
   {
+    "id": "1301",
+    "slug": "dynamic_programming_2-1301",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-1301.py",
+        "code": "from functools import lru_cache\nimport sys\ninput=sys.stdin.readline\nn=int(input()); cnt=[int(input()) for _ in range(n)]\n@lru_cache(None)\ndef dp(state,last1,last2):\n if sum(state)==0: return 1\n res=0; st=list(state)\n for i in range(n):\n  if st[i] and i!=last1 and i!=last2:\n   st[i]-=1; res+=dp(tuple(st),i,last1); st[i]+=1\n return res\nprint(dp(tuple(cnt),-1,-1))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1301",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "b107d7e5e7e2",
+    "createdAt": 1780240649170
+  },
+  {
     "id": "1303",
     "slug": "graph_traversal-1303",
     "categorySlug": "graph_traversal",
@@ -898,6 +934,24 @@
     ],
     "hash": "999c8c2461d4",
     "createdAt": 1779032187510
+  },
+  {
+    "id": "1469",
+    "slug": "backtracking-1469",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-1469.py",
+        "code": "import sys\nn=int(input()); nums=sorted(map(int,input().split())); arr=[-1]*(2*n); ans=None\ndef dfs(idx):\n global ans\n if ans is not None: return\n if idx==n: ans=arr[:]; return\n x=nums[idx]\n for i in range(2*n-x-1):\n  j=i+x+1\n  if arr[i]==arr[j]==-1:\n   arr[i]=arr[j]=x; dfs(idx+1); arr[i]=arr[j]=-1\ndfs(0)\nprint(-1 if ans is None else ' '.join(map(str,ans)))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/1469",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "544c55738e54",
+    "createdAt": 1780240649170
   },
   {
     "id": "1474",
@@ -2435,6 +2489,24 @@
     "createdAt": 1779801022681
   },
   {
+    "id": "2211",
+    "slug": "shortest_path-2211",
+    "categorySlug": "shortest_path",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/shortest_path-2211.py",
+        "code": "import heapq,sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); g=[[] for _ in range(n+1)]\nfor _ in range(m):\n a,b,c=map(int,input().split()); g[a].append((b,c)); g[b].append((a,c))\nd=[10**18]*(n+1); par=[0]*(n+1); d[1]=0; pq=[(0,1)]\nwhile pq:\n c,x=heapq.heappop(pq)\n if c!=d[x]: continue\n for y,w in g[x]:\n  if d[y]>c+w:\n   d[y]=c+w; par[y]=x; heapq.heappush(pq,(d[y],y))\nprint(n-1)\nfor i in range(2,n+1): print(i,par[i])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2211",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "7ff316927dde",
+    "createdAt": 1780240649171
+  },
+  {
     "id": "2224",
     "slug": "shortest_path-2224",
     "categorySlug": "shortest_path",
@@ -2505,6 +2577,24 @@
     ],
     "hash": "11737a45f93a",
     "createdAt": 1779518204623
+  },
+  {
+    "id": "2233",
+    "slug": "tree-2233",
+    "categorySlug": "tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/tree-2233.py",
+        "code": "import sys\ninput=sys.stdin.readline\nn=int(input()); s=input().strip(); x,y=map(int,input().split())\nparent=[0]*(n+1); depth=[0]*(n+1); interval=[[0,0] for _ in range(n+1)]\ncur=0; last=0\nfor i,ch in enumerate(s,1):\n if ch=='0':\n  last+=1; parent[last]=cur; depth[last]=depth[cur]+1; cur=last; interval[last][0]=i\n else:\n  interval[cur][1]=i; cur=parent[cur]\na=b=0\nfor i in range(1,n+1):\n if x in interval[i]: a=i\n if y in interval[i]: b=i\nwhile depth[a]>depth[b]: a=parent[a]\nwhile depth[b]>depth[a]: b=parent[b]\nwhile a!=b: a=parent[a]; b=parent[b]\nprint(*interval[a])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2233",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "6bb81dad3d44",
+    "createdAt": 1780240649171
   },
   {
     "id": "2234",
@@ -2721,6 +2811,42 @@
     ],
     "hash": "18fc94f27b42",
     "createdAt": 1779440392439
+  },
+  {
+    "id": "2374",
+    "slug": "divide_and_conquer-2374",
+    "categorySlug": "divide_and_conquer",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/divide_and_conquer-2374.py",
+        "code": "import sys\ninput=sys.stdin.readline\nn=int(input()); a=[int(input()) for _ in range(n)]\ndef solve(l,r,base):\n if l>r: return 0\n mx=max(a[l:r+1]); idx=a.index(mx,l,r+1); res=mx-base\n res+=solve(l,idx-1,mx)+solve(idx+1,r,mx)\n return res\nprint(solve(0,n-1,0))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2374",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "fa56b5e86469",
+    "createdAt": 1780240649171
+  },
+  {
+    "id": "2406",
+    "slug": "minimum_spanning_tree-2406",
+    "categorySlug": "minimum_spanning_tree",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/minimum_spanning_tree-2406.py",
+        "code": "import sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); p=list(range(n+1))\ndef f(x):\n while p[x]!=x: p[x]=p[p[x]]; x=p[x]\n return x\nfor _ in range(m):\n a,b=map(int,input().split()); p[f(b)]=f(a)\nw=[list(map(int,input().split())) for _ in range(n)]\nedges=[(w[i-1][j-1],i,j) for i in range(2,n+1) for j in range(i+1,n+1)]\nans=[]; cost=0\nfor c,i,j in sorted(edges):\n ri,rj=f(i),f(j)\n if ri!=rj: p[rj]=ri; cost+=c; ans.append((i,j))\nprint(cost,len(ans))\nfor i,j in ans: print(i,j)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/2406",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "e09d50d854e1",
+    "createdAt": 1780240649171
   },
   {
     "id": "2411",
@@ -3788,6 +3914,24 @@
     ],
     "hash": "41a62dcb869d",
     "createdAt": 1779463720911
+  },
+  {
+    "id": "3165",
+    "slug": "backtracking-3165",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-3165.py",
+        "code": "n,k=map(int,input().split()); x=n+1\nwhile str(x).count('5')<k: x+=1\nprint(x)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/3165",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "caaeabbba947",
+    "createdAt": 1780240649171
   },
   {
     "id": "3184",
@@ -6518,6 +6662,24 @@
     "createdAt": 1779461724553
   },
   {
+    "id": "13902",
+    "slug": "dynamic_programming_2-13902",
+    "categorySlug": "dynamic_programming_2",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/dynamic_programming_2-13902.py",
+        "code": "import sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); wok=list(map(int,input().split())); sizes=set(wok)\nfor i in range(m):\n for j in range(i+1,m): sizes.add(wok[i]+wok[j])\nINF=10**9; dp=[INF]*(n+1); dp[0]=0\nfor i in range(1,n+1):\n for s in sizes:\n  if i>=s: dp[i]=min(dp[i],dp[i-s]+1)\nprint(-1 if dp[n]==INF else dp[n])\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/13902",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "e895d88274ba",
+    "createdAt": 1780240649171
+  },
+  {
     "id": "13905",
     "slug": "minimum_spanning_tree-13905",
     "categorySlug": "minimum_spanning_tree",
@@ -7619,6 +7781,24 @@
     ],
     "hash": "1285fb59e0ef",
     "createdAt": 1779779619619
+  },
+  {
+    "id": "15918",
+    "slug": "backtracking-15918",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-15918.py",
+        "code": "import sys\nn,x,y=map(int,input().split()); arr=[0]*(2*n+1); fixed=y-x-1; arr[x]=arr[y]=fixed; used=[False]*(n+1); used[fixed]=True; ans=0\ndef dfs(num):\n global ans\n while num<=n and used[num]: num+=1\n if num>n: ans+=1; return\n for i in range(1,2*n-num):\n  j=i+num+1\n  if j<=2*n and arr[i]==arr[j]==0:\n   arr[i]=arr[j]=num; used[num]=True; dfs(num+1); used[num]=False; arr[i]=arr[j]=0\ndfs(1); print(ans)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/15918",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "9ead337d4ae4",
+    "createdAt": 1780240649171
   },
   {
     "id": "15927",
