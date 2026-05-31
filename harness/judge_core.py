@@ -250,7 +250,8 @@ def judge(*,
           time_limit_s: float = 2.0,
           memory_limit_mb: int = 256,
           max_output_bytes: int | None = None) -> dict:
-    from .generators import generate
+    from .generators import generate, get_checker
+    checker = get_checker(problem_slug)
     sample_cases = _load_sample_cases(problem_slug)
     fuzz_cases: list[JudgeCase] = []
     try:
@@ -315,10 +316,16 @@ def judge(*,
             cases.append(CaseResult(i, stdin, expected, user.stderr or "<RE>", False, jc.kind,
                                     verdict="RE", duration_ms=user.duration_ms))
             continue
-        ok = _normalize(user.stdout) == _normalize(expected)
+        if checker is not None:
+            try:
+                ok = bool(checker(stdin, expected, user.stdout))
+            except Exception:
+                ok = False
+        else:
+            ok = _normalize(user.stdout) == _normalize(expected)
         if ok: passed += 1
         verdict = "AC" if ok else "WA"
-        if not ok and user.stdout.split() == expected.split():
+        if checker is None and not ok and user.stdout.split() == expected.split():
             verdict = "PE"
         cases.append(CaseResult(i, stdin, expected, user.stdout, ok, jc.kind,
                                 verdict=verdict, duration_ms=user.duration_ms))

@@ -7238,6 +7238,42 @@
     "createdAt": 1779778886848
   },
   {
+    "id": "14600",
+    "slug": "divide_and_conquer-14600",
+    "categorySlug": "divide_and_conquer",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/divide_and_conquer-14600.py",
+        "code": "import sys\ninput=sys.stdin.readline\nk=int(input()); x,y=map(int,input().split())\nn=2**k; board=[[0]*n for _ in range(n)]; board[n-y][x-1]=-1; tile=0\ndef cover(r,c,size,hr,hc):\n global tile\n if size==1: return\n half=size//2; tile+=1; t=tile\n mids=[(r+half-1,c+half-1),(r+half-1,c+half),(r+half,c+half-1),(r+half,c+half)]\n q=(0 if hr<r+half else 2)+(0 if hc<c+half else 1)\n for i,(mr,mc) in enumerate(mids):\n  if i!=q: board[mr][mc]=t\n holes=mids[:]; holes[q]=(hr,hc)\n cover(r,c,half,*holes[0]); cover(r,c+half,half,*holes[1])\n cover(r+half,c,half,*holes[2]); cover(r+half,c+half,half,*holes[3])\ncover(0,0,n,n-y,x-1)\nprint(\"\\n\".join(\" \".join(map(str,row)) for row in board))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/14600",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "35ee9289a3d2",
+    "createdAt": 1780244209306
+  },
+  {
+    "id": "14601",
+    "slug": "divide_and_conquer-14601",
+    "categorySlug": "divide_and_conquer",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/divide_and_conquer-14601.py",
+        "code": "import sys\ninput=sys.stdin.readline\nk=int(input()); x,y=map(int,input().split())\nn=2**k; board=[[0]*n for _ in range(n)]; board[n-y][x-1]=-1; tile=0\ndef cover(r,c,size,hr,hc):\n global tile\n if size==1: return\n half=size//2; tile+=1; t=tile\n mids=[(r+half-1,c+half-1),(r+half-1,c+half),(r+half,c+half-1),(r+half,c+half)]\n q=(0 if hr<r+half else 2)+(0 if hc<c+half else 1)\n for i,(mr,mc) in enumerate(mids):\n  if i!=q: board[mr][mc]=t\n holes=mids[:]; holes[q]=(hr,hc)\n cover(r,c,half,*holes[0]); cover(r,c+half,half,*holes[1])\n cover(r+half,c,half,*holes[2]); cover(r+half,c+half,half,*holes[3])\ncover(0,0,n,n-y,x-1)\nprint(\"\\n\".join(\" \".join(map(str,row)) for row in board))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/14601",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "cc031cb5ee83",
+    "createdAt": 1780244209309
+  },
+  {
     "id": "14627",
     "slug": "binary_search-14627",
     "categorySlug": "binary_search",
@@ -7639,6 +7675,24 @@
     "createdAt": 1779461724554
   },
   {
+    "id": "15566",
+    "slug": "backtracking-15566",
+    "categorySlug": "backtracking",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/backtracking-15566.py",
+        "code": "from itertools import permutations\nimport sys\ninput=sys.stdin.readline\nn,m=map(int,input().split())\nfrogs=[()]+[tuple(map(int,input().split())) for _ in range(n)]\npref=[set()]\nfor _ in range(n): pref.append(set(map(int,input().split())))\nlogs=[tuple(map(int,input().split())) for _ in range(m)]\nfor arr in permutations(range(1,n+1)):\n if all(i+1 in pref[f] for i,f in enumerate(arr)) and all(frogs[arr[a-1]][t-1]==frogs[arr[b-1]][t-1] for a,b,t in logs):\n  print(\"YES\"); print(*arr); break\nelse:\n print(\"NO\")\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/15566",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "1ae4bd87c53a",
+    "createdAt": 1780244209309
+  },
+  {
     "id": "15624",
     "slug": "dynamic_programming_1-15624",
     "categorySlug": "dynamic_programming_1",
@@ -7655,6 +7709,24 @@
     ],
     "hash": "849a778bec2d",
     "createdAt": 1779461724554
+  },
+  {
+    "id": "15644",
+    "slug": "simulation-15644",
+    "categorySlug": "simulation",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/simulation-15644.py",
+        "code": "from collections import deque\nimport sys\ninput=sys.stdin.readline\nn,m=map(int,input().split()); board=[list(input().strip()) for _ in range(n)]\nR=B=(-1,-1)\nfor i in range(n):\n for j in range(m):\n  if board[i][j]=='R': R=(i,j); board[i][j]='.'\n  elif board[i][j]=='B': B=(i,j); board[i][j]='.'\ndirs=[(-1,0,'U'),(1,0,'D'),(0,-1,'L'),(0,1,'R')]\ndef roll(pos,d):\n r,c=pos; dr,dc=d; cnt=0\n while board[r+dr][c+dc]!='#':\n  r+=dr; c+=dc; cnt+=1\n  if board[r][c]=='O': return (r,c),cnt,True\n return (r,c),cnt,False\nq=deque([(R,B,\"\")]); seen={(R,B)}\nwhile q:\n r,b,path=q.popleft()\n if len(path)>=10: continue\n for dr,dc,ch in dirs:\n  nr,rc,rh=roll(r,(dr,dc)); nb,bc,bh=roll(b,(dr,dc))\n  if bh: continue\n  if rh:\n   print(len(path)+1); print(path+ch); raise SystemExit\n  if nr==nb:\n   if rc>bc: nr=(nr[0]-dr,nr[1]-dc)\n   else: nb=(nb[0]-dr,nb[1]-dc)\n  state=(nr,nb)\n  if state not in seen:\n   seen.add(state); q.append((nr,nb,path+ch))\nprint(-1)\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/15644",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "9d07d1132d62",
+    "createdAt": 1780244209309
   },
   {
     "id": "15653",
@@ -8339,6 +8411,24 @@
     ],
     "hash": "90c5677c3ac7",
     "createdAt": 1779779619619
+  },
+  {
+    "id": "16438",
+    "slug": "divide_and_conquer-16438",
+    "categorySlug": "divide_and_conquer",
+    "sources": [
+      {
+        "lang": "python",
+        "file": "local/oracle/divide_and_conquer-16438.py",
+        "code": "n=int(input())\nfor bit in range(7):\n print(''.join('A' if ((i>>bit)&1)==0 else 'B' for i in range(n)))\n"
+      }
+    ],
+    "link": "https://www.acmicpc.net/problem/16438",
+    "authors": [
+      "dongjun"
+    ],
+    "hash": "a0d41f687a83",
+    "createdAt": 1780244209309
   },
   {
     "id": "16472",

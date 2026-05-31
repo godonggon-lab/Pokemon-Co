@@ -41,6 +41,14 @@ def _load_override(problem_slug: str) -> Callable[[int], List[str]] | None:
     return fn if callable(fn) else None
 
 
+def get_checker(problem_slug: str):
+    mod = _load_override_module(problem_slug)
+    if mod is None:
+        return None
+    fn = getattr(mod, "check_output", None)
+    return fn if callable(fn) else None
+
+
 def has_override(problem_slug: str) -> bool:
     return (OVERRIDES_DIR / f"{problem_slug}.py").exists()
 
