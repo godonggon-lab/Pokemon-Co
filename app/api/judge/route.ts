@@ -7,6 +7,7 @@
 
 import { NextResponse } from "next/server";
 import { getProblem } from "@/lib/dataset";
+import { normalizeJudgeLimits } from "@/lib/judgeLimits";
 
 export const runtime = "nodejs";
 
@@ -54,10 +55,7 @@ export async function POST(req: Request) {
         lang,
         code,
         oracle: { lang: oracle.lang, code: oracle.code },
-        limits: (limits && typeof limits === "object") ? {
-          timeLimitMs:  Math.max(500, Math.min(10000, Number(limits.timeLimitMs)  || 2000)),
-          memoryLimitMb: Math.max(64,  Math.min(1024,  Number(limits.memoryLimitMb)|| 256))
-        } : undefined
+        limits: normalizeJudgeLimits((limits && typeof limits === "object") ? limits : undefined)
       })
     });
     const text = await res.text();

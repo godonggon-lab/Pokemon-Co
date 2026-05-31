@@ -25,6 +25,7 @@ import type { Problem } from "./types";
 import type { MonsterMapEntry } from "./characters";
 import { getStatement, type ProblemStatement } from "./statement";
 import { adaptForPokemon } from "./adapt";
+import { normalizeJudgeLimits } from "./judgeLimits";
 
 export type FlavorSample = { in: string; out: string; explain?: string };
 
@@ -299,10 +300,10 @@ export function buildFlavor(
       input:       stmt.input,
       output:      stmt.output
     });
-    const limits = {
+    const limits = normalizeJudgeLimits({
       timeLimitMs:  stmt.limits.timeLimitMs  ?? estimateLimits(meta?.level ?? 0).timeLimitMs,
       memoryLimitMb: stmt.limits.memoryLimitMb ?? estimateLimits(meta?.level ?? 0).memoryLimitMb
-    };
+    });
     return {
       subject:    `📖 ${stmt.title} — ${monster.ko} 의 도전`,
       situation:  `${adapted.intro}\n\n${adapted.description}`,
@@ -331,7 +332,7 @@ export function buildFlavor(
   const ctx: StoryCtx = { r, monster, meta, hint, problem };
   const builder = STORY_BY_CATEGORY[problem.categorySlug] ?? story_default;
   const base = builder(ctx);
-  const limits = estimateLimits(meta?.level ?? 0);
+  const limits = normalizeJudgeLimits(estimateLimits(meta?.level ?? 0));
 
   const out: FlavorProblem = {
     subject:    base.subject,

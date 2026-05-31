@@ -17,12 +17,12 @@ const Editor = dynamic(() => import("@monaco-editor/react"), { ssr: false });
 type CaseResult = {
   idx: number; input: string; expected: string; actual: string;
   ok: boolean; kind: "sample" | "fuzz";
-  verdict?: "AC" | "WA" | "TLE" | "MLE" | "RE";
+  verdict?: "AC" | "WA" | "TLE" | "MLE" | "OLE" | "RE" | "PE";
   duration_ms?: number;
 };
-type JudgeStatus = "AC" | "WA" | "TLE" | "MLE" | "RE" | "CE" | "ERR";
+type JudgeStatus = "AC" | "WA" | "TLE" | "MLE" | "OLE" | "RE" | "PE" | "CE" | "ERR";
 type JudgeVerdict =
-  | { status: "AC" | "WA" | "TLE" | "MLE" | "RE"; passed: number; total: number; cases: CaseResult[]; durationMs: number }
+  | { status: "AC" | "WA" | "TLE" | "MLE" | "OLE" | "RE" | "PE"; passed: number; total: number; cases: CaseResult[]; durationMs: number }
   | { status: "CE" | "ERR"; message: string; cases?: CaseResult[]; durationMs?: number };
 
 const STARTER: Record<string, string> = {
@@ -98,7 +98,7 @@ export default function ProblemPlayground({
           newTR: delta.nextTR,
           firstCapture: res.firstCapture
         });
-      } else if (j.status === "WA" || j.status === "TLE" || j.status === "MLE" || j.status === "RE") {
+      } else if (j.status === "WA" || j.status === "TLE" || j.status === "MLE" || j.status === "OLE" || j.status === "RE" || j.status === "PE") {
         applyLoss(problem.slug, delta);
       }
     } catch (e: any) {
@@ -177,7 +177,7 @@ function VerdictPanel({ verdict }: { verdict: JudgeVerdict | null }) {
       </div>
     );
   }
-  const STATUS_STYLE: Record<JudgeStatus, { bg: string; label: string; emoji: string }> = {
+  const STATUS_STYLE: Record<string, { bg: string; label: string; emoji: string }> = {
     AC:  { bg: "bg-emerald-500",        label: "맞았습니다!!", emoji: "\uD83C\uDFC6" },
     WA:  { bg: "bg-rose-500",           label: "틀렸습니다",   emoji: "\u274C"   },
     TLE: { bg: "bg-amber-500",          label: "시간 초과",    emoji: "\u23F1\uFE0F" },
@@ -212,7 +212,8 @@ function VerdictPanel({ verdict }: { verdict: JudgeVerdict | null }) {
             const v = c.verdict ?? (c.ok ? "AC" : "WA");
             const vColor: Record<string, string> = {
               AC: "text-emerald-400", WA: "text-rose-400",
-              TLE: "text-amber-400", MLE: "text-orange-400", RE: "text-fuchsia-400"
+              TLE: "text-amber-400", MLE: "text-orange-400",
+              OLE: "text-yellow-400", RE: "text-fuchsia-400", PE: "text-sky-400"
             };
             return (
             <li key={c.idx} className="rounded-lg border border-white/5 bg-black/30 p-2">

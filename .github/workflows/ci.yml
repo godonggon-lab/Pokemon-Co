@@ -32,6 +32,9 @@ jobs:
       - name: Check language support metadata
         run: npm run judge:lang-audit
 
+      - name: Check judge limits
+        run: npm run judge:limits
+
       - name: Check override quality metadata
         run: npm run judge:quality
 

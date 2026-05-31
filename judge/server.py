@@ -28,6 +28,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from harness.judge_core import judge, LocalRunner, DockerRunner
+from harness.limits import resolve_limits
 
 PORT = int(os.environ.get("JUDGE_PORT", "5050"))
 USE_DOCKER = os.environ.get("JUDGE_USE_DOCKER", "1") == "1"
@@ -79,18 +80,19 @@ class Handler(BaseHTTPRequestHandler):
                     "message": "judge busy, retry later"
                 })
             user_runner = DockerRunner() if USE_DOCKER else LocalRunner()
-            limits = data.get("limits") or {}
-            tl_s = float(limits.get("timeLimitMs", 2000)) / 1000.0
-            ml_mb = int(limits.get("memoryLimitMb", 256))
-            out_bytes = int(limits.get("maxOutputBytes", MAX_OUTPUT_BYTES))
+            limits = resolve_limits(
+                data.get("problemSlug"),
+                data.get("limits") or {},
+                default_max_output_bytes=MAX_OUTPUT_BYTES,
+            )
             if self.path == "/run":
                 result = user_runner.run(
                     data["lang"],
                     data["code"],
                     str(data.get("stdin", "")),
-                    time_limit_s=tl_s,
-                    memory_mb=ml_mb,
-                    max_output_bytes=out_bytes,
+                    time_limit_s=limits.time_limit_s,
+                    memory_mb=limits.memory_limit_mb,
+                    max_output_bytes=limits.max_output_bytes,
                 )
                 if result.compile_error:
                     return self._send(200, {
@@ -98,6 +100,7 @@ class Handler(BaseHTTPRequestHandler):
                         "stdout": result.stdout,
                         "stderr": result.stderr,
                         "durationMs": result.duration_ms,
+                        "limits": limits.as_payload(),
                     })
                 if result.output_exceeded:
                     status = "OLE"
@@ -115,6 +118,7 @@ class Handler(BaseHTTPRequestHandler):
                     "stderr": result.stderr,
                     "durationMs": result.duration_ms,
                     "exitCode": result.exit_code,
+                    "limits": limits.as_payload(),
                 })
 
             result = judge(
@@ -126,10 +130,11 @@ class Handler(BaseHTTPRequestHandler):
                 oracle_code    = data["oracle"]["code"],
                 user_runner    = user_runner,
                 oracle_runner  = LocalRunner(),
-                time_limit_s   = tl_s,
-                memory_limit_mb= ml_mb,
-                max_output_bytes= out_bytes,
+                time_limit_s   = limits.time_limit_s,
+                memory_limit_mb= limits.memory_limit_mb,
+                max_output_bytes= limits.max_output_bytes,
             )
+            result["limits"] = limits.as_payload()
             self._send(200, result)
         except KeyError as e:
             self._send(400, {"status": "ERR", "message": f"missing field: {e}"})
