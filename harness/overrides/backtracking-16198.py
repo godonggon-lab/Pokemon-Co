@@ -5,8 +5,25 @@ from typing import List
 from harness.cases import GeneratedCase, edge, stress
 
 
+def _solve(data: str) -> str:
+    lines = data.splitlines()
+    weights = list(map(int, lines[1].split()))
+    best = 0
+
+    def dfs(arr: list[int], total: int) -> None:
+        nonlocal best
+        if len(arr) == 2:
+            best = max(best, total)
+            return
+        for i in range(1, len(arr) - 1):
+            dfs(arr[:i] + arr[i + 1:], total + arr[i - 1] * arr[i + 1])
+
+    dfs(weights, 0)
+    return str(best)
+
+
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    return [
+    cases = [
         edge("3\n1 2 3\n"),
         edge("4\n1 2 3 4\n"),
         edge("4\n10 1 10 1\n"),
@@ -14,3 +31,4 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         edge("6\n1 9 2 8 3 7\n"),
         stress("10\n1 2 3 4 5 6 7 8 9 10\n"),
     ]
+    return [{**case, "expected": _solve(case["input"])} for case in cases]
