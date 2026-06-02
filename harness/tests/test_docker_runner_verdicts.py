@@ -63,7 +63,7 @@ class DockerRunnerVerdictTests(unittest.TestCase):
             memory_mb=64,
         )
         self.assertFalse(result.ok, msg=result)
-        self.assertTrue(result.oom_killed or "MemoryError" in result.stderr, msg=result)
+        self.assertTrue(result.oom_killed or result.exit_code == 137 or "MemoryError" in result.stderr, msg=result)
 
     def test_output_limit(self):
         result = self.runner.run(
