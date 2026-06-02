@@ -39,6 +39,28 @@ print(min(student))
 print(max(student))
 """
 
+SOLUTION_20955 = """\
+import sys
+input = sys.stdin.readline
+n, m = map(int, input().split())
+parent = list(range(n + 1))
+def find(x):
+    while parent[x] != x:
+        parent[x] = parent[parent[x]]
+        x = parent[x]
+    return x
+cycle = 0
+for _ in range(m):
+    a, b = map(int, input().split())
+    ra, rb = find(a), find(b)
+    if ra == rb:
+        cycle += 1
+    else:
+        parent[rb] = ra
+components = len({find(i) for i in range(1, n + 1)})
+print(cycle + components - 1)
+"""
+
 
 class JudgeTests(unittest.TestCase):
     def test_samples_run_before_fuzz_cases(self):
@@ -97,8 +119,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="data_structure2-10546", category_slug="data_structure2",
-            user_lang="python", user_code=ORACLE_2798,
+            problem_slug="disjoint_set-20955", category_slug="disjoint_set",
+            user_lang="python", user_code=SOLUTION_20955,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,
