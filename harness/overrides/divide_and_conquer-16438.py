@@ -3,7 +3,18 @@ from typing import List
 from harness.cases import GeneratedCase, edge, stress
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    return [edge("2\n"), edge("7\n"), stress("99\n")]
+    cases = [edge("2\n"), edge("7\n"), stress("99\n")]
+    return [{**case, "expected": _solve(case["input"])} for case in cases]
+
+def _solve(data: str) -> str:
+    n = int(data)
+    lines = []
+    for bit in range(7):
+        chars = []
+        for i in range(n):
+            chars.append("A" if (i >> bit) & 1 else "B")
+        lines.append("".join(chars))
+    return "\n".join(lines)
 
 def check_output(stdin: str, _expected: str, actual: str) -> bool:
     n = int(stdin.strip())

@@ -61,6 +61,25 @@ components = len({find(i) for i in range(1, n + 1)})
 print(cycle + components - 1)
 """
 
+SOLUTION_13910 = """\
+import sys
+input = sys.stdin.readline
+n, m = map(int, input().split())
+woks = list(map(int, input().split()))
+sizes = set(woks)
+for i in range(m):
+    for j in range(i + 1, m):
+        sizes.add(woks[i] + woks[j])
+INF = 10**9
+dp = [INF] * (n + 1)
+dp[0] = 0
+for i in range(1, n + 1):
+    for size in sizes:
+        if i >= size:
+            dp[i] = min(dp[i], dp[i - size] + 1)
+print(dp[n] if dp[n] < INF else -1)
+"""
+
 
 class JudgeTests(unittest.TestCase):
     def test_samples_run_before_fuzz_cases(self):
@@ -119,8 +138,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="disjoint_set-20955", category_slug="disjoint_set",
-            user_lang="python", user_code=SOLUTION_20955,
+            problem_slug="dynamic_programming_1-13910", category_slug="dynamic_programming_1",
+            user_lang="python", user_code=SOLUTION_13910,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,

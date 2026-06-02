@@ -4,7 +4,43 @@ from typing import List
 from harness.cases import GeneratedCase, edge, stress
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    return [edge("3\n1 1\n"), edge("3\n5 6\n"), stress("4\n9 8\n")]
+    cases = [edge("3\n1 1\n"), edge("3\n5 6\n"), stress("4\n9 8\n")]
+    return [{**case, "expected": _solve(case["input"])} for case in cases]
+
+def _solve(data: str) -> str:
+    k, x, y = map(int, data.split())
+    n = 2 ** k
+    board = [[0] * n for _ in range(n)]
+    hole = (n - y, x - 1)
+    board[hole[0]][hole[1]] = -1
+    tile = 0
+
+    def cover(r: int, c: int, size: int, hr: int, hc: int) -> None:
+        nonlocal tile
+        if size == 1:
+            return
+        half = size // 2
+        tile += 1
+        current = tile
+        mids = [
+            (r + half - 1, c + half - 1),
+            (r + half - 1, c + half),
+            (r + half, c + half - 1),
+            (r + half, c + half),
+        ]
+        quadrant = (0 if hr < r + half else 2) + (0 if hc < c + half else 1)
+        for i, (mr, mc) in enumerate(mids):
+            if i != quadrant:
+                board[mr][mc] = current
+        holes = mids[:]
+        holes[quadrant] = (hr, hc)
+        cover(r, c, half, *holes[0])
+        cover(r, c + half, half, *holes[1])
+        cover(r + half, c, half, *holes[2])
+        cover(r + half, c + half, half, *holes[3])
+
+    cover(0, 0, n, *hole)
+    return "\n".join(" ".join(map(str, row)) for row in board)
 
 def check_output(stdin: str, _expected: str, actual: str) -> bool:
     return _check_tromino(stdin, actual)
