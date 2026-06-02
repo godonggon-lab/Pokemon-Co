@@ -97,7 +97,7 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="brute_force-2798", category_slug="brute_force",
+            problem_slug="brute_force-3085", category_slug="brute_force",
             user_lang="python", user_code=ORACLE_2798,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),

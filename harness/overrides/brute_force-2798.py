@@ -27,7 +27,7 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "10 500\n93 181 245 214 315 36 185 138 216 295\n",
         "3 5\n1 2 3\n",
     ]
-    cases.extend(fuzz(stdin) for stdin in inputs[:2])
+    cases.extend(fuzz(stdin, _solve(stdin)) for stdin in inputs[:2])
     cases.append(edge(inputs[2], _solve(inputs[2])))
     for i in range(3):
         rng = random.Random(f"2798:{i}")
