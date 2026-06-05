@@ -2095,7 +2095,7 @@
       {
         "lang": "python",
         "file": "solution/dynamic_programming_1/2579/main.py",
-        "code": "# Authored by : cieske\r\n# Co-authored by : -\r\n# Link : http://boj.kr/3d9ff337b9bc420a975cf6783b298212\r\n\r\nimport sys\r\ndef input():\r\n    return sys.stdin.readline().rstrip()\r\n\r\nn = int(input())\r\nlst = [int(input()) for _ in range(n)]\r\n\r\nif n > 3:\r\n    dp = [lst[0], lst[0]+lst[1], max(lst[0], lst[1])+lst[2]] # 3번째 칸까지는 먼저 구하기\r\n    for i in range(3, n):\r\n        next_max = max(dp[i-2], dp[i-3]+lst[i-1]) # max(2칸 전에서 i번째 경우, 3칸-1칸 전 밟고 i번째 오는 경우)\r\n        dp.append(next_max+lst[i])\r\n    print(dp[-1])\r\nelse:\r\n    print(sum(lst)) #2칸 이하면 모두 밟는게 최대\r\n\r\n"
+        "code": "import sys\r\ninput = sys.stdin.readline\r\nn = int(input())\r\nstairs = [0] + [int(input()) for _ in range(n)]\r\nif n == 1:\r\n    print(stairs[1])\r\nelse:\r\n    dp = [0] * (n + 1)\r\n    dp[1] = stairs[1]\r\n    dp[2] = stairs[1] + stairs[2]\r\n    for i in range(3, n + 1):\r\n        dp[i] = max(dp[i - 2], dp[i - 3] + stairs[i - 1]) + stairs[i]\r\n    print(dp[n])\r\n"
       }
     ],
     "link": "http://boj.kr/3d9ff337b9bc420a975cf6783b298212",
