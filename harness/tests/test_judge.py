@@ -102,40 +102,49 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
-SOLUTION_1707 = """\
+SOLUTION_22946 = """\
+from collections import deque
 import sys
 input = sys.stdin.readline
-
-def is_bipartite(start, graph, color):
-    stack = [start]
-    color[start] = 1
-    while stack:
-        node = stack.pop()
+n = int(input())
+circles = [None] + [tuple(map(int, input().split())) for _ in range(n)]
+parent = [0] * (n + 1)
+for i in range(1, n + 1):
+    xi, yi, ri = circles[i]
+    best = 0
+    best_r = 10**30
+    for j in range(1, n + 1):
+        if i == j:
+            continue
+        xj, yj, rj = circles[j]
+        if rj <= ri:
+            continue
+        if (xi - xj) ** 2 + (yi - yj) ** 2 < (rj - ri) ** 2 and rj < best_r:
+            best = j
+            best_r = rj
+    parent[i] = best
+graph = [[] for _ in range(n + 1)]
+for i in range(1, n + 1):
+    graph[i].append(parent[i])
+    graph[parent[i]].append(i)
+def far(src):
+    dist = [-1] * (n + 1)
+    dist[src] = 0
+    queue = deque([src])
+    while queue:
+        node = queue.popleft()
         for nxt in graph[node]:
-            if color[nxt] == 0:
-                color[nxt] = -color[node]
-                stack.append(nxt)
-            elif color[nxt] == color[node]:
-                return False
-    return True
-
-t = int(input())
-out = []
-for _ in range(t):
-    v, e = map(int, input().split())
-    graph = [[] for _ in range(v + 1)]
-    for _ in range(e):
-        a, b = map(int, input().split())
-        graph[a].append(b)
-        graph[b].append(a)
-    color = [0] * (v + 1)
-    ok = True
-    for node in range(1, v + 1):
-        if color[node] == 0 and not is_bipartite(node, graph, color):
-            ok = False
-            break
-    out.append("YES" if ok else "NO")
-print("\\n".join(out))
+            if dist[nxt] == -1:
+                dist[nxt] = dist[node] + 1
+                queue.append(nxt)
+    node = max(range(1, n + 1), key=lambda value: dist[value])
+    return node, dist[node]
+if n == 0:
+    print(0)
+else:
+    a, _ = far(1)
+    _, answer = far(a)
+    print(answer)
 """
 
 
@@ -196,8 +205,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="graph_traversal-1707", category_slug="graph_traversal",
-            user_lang="python", user_code=SOLUTION_1707,
+            problem_slug="graph_traversal-22946", category_slug="graph_traversal",
+            user_lang="python", user_code=SOLUTION_22946,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,
