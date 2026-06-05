@@ -102,25 +102,17 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
-SOLUTION_1301 = """\
-from functools import lru_cache
+SOLUTION_17208 = """\
 import sys
 input = sys.stdin.readline
-n = int(input())
-cnt = [int(input()) for _ in range(n)]
-@lru_cache(None)
-def dp(state, last1, last2):
-    if sum(state) == 0:
-        return 1
-    res = 0
-    st = list(state)
-    for i in range(n):
-        if st[i] and i != last1 and i != last2:
-            st[i] -= 1
-            res += dp(tuple(st), i, last1)
-            st[i] += 1
-    return res
-print(dp(tuple(cnt), -1, -1))
+n, m, k = map(int, input().split())
+dp = [[0] * (k + 1) for _ in range(m + 1)]
+for _ in range(n):
+    b, f = map(int, input().split())
+    for i in range(m, b - 1, -1):
+        for j in range(k, f - 1, -1):
+            dp[i][j] = max(dp[i][j], dp[i - b][j - f] + 1)
+print(dp[m][k])
 """
 
 
@@ -181,8 +173,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="dynamic_programming_2-1301", category_slug="dynamic_programming_2",
-            user_lang="python", user_code=SOLUTION_1301,
+            problem_slug="dynamic_programming_2-17208", category_slug="dynamic_programming_2",
+            user_lang="python", user_code=SOLUTION_17208,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,
