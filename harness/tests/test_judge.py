@@ -102,6 +102,25 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
+SOLUTION_2302 = """\
+import sys
+input = sys.stdin.readline
+n = int(input())
+m = int(input())
+fixed = {int(input()) for _ in range(m)}
+dp = [0] * (n + 2)
+dp[0] = dp[1] = 1
+for i in range(2, n + 1):
+    dp[i] = dp[i - 1] + dp[i - 2]
+ans = 1
+prev = 0
+for seat in sorted(fixed):
+    ans *= dp[seat - prev - 1]
+    prev = seat
+ans *= dp[n - prev]
+print(ans)
+"""
+
 
 class JudgeTests(unittest.TestCase):
     def test_samples_run_before_fuzz_cases(self):
@@ -160,8 +179,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="dynamic_programming_1-16195", category_slug="dynamic_programming_1",
-            user_lang="python", user_code=SOLUTION_16195,
+            problem_slug="dynamic_programming_1-2302", category_slug="dynamic_programming_1",
+            user_lang="python", user_code=SOLUTION_2302,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,
