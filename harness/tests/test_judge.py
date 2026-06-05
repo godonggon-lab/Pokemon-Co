@@ -102,29 +102,40 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
-SOLUTION_13913 = """\
-from collections import deque
-n, k = map(int, input().split())
-MAX = 100000
-parent = [-2] * (MAX + 1)
-parent[n] = -1
-queue = deque([n])
-while queue:
-    x = queue.popleft()
-    if x == k:
-        break
-    for y in (x - 1, x + 1, x * 2):
-        if 0 <= y <= MAX and parent[y] == -2:
-            parent[y] = x
-            queue.append(y)
-path = []
-cur = k
-while cur != -1:
-    path.append(cur)
-    cur = parent[cur]
-path.reverse()
-print(len(path) - 1)
-print(*path)
+SOLUTION_1707 = """\
+import sys
+input = sys.stdin.readline
+
+def is_bipartite(start, graph, color):
+    stack = [start]
+    color[start] = 1
+    while stack:
+        node = stack.pop()
+        for nxt in graph[node]:
+            if color[nxt] == 0:
+                color[nxt] = -color[node]
+                stack.append(nxt)
+            elif color[nxt] == color[node]:
+                return False
+    return True
+
+t = int(input())
+out = []
+for _ in range(t):
+    v, e = map(int, input().split())
+    graph = [[] for _ in range(v + 1)]
+    for _ in range(e):
+        a, b = map(int, input().split())
+        graph[a].append(b)
+        graph[b].append(a)
+    color = [0] * (v + 1)
+    ok = True
+    for node in range(1, v + 1):
+        if color[node] == 0 and not is_bipartite(node, graph, color):
+            ok = False
+            break
+    out.append("YES" if ok else "NO")
+print("\\n".join(out))
 """
 
 
@@ -185,8 +196,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="graph_traversal-13913", category_slug="graph_traversal",
-            user_lang="python", user_code=SOLUTION_13913,
+            problem_slug="graph_traversal-1707", category_slug="graph_traversal",
+            user_lang="python", user_code=SOLUTION_1707,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,
