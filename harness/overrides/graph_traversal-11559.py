@@ -1,7 +1,13 @@
 from __future__ import annotations
+
 from typing import List
-from harness.cases import GeneratedCase, edge, stress
+
+from harness.cases import GeneratedCase, edge, fuzz, stress
+
+
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    empty = "\n".join(["......"]*12) + "\n"
-    one = "\n".join(["......"]*11 + ["RRRR.."]) + "\n"
-    return [edge(empty), edge(one), stress("\n".join(["......"]*8 + ["YYYY..","YYYY..","RRRR..","RRRR.."]) + "\n")]
+    return [
+        edge('......\n......\n......\n......\n......\n......\n......\n......\n......\n......\n......\n......\n', '0\r\n'),
+        edge('......\n......\n......\n......\n......\n......\n......\n......\n......\n......\n......\nRRRR..\n', '1\r\n'),
+        stress('......\n......\n......\n......\n......\n......\n......\n......\nYYYY..\nYYYY..\nRRRR..\nRRRR..\n', '1\r\n'),
+    ]

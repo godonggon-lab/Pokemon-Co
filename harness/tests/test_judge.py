@@ -102,20 +102,29 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
-SOLUTION_5582 = """\
-import sys
-a = sys.stdin.readline().strip()
-b = sys.stdin.readline().strip()
-prev = [0] * (len(b) + 1)
-ans = 0
-for i in range(1, len(a) + 1):
-    cur = [0] * (len(b) + 1)
-    for j in range(1, len(b) + 1):
-        if a[i - 1] == b[j - 1]:
-            cur[j] = prev[j - 1] + 1
-            ans = max(ans, cur[j])
-    prev = cur
-print(ans)
+SOLUTION_13913 = """\
+from collections import deque
+n, k = map(int, input().split())
+MAX = 100000
+parent = [-2] * (MAX + 1)
+parent[n] = -1
+queue = deque([n])
+while queue:
+    x = queue.popleft()
+    if x == k:
+        break
+    for y in (x - 1, x + 1, x * 2):
+        if 0 <= y <= MAX and parent[y] == -2:
+            parent[y] = x
+            queue.append(y)
+path = []
+cur = k
+while cur != -1:
+    path.append(cur)
+    cur = parent[cur]
+path.reverse()
+print(len(path) - 1)
+print(*path)
 """
 
 
@@ -176,8 +185,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="dynamic_programming_2-5582", category_slug="dynamic_programming_2",
-            user_lang="python", user_code=SOLUTION_5582,
+            problem_slug="graph_traversal-13913", category_slug="graph_traversal",
+            user_lang="python", user_code=SOLUTION_13913,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,
