@@ -80,6 +80,28 @@ for i in range(1, n + 1):
 print(dp[n] if dp[n] < INF else -1)
 """
 
+SOLUTION_16195 = """\
+import sys
+input = sys.stdin.readline
+mod = 1000000009
+t = int(input())
+queries = [tuple(map(int, input().split())) for _ in range(t)]
+mxn = max(n for n, _ in queries)
+mxm = max(m for _, m in queries)
+dp = [[0] * (mxm + 1) for _ in range(mxn + 1)]
+dp[0][0] = 1
+for total in range(1, mxn + 1):
+    for cnt in range(1, mxm + 1):
+        dp[total][cnt] = sum(dp[total - x][cnt - 1] for x in (1, 2, 3) if total >= x) % mod
+pref = [[0] * (mxm + 1) for _ in range(mxn + 1)]
+for n in range(1, mxn + 1):
+    acc = 0
+    for m in range(1, mxm + 1):
+        acc = (acc + dp[n][m]) % mod
+        pref[n][m] = acc
+print('\\n'.join(str(pref[n][m]) for n, m in queries))
+"""
+
 
 class JudgeTests(unittest.TestCase):
     def test_samples_run_before_fuzz_cases(self):
@@ -138,8 +160,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="dynamic_programming_1-13910", category_slug="dynamic_programming_1",
-            user_lang="python", user_code=SOLUTION_13910,
+            problem_slug="dynamic_programming_1-16195", category_slug="dynamic_programming_1",
+            user_lang="python", user_code=SOLUTION_16195,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,
