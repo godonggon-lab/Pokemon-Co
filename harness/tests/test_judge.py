@@ -102,25 +102,20 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
-SOLUTION_2157 = """\
+SOLUTION_5582 = """\
 import sys
-input = sys.stdin.readline
-n, m, k = map(int, input().split())
-edges = [[] for _ in range(n + 1)]
-for _ in range(k):
-    a, b, c = map(int, input().split())
-    if a < b:
-        edges[a].append((b, c))
-NEG = -10**15
-dp = [[NEG] * (n + 1) for _ in range(m + 1)]
-dp[1][1] = 0
-for cnt in range(1, m):
-    for city in range(1, n + 1):
-        if dp[cnt][city] == NEG:
-            continue
-        for nxt, score in edges[city]:
-            dp[cnt + 1][nxt] = max(dp[cnt + 1][nxt], dp[cnt][city] + score)
-print(max(dp[cnt][n] for cnt in range(1, m + 1)))
+a = sys.stdin.readline().strip()
+b = sys.stdin.readline().strip()
+prev = [0] * (len(b) + 1)
+ans = 0
+for i in range(1, len(a) + 1):
+    cur = [0] * (len(b) + 1)
+    for j in range(1, len(b) + 1):
+        if a[i - 1] == b[j - 1]:
+            cur[j] = prev[j - 1] + 1
+            ans = max(ans, cur[j])
+    prev = cur
+print(ans)
 """
 
 
@@ -181,8 +176,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="dynamic_programming_2-2157", category_slug="dynamic_programming_2",
-            user_lang="python", user_code=SOLUTION_2157,
+            problem_slug="dynamic_programming_2-5582", category_slug="dynamic_programming_2",
+            user_lang="python", user_code=SOLUTION_5582,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,
