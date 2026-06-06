@@ -102,37 +102,27 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
-SOLUTION_9019 = """\
-from collections import deque
+SOLUTION_1474 = """\
 import sys
 input = sys.stdin.readline
-def solve(start, target):
-    prev = [-1] * 10000
-    operation = [""] * 10000
-    queue = deque([start])
-    prev[start] = start
-    while queue:
-        value = queue.popleft()
-        if value == target:
-            break
-        next_values = (
-            ((value * 2) % 10000, "D"),
-            ((value - 1) % 10000, "S"),
-            ((value % 1000) * 10 + value // 1000, "L"),
-            ((value % 10) * 1000 + value // 10, "R"),
-        )
-        for nxt, op in next_values:
-            if prev[nxt] == -1:
-                prev[nxt] = value
-                operation[nxt] = op
-                queue.append(nxt)
-    result = []
-    current = target
-    while current != start:
-        result.append(operation[current])
-        current = prev[current]
-    return "".join(reversed(result))
-print("\\n".join(solve(*map(int, input().split())) for _ in range(int(input()))))
+n, m = map(int, input().split())
+words = [input().strip() for _ in range(n)]
+spaces = m - sum(map(len, words))
+gaps = n - 1
+base, extra = divmod(spaces, gaps)
+parts = [words[0]]
+for i in range(1, n):
+    add = base
+    if words[i][0].islower() and extra > 0:
+        add += 1
+        extra -= 1
+    parts.append('_' * add)
+    parts.append(words[i])
+for i in range(len(parts) - 2, 0, -2):
+    if extra > 0:
+        parts[i] += '_'
+        extra -= 1
+print(''.join(parts))
 """
 
 
@@ -193,8 +183,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="graph_traversal-9019", category_slug="graph_traversal",
-            user_lang="python", user_code=SOLUTION_9019,
+            problem_slug="greedy-1474", category_slug="greedy",
+            user_lang="python", user_code=SOLUTION_1474,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,
