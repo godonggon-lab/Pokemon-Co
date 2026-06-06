@@ -102,27 +102,33 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
-SOLUTION_1474 = """\
+SOLUTION_21314 = """\
 import sys
-input = sys.stdin.readline
-n, m = map(int, input().split())
-words = [input().strip() for _ in range(n)]
-spaces = m - sum(map(len, words))
-gaps = n - 1
-base, extra = divmod(spaces, gaps)
-parts = [words[0]]
-for i in range(1, n):
-    add = base
-    if words[i][0].islower() and extra > 0:
-        add += 1
-        extra -= 1
-    parts.append('_' * add)
-    parts.append(words[i])
-for i in range(len(parts) - 2, 0, -2):
-    if extra > 0:
-        parts[i] += '_'
-        extra -= 1
-print(''.join(parts))
+s = sys.stdin.readline().strip()
+mx = []
+cnt = 0
+for ch in s:
+    if ch == "M":
+        cnt += 1
+    else:
+        mx.append("5" + "0" * cnt)
+        cnt = 0
+if cnt:
+    mx.append("1" * cnt)
+mn = []
+cnt = 0
+for ch in s:
+    if ch == "M":
+        cnt += 1
+    else:
+        if cnt:
+            mn.append("1" + "0" * (cnt - 1))
+        mn.append("5")
+        cnt = 0
+if cnt:
+    mn.append("1" + "0" * (cnt - 1))
+print("".join(mx))
+print("".join(mn))
 """
 
 
@@ -183,8 +189,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="greedy-1474", category_slug="greedy",
-            user_lang="python", user_code=SOLUTION_1474,
+            problem_slug="greedy-21314", category_slug="greedy",
+            user_lang="python", user_code=SOLUTION_21314,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,
