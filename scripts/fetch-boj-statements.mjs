@@ -83,6 +83,8 @@ function rewriteImgSrc(src, ts) {
 function stripTags(html, ts) {
   return decodeEntities(
     html
+      // Script payloads and other non-visible elements are not statement text.
+      .replace(/<(script|style|noscript|template)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, "")
       // <img>를 마크다운 형태로 보존 (alt 옵션)
       .replace(/<img\b[^>]*>/gi, (tag) => {
         const sm = tag.match(/\bsrc=["']([^"']+)["']/i);
@@ -106,6 +108,13 @@ function extractSection(html, id, ts) {
   const m = html.match(re);
   if (!m) return "";
   return stripTags(m[1], ts);
+}
+
+function cleanHintText(text) {
+  return text
+    .replace(/[A-Za-z0-9+/]{80,}={0,2}/g, "")
+    .replace(/\(adsbygoogle\s*=\s*window\.adsbygoogle\s*\|\|\s*\[\]\)\.push\(\{\s*\}\);?/gi, "")
+    .trim();
 }
 
 function extractSamples(html) {
@@ -146,7 +155,7 @@ function parseBojHtml(html, ts) {
   const input       = extractSection(html, "problem_input", ts);
   const output      = extractSection(html, "problem_output", ts);
   const limit       = extractSection(html, "problem_limit", ts);
-  const hint        = extractSection(html, "problem_hint", ts);
+  const hint        = cleanHintText(extractSection(html, "problem_hint", ts));
   const samples     = extractSamples(html);
   const limits      = extractLimits(html);
   // 최소한 description 또는 input/output 중 하나는 있어야 함
@@ -268,4 +277,9 @@ async function main() {
   console.log(`[boj-fetch] total cached: ${totalOk}/${problems.length}`);
 }
 
-main().catch(e => { console.error(e); process.exit(1); });
+const isMain = process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+if (isMain) {
+  main().catch(e => { console.error(e); process.exit(1); });
+}
+
+export { cleanHintText, extractSection, parseBojHtml, stripTags };
