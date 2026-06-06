@@ -102,49 +102,37 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
-SOLUTION_22946 = """\
+SOLUTION_9019 = """\
 from collections import deque
 import sys
 input = sys.stdin.readline
-n = int(input())
-circles = [None] + [tuple(map(int, input().split())) for _ in range(n)]
-parent = [0] * (n + 1)
-for i in range(1, n + 1):
-    xi, yi, ri = circles[i]
-    best = 0
-    best_r = 10**30
-    for j in range(1, n + 1):
-        if i == j:
-            continue
-        xj, yj, rj = circles[j]
-        if rj <= ri:
-            continue
-        if (xi - xj) ** 2 + (yi - yj) ** 2 < (rj - ri) ** 2 and rj < best_r:
-            best = j
-            best_r = rj
-    parent[i] = best
-graph = [[] for _ in range(n + 1)]
-for i in range(1, n + 1):
-    graph[i].append(parent[i])
-    graph[parent[i]].append(i)
-def far(src):
-    dist = [-1] * (n + 1)
-    dist[src] = 0
-    queue = deque([src])
+def solve(start, target):
+    prev = [-1] * 10000
+    operation = [""] * 10000
+    queue = deque([start])
+    prev[start] = start
     while queue:
-        node = queue.popleft()
-        for nxt in graph[node]:
-            if dist[nxt] == -1:
-                dist[nxt] = dist[node] + 1
+        value = queue.popleft()
+        if value == target:
+            break
+        next_values = (
+            ((value * 2) % 10000, "D"),
+            ((value - 1) % 10000, "S"),
+            ((value % 1000) * 10 + value // 1000, "L"),
+            ((value % 10) * 1000 + value // 10, "R"),
+        )
+        for nxt, op in next_values:
+            if prev[nxt] == -1:
+                prev[nxt] = value
+                operation[nxt] = op
                 queue.append(nxt)
-    node = max(range(1, n + 1), key=lambda value: dist[value])
-    return node, dist[node]
-if n == 0:
-    print(0)
-else:
-    a, _ = far(1)
-    _, answer = far(a)
-    print(answer)
+    result = []
+    current = target
+    while current != start:
+        result.append(operation[current])
+        current = prev[current]
+    return "".join(reversed(result))
+print("\\n".join(solve(*map(int, input().split())) for _ in range(int(input()))))
 """
 
 
@@ -205,8 +193,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="graph_traversal-22946", category_slug="graph_traversal",
-            user_lang="python", user_code=SOLUTION_22946,
+            problem_slug="graph_traversal-9019", category_slug="graph_traversal",
+            user_lang="python", user_code=SOLUTION_9019,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,
