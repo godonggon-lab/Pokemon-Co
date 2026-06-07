@@ -102,57 +102,30 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
-SOLUTION_15653 = """\
+SOLUTION_20055 = """\
 from collections import deque
 import sys
-input = sys.stdin.readline
-n, m = map(int, input().split())
-board = [list(input().strip()) for _ in range(n)]
-for i in range(n):
-    for j in range(m):
-        if board[i][j] == "R":
-            red_x, red_y = i, j
-            board[i][j] = "."
-        if board[i][j] == "B":
-            blue_x, blue_y = i, j
-            board[i][j] = "."
-
-def move(x, y, dx, dy):
-    count = 0
-    while board[x + dx][y + dy] != "#" and board[x][y] != "O":
-        x += dx
-        y += dy
-        count += 1
-    return x, y, count
-
-queue = deque([(red_x, red_y, blue_x, blue_y, 0)])
-seen = {(red_x, red_y, blue_x, blue_y)}
-for_result = -1
-while queue:
-    rx, ry, bx, by, turns = queue.popleft()
-    for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-        nrx, nry, red_count = move(rx, ry, dx, dy)
-        nbx, nby, blue_count = move(bx, by, dx, dy)
-        if board[nbx][nby] == "O":
-            continue
-        if board[nrx][nry] == "O":
-            for_result = turns + 1
-            queue.clear()
-            break
-        if (nrx, nry) == (nbx, nby):
-            if red_count > blue_count:
-                nrx -= dx
-                nry -= dy
-            else:
-                nbx -= dx
-                nby -= dy
-        state = (nrx, nry, nbx, nby)
-        if state not in seen:
-            seen.add(state)
-            queue.append((*state, turns + 1))
-    if for_result != -1:
+n, k = map(int, sys.stdin.readline().split())
+belt = deque(map(int, sys.stdin.readline().split()))
+robots = deque([False] * n)
+step = 0
+while True:
+    step += 1
+    belt.rotate(1)
+    robots.rotate(1)
+    robots[-1] = False
+    for i in range(n - 2, -1, -1):
+        if robots[i] and not robots[i + 1] and belt[i + 1] > 0:
+            robots[i] = False
+            robots[i + 1] = True
+            belt[i + 1] -= 1
+    robots[-1] = False
+    if belt[0] > 0:
+        robots[0] = True
+        belt[0] -= 1
+    if sum(value == 0 for value in belt) >= k:
         break
-print(for_result)
+print(step)
 """
 
 
@@ -213,8 +186,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="simulation-15653", category_slug="simulation",
-            user_lang="python", user_code=SOLUTION_15653,
+            problem_slug="simulation-20055", category_slug="simulation",
+            user_lang="python", user_code=SOLUTION_20055,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,
