@@ -102,23 +102,25 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
-SOLUTION_4933 = """\
+SOLUTION_1806 = """\
 import sys
-input=sys.stdin.readline
-def parse(tokens,idx):
- val=tokens[idx]; idx-=1
- if val=="nil": return ("nil",),idx
- right,idx=parse(tokens,idx)
- left,idx=parse(tokens,idx)
- kids=sorted([left,right])
- return (val,tuple(kids)),idx
-t=int(input()); out=[]
-for _ in range(t):
- a=input().split(); b=input().split()
- if len(a)!=len(b): out.append("false"); continue
- ta,_=parse(a,len(a)-1); tb,_=parse(b,len(b)-1)
- out.append("true" if ta==tb else "false")
-print("\\n".join(out))
+def input():
+    return sys.stdin.readline().rstrip()
+
+n, s = map(int, input().split())
+lst = list(map(int, input().split()))
+l_p, r_p, cur_sum, min_len = 0, 0, 0, 100002
+while l_p < n:
+    if cur_sum >= s:
+        min_len = min(min_len, r_p - l_p)
+        cur_sum -= lst[l_p]
+        l_p += 1
+    elif r_p == n:
+        break
+    else:
+        cur_sum += lst[r_p]
+        r_p += 1
+print(min_len if min_len < 100001 else 0)
 """
 
 
@@ -179,8 +181,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="tree-4933", category_slug="tree",
-            user_lang="python", user_code=SOLUTION_4933,
+            problem_slug="two_pointer-1806", category_slug="two_pointer",
+            user_lang="python", user_code=SOLUTION_1806,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,
