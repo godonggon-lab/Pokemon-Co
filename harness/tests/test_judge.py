@@ -102,37 +102,36 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
-SOLUTION_21924 = """\
-import sys
+SOLUTION_1277 = """\
+import heapq, math, sys
 input = sys.stdin.readline
-
-def find(x):
-    if parent[x] != x:
-        parent[x] = find(parent[x])
-    return parent[x]
-
-def union(a, b):
-    a, b = find(a), find(b)
-    if a != b:
-        parent[b] = a
-        return True
-    return False
-
-n, m = map(int, input().split())
-parent = list(range(n + 1))
-edges = []
-total = 0
-for _ in range(m):
-    a, b, cost = map(int, input().split())
-    edges.append((cost, a, b))
-    total += cost
-used = 0
-mst = 0
-for cost, a, b in sorted(edges):
-    if union(a, b):
-        used += 1
-        mst += cost
-print(total - mst if used == n - 1 else -1)
+n, w = map(int, input().split())
+limit = float(input())
+points = [None] + [tuple(map(int, input().split())) for _ in range(n)]
+graph = [[] for _ in range(n + 1)]
+for _ in range(w):
+    a, b = map(int, input().split())
+    graph[a].append((b, 0))
+    graph[b].append((a, 0))
+for i in range(1, n + 1):
+    for j in range(i + 1, n + 1):
+        distance = math.hypot(points[i][0] - points[j][0], points[i][1] - points[j][1])
+        if distance <= limit:
+            graph[i].append((j, distance))
+            graph[j].append((i, distance))
+dist = [float("inf")] * (n + 1)
+dist[1] = 0
+queue = [(0, 1)]
+while queue:
+    current, node = heapq.heappop(queue)
+    if current != dist[node]:
+        continue
+    for nxt, cost in graph[node]:
+        candidate = current + cost
+        if candidate < dist[nxt]:
+            dist[nxt] = candidate
+            heapq.heappush(queue, (candidate, nxt))
+print(int(dist[n] * 1000))
 """
 
 
@@ -193,8 +192,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="minimum_spanning_tree-21924", category_slug="minimum_spanning_tree",
-            user_lang="python", user_code=SOLUTION_21924,
+            problem_slug="shortest_path-1277", category_slug="shortest_path",
+            user_lang="python", user_code=SOLUTION_1277,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,
