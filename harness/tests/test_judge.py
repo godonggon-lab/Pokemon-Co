@@ -102,43 +102,57 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
-SOLUTION_20183 = """\
-import heapq, sys
+SOLUTION_15653 = """\
+from collections import deque
+import sys
 input = sys.stdin.readline
-n, m, start, end, budget = map(int, input().split())
-graph = [[] for _ in range(n + 1)]
-for _ in range(m):
-    a, b, cost = map(int, input().split())
-    graph[a].append((b, cost))
-    graph[b].append((a, cost))
+n, m = map(int, input().split())
+board = [list(input().strip()) for _ in range(n)]
+for i in range(n):
+    for j in range(m):
+        if board[i][j] == "R":
+            red_x, red_y = i, j
+            board[i][j] = "."
+        if board[i][j] == "B":
+            blue_x, blue_y = i, j
+            board[i][j] = "."
 
-def reachable(limit):
-    dist = [float("inf")] * (n + 1)
-    dist[start] = 0
-    queue = [(0, start)]
-    while queue:
-        current, node = heapq.heappop(queue)
-        if current != dist[node]:
+def move(x, y, dx, dy):
+    count = 0
+    while board[x + dx][y + dy] != "#" and board[x][y] != "O":
+        x += dx
+        y += dy
+        count += 1
+    return x, y, count
+
+queue = deque([(red_x, red_y, blue_x, blue_y, 0)])
+seen = {(red_x, red_y, blue_x, blue_y)}
+for_result = -1
+while queue:
+    rx, ry, bx, by, turns = queue.popleft()
+    for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+        nrx, nry, red_count = move(rx, ry, dx, dy)
+        nbx, nby, blue_count = move(bx, by, dx, dy)
+        if board[nbx][nby] == "O":
             continue
-        for nxt, cost in graph[node]:
-            if cost > limit:
-                continue
-            candidate = current + cost
-            if candidate < dist[nxt]:
-                dist[nxt] = candidate
-                heapq.heappush(queue, (candidate, nxt))
-    return dist[end] <= budget
-
-low, high = 1, 10**9
-answer = -1
-while low <= high:
-    mid = (low + high) // 2
-    if reachable(mid):
-        answer = mid
-        high = mid - 1
-    else:
-        low = mid + 1
-print(answer)
+        if board[nrx][nry] == "O":
+            for_result = turns + 1
+            queue.clear()
+            break
+        if (nrx, nry) == (nbx, nby):
+            if red_count > blue_count:
+                nrx -= dx
+                nry -= dy
+            else:
+                nbx -= dx
+                nby -= dy
+        state = (nrx, nry, nbx, nby)
+        if state not in seen:
+            seen.add(state)
+            queue.append((*state, turns + 1))
+    if for_result != -1:
+        break
+print(for_result)
 """
 
 
@@ -199,8 +213,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="shortest_path-20183", category_slug="shortest_path",
-            user_lang="python", user_code=SOLUTION_20183,
+            problem_slug="simulation-15653", category_slug="simulation",
+            user_lang="python", user_code=SOLUTION_15653,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,
