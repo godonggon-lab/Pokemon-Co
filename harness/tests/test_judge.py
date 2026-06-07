@@ -102,33 +102,23 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
-SOLUTION_12912 = """\
+SOLUTION_4933 = """\
 import sys
 input=sys.stdin.readline
-n=int(input()); g=[{} for _ in range(n)]; edges=[]
-for _ in range(n-1):
- a,b,w=map(int,input().split()); g[a][b]=w; g[b][a]=w; edges.append((a,b,w))
-def diameter_sum():
- vis=[0]*n; total=0
- def far(st,tag):
-  stack=[(st,0)]; vis[st]+=1; best=(st,0)
-  while stack:
-   x,d=stack.pop()
-   if d>best[1]: best=(x,d)
-   for y,w in g[x].items():
-    if vis[y]==tag:
-     vis[y]+=1; stack.append((y,d+w))
-  return best
- for i in range(n):
-  if vis[i]==0:
-   a,_=far(i,0); _,d=far(a,1); total+=d
- return total
-ans=diameter_sum()
-for a,b,w in edges:
- del g[a][b]; del g[b][a]
- ans=max(ans,diameter_sum()+w)
- g[a][b]=w; g[b][a]=w
-print(ans)
+def parse(tokens,idx):
+ val=tokens[idx]; idx-=1
+ if val=="nil": return ("nil",),idx
+ right,idx=parse(tokens,idx)
+ left,idx=parse(tokens,idx)
+ kids=sorted([left,right])
+ return (val,tuple(kids)),idx
+t=int(input()); out=[]
+for _ in range(t):
+ a=input().split(); b=input().split()
+ if len(a)!=len(b): out.append("false"); continue
+ ta,_=parse(a,len(a)-1); tb,_=parse(b,len(b)-1)
+ out.append("true" if ta==tb else "false")
+print("\\n".join(out))
 """
 
 
@@ -189,8 +179,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="tree-12912", category_slug="tree",
-            user_lang="python", user_code=SOLUTION_12912,
+            problem_slug="tree-4933", category_slug="tree",
+            user_lang="python", user_code=SOLUTION_4933,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,
