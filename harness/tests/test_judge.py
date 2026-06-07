@@ -102,36 +102,43 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
-SOLUTION_1277 = """\
-import heapq, math, sys
+SOLUTION_20183 = """\
+import heapq, sys
 input = sys.stdin.readline
-n, w = map(int, input().split())
-limit = float(input())
-points = [None] + [tuple(map(int, input().split())) for _ in range(n)]
+n, m, start, end, budget = map(int, input().split())
 graph = [[] for _ in range(n + 1)]
-for _ in range(w):
-    a, b = map(int, input().split())
-    graph[a].append((b, 0))
-    graph[b].append((a, 0))
-for i in range(1, n + 1):
-    for j in range(i + 1, n + 1):
-        distance = math.hypot(points[i][0] - points[j][0], points[i][1] - points[j][1])
-        if distance <= limit:
-            graph[i].append((j, distance))
-            graph[j].append((i, distance))
-dist = [float("inf")] * (n + 1)
-dist[1] = 0
-queue = [(0, 1)]
-while queue:
-    current, node = heapq.heappop(queue)
-    if current != dist[node]:
-        continue
-    for nxt, cost in graph[node]:
-        candidate = current + cost
-        if candidate < dist[nxt]:
-            dist[nxt] = candidate
-            heapq.heappush(queue, (candidate, nxt))
-print(int(dist[n] * 1000))
+for _ in range(m):
+    a, b, cost = map(int, input().split())
+    graph[a].append((b, cost))
+    graph[b].append((a, cost))
+
+def reachable(limit):
+    dist = [float("inf")] * (n + 1)
+    dist[start] = 0
+    queue = [(0, start)]
+    while queue:
+        current, node = heapq.heappop(queue)
+        if current != dist[node]:
+            continue
+        for nxt, cost in graph[node]:
+            if cost > limit:
+                continue
+            candidate = current + cost
+            if candidate < dist[nxt]:
+                dist[nxt] = candidate
+                heapq.heappush(queue, (candidate, nxt))
+    return dist[end] <= budget
+
+low, high = 1, 10**9
+answer = -1
+while low <= high:
+    mid = (low + high) // 2
+    if reachable(mid):
+        answer = mid
+        high = mid - 1
+    else:
+        low = mid + 1
+print(answer)
 """
 
 
@@ -192,8 +199,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="shortest_path-1277", category_slug="shortest_path",
-            user_lang="python", user_code=SOLUTION_1277,
+            problem_slug="shortest_path-20183", category_slug="shortest_path",
+            user_lang="python", user_code=SOLUTION_20183,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,

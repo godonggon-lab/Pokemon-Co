@@ -1,10 +1,13 @@
 from __future__ import annotations
+
 from typing import List
+
 from harness.cases import GeneratedCase, edge, stress
+
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
     return [
-        edge("2 10\n0 5 3\n5 10 3\n"),
-        edge("3 20\n0 10 5\n10 20 5\n0 20 30\n"),
-        stress("4 30\n0 10 8\n8 20 5\n20 30 3\n5 25 10\n"),
+        edge('2 10\n0 5 3\n5 10 3\n', '6\r\n'),
+        edge('3 20\n0 10 5\n10 20 5\n0 20 30\n', '10\r\n'),
+        stress('4 30\n0 10 8\n8 20 5\n20 30 3\n5 25 10\n', '16\r\n'),
     ]
