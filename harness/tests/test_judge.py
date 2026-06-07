@@ -102,15 +102,37 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
-SOLUTION_1359 = """\
-import math, sys
-n, m, k = map(int, sys.stdin.readline().split())
-total = math.comb(n, m)
-good = 0
-for i in range(k, m + 1):
-    if n - m >= m - i:
-        good += math.comb(m, i) * math.comb(n - m, m - i)
-print(good / total)
+SOLUTION_21924 = """\
+import sys
+input = sys.stdin.readline
+
+def find(x):
+    if parent[x] != x:
+        parent[x] = find(parent[x])
+    return parent[x]
+
+def union(a, b):
+    a, b = find(a), find(b)
+    if a != b:
+        parent[b] = a
+        return True
+    return False
+
+n, m = map(int, input().split())
+parent = list(range(n + 1))
+edges = []
+total = 0
+for _ in range(m):
+    a, b, cost = map(int, input().split())
+    edges.append((cost, a, b))
+    total += cost
+used = 0
+mst = 0
+for cost, a, b in sorted(edges):
+    if union(a, b):
+        used += 1
+        mst += cost
+print(total - mst if used == n - 1 else -1)
 """
 
 
@@ -171,8 +193,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="math-1359", category_slug="math",
-            user_lang="python", user_code=SOLUTION_1359,
+            problem_slug="minimum_spanning_tree-21924", category_slug="minimum_spanning_tree",
+            user_lang="python", user_code=SOLUTION_21924,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,
