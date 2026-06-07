@@ -102,30 +102,26 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
-SOLUTION_20055 = """\
-from collections import deque
+SOLUTION_17609 = """\
 import sys
-n, k = map(int, sys.stdin.readline().split())
-belt = deque(map(int, sys.stdin.readline().split()))
-robots = deque([False] * n)
-step = 0
-while True:
-    step += 1
-    belt.rotate(1)
-    robots.rotate(1)
-    robots[-1] = False
-    for i in range(n - 2, -1, -1):
-        if robots[i] and not robots[i + 1] and belt[i + 1] > 0:
-            robots[i] = False
-            robots[i + 1] = True
-            belt[i + 1] -= 1
-    robots[-1] = False
-    if belt[0] > 0:
-        robots[0] = True
-        belt[0] -= 1
-    if sum(value == 0 for value in belt) >= k:
-        break
-print(step)
+
+def classify(text, left, right, removed):
+    if removed == 2:
+        return 2
+    while left <= right:
+        if text[left] != text[right]:
+            return min(
+                classify(text, left + 1, right, removed + 1),
+                classify(text, left, right - 1, removed + 1),
+            )
+        left += 1
+        right -= 1
+    return removed
+
+input = sys.stdin.readline
+for _ in range(int(input())):
+    text = input().strip()
+    print(classify(text, 0, len(text) - 1, 0))
 """
 
 
@@ -186,8 +182,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="simulation-20055", category_slug="simulation",
-            user_lang="python", user_code=SOLUTION_20055,
+            problem_slug="string-17609", category_slug="string",
+            user_lang="python", user_code=SOLUTION_17609,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,

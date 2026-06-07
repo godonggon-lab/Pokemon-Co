@@ -7,10 +7,10 @@ from harness.cases import GeneratedCase, edge, stress
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
     return [
-        edge("word\n"),
-        edge(" hello world \n"),
-        edge("   \n"),
-        edge("a b c d e\n"),
-        edge("  multiple   spaces  inside  \n"),
-        stress("The Curious Case Of DongJun CodeDex\n"),
+        edge('word\n', '1\r\n'),
+        edge(' hello world \n', '2\r\n'),
+        edge('   \n', '0\r\n'),
+        edge('a b c d e\n', '5\r\n'),
+        edge('  multiple   spaces  inside  \n', '3\r\n'),
+        stress('The Curious Case Of DongJun CodeDex\n', '6\r\n'),
     ]
