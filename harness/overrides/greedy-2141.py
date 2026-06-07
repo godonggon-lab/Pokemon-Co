@@ -7,10 +7,10 @@ from harness.cases import GeneratedCase, edge, stress
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
     return [
-        edge("1\n5 10\n"),
-        edge("2\n1 1\n10 1\n"),
-        edge("3\n1 5\n2 1\n10 5\n"),
-        edge("4\n1 10\n2 1\n3 1\n100 10\n"),
-        edge("5\n5 1\n1 10\n10 3\n7 6\n2 2\n"),
-        stress("6\n1 100\n2 1\n3 1\n4 1\n5 1\n100 100\n"),
+        edge('1\n5 10\n', '5\r\n'),
+        edge('2\n1 1\n10 1\n', '1\r\n'),
+        edge('3\n1 5\n2 1\n10 5\n', '2\r\n'),
+        edge('4\n1 10\n2 1\n3 1\n100 10\n', '2\r\n'),
+        edge('5\n5 1\n1 10\n10 3\n7 6\n2 2\n', '2\r\n'),
+        stress('6\n1 100\n2 1\n3 1\n4 1\n5 1\n100 100\n', '3\r\n'),
     ]

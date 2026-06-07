@@ -102,33 +102,15 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
-SOLUTION_21314 = """\
-import sys
-s = sys.stdin.readline().strip()
-mx = []
-cnt = 0
-for ch in s:
-    if ch == "M":
-        cnt += 1
-    else:
-        mx.append("5" + "0" * cnt)
-        cnt = 0
-if cnt:
-    mx.append("1" * cnt)
-mn = []
-cnt = 0
-for ch in s:
-    if ch == "M":
-        cnt += 1
-    else:
-        if cnt:
-            mn.append("1" + "0" * (cnt - 1))
-        mn.append("5")
-        cnt = 0
-if cnt:
-    mn.append("1" + "0" * (cnt - 1))
-print("".join(mx))
-print("".join(mn))
+SOLUTION_1359 = """\
+import math, sys
+n, m, k = map(int, sys.stdin.readline().split())
+total = math.comb(n, m)
+good = 0
+for i in range(k, m + 1):
+    if n - m >= m - i:
+        good += math.comb(m, i) * math.comb(n - m, m - i)
+print(good / total)
 """
 
 
@@ -189,8 +171,8 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
     def test_oracle_failure_returns_ERR(self):
         bad_oracle = "raise RuntimeError('broken oracle')\n"
         r = judge(
-            problem_slug="greedy-21314", category_slug="greedy",
-            user_lang="python", user_code=SOLUTION_21314,
+            problem_slug="math-1359", category_slug="math",
+            user_lang="python", user_code=SOLUTION_1359,
             oracle_lang="python", oracle_code=bad_oracle,
             user_runner=LocalRunner(), oracle_runner=LocalRunner(),
             case_count=1,
