@@ -29,5 +29,12 @@ def _solve(stdin: str) -> str:
 
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    cases = [edge("1 4\nantatica\n"), edge("1 5\nantatica\n"), edge("3 6\nantarctica\nantahellotica\nantacartica\n"), stress("5 7\nantabtica\nantaztica\nantaytica\nantabytica\nantaxyztica\n")]
+    cases = [
+        edge("1 4\nantatica\n"),
+        edge("1 5\nantatica\n"),
+        edge("2 26\nantabtica\nantaztica\n"),
+        edge("4 5\nantatica\nantabtica\nantactica\nantadtica\n"),
+        edge("3 6\nantarctica\nantahellotica\nantacartica\n"),
+        stress("5 7\nantabtica\nantaztica\nantaytica\nantabytica\nantaxyztica\n"),
+    ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]

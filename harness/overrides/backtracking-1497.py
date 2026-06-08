@@ -36,7 +36,9 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
     inputs = [
         "3 5\ng1 YNNYY\ng2 NYNYN\ng3 NNNNN\n",
         "2 3\na NNN\nb NNN\n",
+        "1 4\nsolo YYYY\n",
         "4 4\na YYNN\nb NNYY\nc YNYN\nd NYNY\n",
+        "3 4\na YNNN\nb NYNN\nc NNYN\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     rows = []
