@@ -102,27 +102,6 @@ for n in range(1, mxn + 1):
 print('\\n'.join(str(pref[n][m]) for n, m in queries))
 """
 
-SOLUTION_1806 = """\
-import sys
-def input():
-    return sys.stdin.readline().rstrip()
-
-n, s = map(int, input().split())
-lst = list(map(int, input().split()))
-l_p, r_p, cur_sum, min_len = 0, 0, 0, 100002
-while l_p < n:
-    if cur_sum >= s:
-        min_len = min(min_len, r_p - l_p)
-        cur_sum -= lst[l_p]
-        l_p += 1
-    elif r_p == n:
-        break
-    else:
-        cur_sum += lst[r_p]
-        r_p += 1
-print(min_len if min_len < 100001 else 0)
-"""
-
 
 class JudgeTests(unittest.TestCase):
     def test_samples_run_before_fuzz_cases(self):
@@ -179,14 +158,24 @@ print(sum(sorted(arr)[-3:]))   # M 무시 → 거의 항상 WA
         self.assertGreater(r["total"], 0)
 
     def test_oracle_failure_returns_ERR(self):
+        original_generate = generators.generate
+
+        def one_case(*args, **kwargs):
+            return [{"input": "hello\n", "kind": "fuzz"}]
+
+        generators.generate = one_case
         bad_oracle = "raise RuntimeError('broken oracle')\n"
-        r = judge(
-            problem_slug="two_pointer-1806", category_slug="two_pointer",
-            user_lang="python", user_code=SOLUTION_1806,
-            oracle_lang="python", oracle_code=bad_oracle,
-            user_runner=LocalRunner(), oracle_runner=LocalRunner(),
-            case_count=1,
-        )
+        try:
+            r = judge(
+                problem_slug="no_samples-999998", category_slug="brute_force",
+                user_lang="python", user_code="print(input())\n",
+                oracle_lang="python", oracle_code=bad_oracle,
+                user_runner=LocalRunner(), oracle_runner=LocalRunner(),
+                case_count=1,
+            )
+        finally:
+            generators.generate = original_generate
+
         self.assertEqual(r["status"], "ERR", msg=r)
         self.assertIn("oracle failed", r["message"])
 
