@@ -22,6 +22,7 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         edge("abc\n"),
         edge("zyx\n"),
         edge("abcdef\n"),
+        edge("banana\n"),
         stress("abcdefghijklmnop\n"),
     ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]

@@ -10,5 +10,12 @@ def _solve(data: str) -> str:
     return str(good / total)
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    cases = [edge("10 3 2\n"), edge("8 2 1\n"), stress("20 5 3\n")]
+    cases = [
+        edge("10 3 2\n"),
+        edge("8 2 1\n"),
+        edge("5 1 1\n"),
+        edge("6 3 3\n"),
+        edge("20 10 0\n"),
+        stress("20 5 3\n"),
+    ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]

@@ -25,5 +25,12 @@ def _solve(data: str) -> str:
     return str(best + (1 if best < n else 0))
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    cases = [edge("1 0\n"), edge("4 2\n1 2\n3 4\n"), edge("5 4\n1 2\n2 3\n3 4\n4 5\n"), stress("10 10\n" + "\n".join(f"{i} {i+1}" for i in range(1,10)) + "\n1 10\n")]
+    cases = [
+        edge("1 0\n"),
+        edge("2 1\n1 2\n"),
+        edge("4 2\n1 2\n3 4\n"),
+        edge("5 4\n1 2\n2 3\n3 4\n4 5\n"),
+        edge("6 3\n1 2\n2 3\n4 5\n"),
+        stress("10 10\n" + "\n".join(f"{i} {i+1}" for i in range(1,10)) + "\n1 10\n"),
+    ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]

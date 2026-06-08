@@ -34,6 +34,7 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         edge("3\naa\nab\ncc\n"),
         edge("4\nfoo\napp\nbar\nbaz\n"),
         edge("5\nabc\nbcd\naba\nxyx\nzzz\n"),
+        edge("3\nabc\nabc\nabd\n"),
         stress("10\n" + "\n".join(["abc", "bcd", "cde", "aba", "xyx", "zzz", "abb", "cdd", "qwe", "rty"]) + "\n"),
     ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]

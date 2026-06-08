@@ -22,5 +22,12 @@ def _solve(data: str) -> str:
     return "1" if possible else "0"
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    cases = [edge("A\nBABA\n"), edge("AB\nABB\n"), edge("A\nABBA\n"), stress("AB\nABBABAABAB\n")]
+    cases = [
+        edge("A\nBABA\n"),
+        edge("AB\nABB\n"),
+        edge("A\nABBA\n"),
+        edge("B\nABBA\n"),
+        edge("AB\nAB\n"),
+        stress("AB\nABBABAABAB\n"),
+    ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]
