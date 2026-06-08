@@ -23,6 +23,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "2\n-1 -1 -1 3\n1 1 1 -3\n",
         "1\n0 0 0 0\n",
         "3\n1 2 -3 0\n-1 -2 3 0\n0 0 0 0\n",
+        "2\n0 0 0 0\n0 0 0 0\n",
+        "3\n1 1 1 -3\n2 2 -2 -2\n3 -1 -1 -1\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     rows = "\n".join(f"{i} {-i} {i % 5} {-i % 5}" for i in range(80))

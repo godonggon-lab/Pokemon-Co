@@ -23,6 +23,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "3 2\n01\n10\n10\n1\n",
         "4 3\n000\n000\n111\n010\n2\n",
         "2 4\n1111\n1111\n3\n",
+        "1 1\n0\n1\n",
+        "3 3\n101\n101\n010\n2\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     rows = ["0101010101" if i % 2 else "1010101010" for i in range(20)]
