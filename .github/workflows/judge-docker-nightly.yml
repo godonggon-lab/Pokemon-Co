@@ -6,9 +6,9 @@ on:
     - cron: "0 18 * * *"
 
 jobs:
-  docker-judge:
+  docker-runner-verdicts:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
 
@@ -29,5 +29,29 @@ jobs:
       - name: Check Docker runner verdicts
         run: npm run judge:docker-check
 
-      - name: Verify all judge overrides
-        run: npm run judge:verify-overrides
+  verify-overrides:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4, 5, 6, 7, 8]
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+          cache: npm
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - run: npm ci
+
+      - name: Build coderunner image
+        run: docker build -t dongjun-coderunner:latest judge
+
+      - name: Verify judge overrides shard ${{ matrix.shard }}/8
+        run: python scripts/verify-judge-overrides.py --shard ${{ matrix.shard }}/8
