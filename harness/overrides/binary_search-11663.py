@@ -18,9 +18,11 @@ def _solve(stdin: str) -> str:
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
     inputs = [
+        "1 1\n0\n0 0\n",
         "5 3\n1 3 10 20 30\n1 10\n5 25\n-10 0\n",
         "1 2\n7\n7 7\n8 9\n",
         "6 4\n-5 -1 0 2 2 9\n-5 2\n2 2\n-10 10\n3 8\n",
+        "5 3\n1 1 1 1 1\n1 1\n0 0\n2 2\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     points = " ".join(str(i * 2 - 1000) for i in range(1000))
