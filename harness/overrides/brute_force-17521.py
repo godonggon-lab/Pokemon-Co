@@ -17,5 +17,12 @@ def _solve(data: str) -> str:
     return str(cash + stock * prices[-1])
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    cases = [edge("1 10\n5\n"), edge("3 10\n5\n10\n3\n"), stress("6 100\n5\n7\n4\n10\n9\n12\n")]
+    cases = [
+        edge("1 10\n5\n"),
+        edge("2 10\n5\n10\n"),
+        edge("3 10\n5\n10\n3\n"),
+        edge("4 100\n10\n9\n8\n7\n"),
+        edge("5 10\n1\n2\n3\n4\n5\n"),
+        stress("6 100\n5\n7\n4\n10\n9\n12\n"),
+    ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]

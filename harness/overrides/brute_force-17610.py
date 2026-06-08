@@ -15,5 +15,12 @@ def _solve(data: str) -> str:
     return str(sum(1 for value in range(1, sum(weights) + 1) if value not in possible))
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    cases = [edge("1\n1\n"), edge("2\n1 4\n"), stress("5\n1 3 9 27 81\n")]
+    cases = [
+        edge("1\n1\n"),
+        edge("1\n5\n"),
+        edge("2\n1 4\n"),
+        edge("3\n1 2 3\n"),
+        edge("4\n2 4 8 16\n"),
+        stress("5\n1 3 9 27 81\n"),
+    ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]

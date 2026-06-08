@@ -24,5 +24,12 @@ def _solve(data: str) -> str:
     return str(answer if answer < 10**9 else -1)
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    cases = [edge("A\n1\n10 A\n"), edge("ABC\n2\n10 AB\n5 C\n"), stress("DOG\n4\n5 DO\n6 OG\n10 CAT\n3 G\n")]
+    cases = [
+        edge("A\n1\n10 A\n"),
+        edge("ABC\n2\n10 AB\n5 C\n"),
+        edge("ABC\n1\n3 AB\n"),
+        edge("AA\n2\n5 A\n8 AA\n"),
+        edge("BAEK\n3\n10 BAE\n5 K\n100 CODE\n"),
+        stress("DOG\n4\n5 DO\n6 OG\n10 CAT\n3 G\n"),
+    ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]
