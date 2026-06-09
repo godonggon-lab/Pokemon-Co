@@ -14,5 +14,5 @@ def _solve(data: str) -> str:
     return str(len(best)) + "\n" + " ".join(map(str, best))
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    cases = [edge("1\n"), edge("10\n"), edge("100\n"), stress("30000\n")]
+    cases = [edge("1\n"), edge("2\n"), edge("10\n"), edge("100\n"), edge("1000\n"), stress("30000\n")]
     return [{**case, "expected": _solve(case["input"])} for case in cases]

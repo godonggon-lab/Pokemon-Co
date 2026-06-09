@@ -32,5 +32,12 @@ def _solve(data: str) -> str:
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
     rows = [("CPZY" * 4)[i:i + 8] for i in range(8)]
-    cases = [edge("3\nCCP\nCCP\nPPC\n"), edge("4\nPPPP\nCYZY\nCCPY\nPPCC\n"), edge("5\nYCPZY\nCYZZP\nCCPPP\nYCYZC\nCPPZZ\n"), stress("8\n" + "\n".join(rows) + "\n")]
+    cases = [
+        edge("2\nCC\nCC\n"),
+        edge("3\nCCP\nCCP\nPPC\n"),
+        edge("4\nPPPP\nCYZY\nCCPY\nPPCC\n"),
+        edge("5\nYCPZY\nCYZZP\nCCPPP\nYCYZC\nCPPZZ\n"),
+        edge("3\nCPZ\nPZC\nZCP\n"),
+        stress("8\n" + "\n".join(rows) + "\n"),
+    ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]

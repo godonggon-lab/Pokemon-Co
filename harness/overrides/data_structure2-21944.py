@@ -59,6 +59,9 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
     inputs = [
         "5\n1000 1 1\n1001 2 1\n19998 78 2\n2667 37 3\n2042 55 3\n8\nrecommend 1 1\nrecommend 1 -1\nrecommend2 1\nrecommend3 1 50\nrecommend3 -1 50\nsolved 1001\nadd 1001 100 1\nrecommend 1 1\n",
         "3\n1 10 1\n2 10 1\n3 20 2\n6\nrecommend2 -1\nrecommend2 1\nrecommend3 1 15\nrecommend3 -1 15\nsolved 3\nrecommend3 1 15\n",
+        "1\n1 10 1\n4\nrecommend 1 1\nrecommend 1 -1\nrecommend2 1\nrecommend2 -1\n",
+        "2\n1 10 1\n2 20 2\n5\nrecommend3 1 20\nrecommend3 -1 20\nadd 3 20 1\nrecommend2 1\nrecommend 1 1\n",
+        "3\n10 5 1\n20 5 1\n30 5 2\n5\nrecommend2 1\nrecommend2 -1\nsolved 20\nrecommend 1 1\nrecommend3 -1 5\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     initial = [f"{1000 + i} {i % 100 + 1} {i % 7 + 1}" for i in range(1, 31)]

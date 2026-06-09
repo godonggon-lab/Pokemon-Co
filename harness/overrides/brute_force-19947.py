@@ -15,5 +15,12 @@ def _solve(data: str) -> str:
     return str(dp[years])
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    cases = [edge("10000 1\n"), edge("10000 3\n"), stress("12345 10\n")]
+    cases = [
+        edge("10000 0\n"),
+        edge("10000 1\n"),
+        edge("10000 3\n"),
+        edge("10000 5\n"),
+        edge("1 10\n"),
+        stress("12345 10\n"),
+    ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]

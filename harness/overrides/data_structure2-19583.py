@@ -24,6 +24,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "22:00 23:00 23:30\n21:59 a\n22:00 b\n23:00 a\n23:31 b\n23:20 b\n",
         "09:00 10:00 11:00\n08:59 anna\n10:30 anna\n10:30 bob\n",
         "12:00 13:00 14:00\n12:01 late\n13:30 late\n",
+        "09:00 10:00 11:00\n09:00 a\n10:00 a\n11:00 b\n",
+        "09:00 10:00 11:00\n08:00 a\n09:00 a\n10:30 a\n10:30 a\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     logs = [f"08:{i:02d} user{i}" for i in range(50)]
