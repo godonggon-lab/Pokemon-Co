@@ -21,5 +21,12 @@ def _solve(data: str) -> str:
     return str(used if filled == length * width * height else -1)
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    cases = [edge("1 1 1\n1\n0 1\n"), edge("4 4 4\n1\n1 8\n"), edge("4 4 4\n1\n2 1\n"), stress("10 12 8\n4\n0 100\n1 50\n2 10\n3 1\n")]
+    cases = [
+        edge("1 1 1\n1\n0 1\n"),
+        edge("2 2 2\n1\n0 8\n"),
+        edge("4 4 4\n1\n1 8\n"),
+        edge("4 4 4\n1\n2 1\n"),
+        edge("3 3 3\n2\n0 27\n1 1\n"),
+        stress("10 12 8\n4\n0 100\n1 50\n2 10\n3 1\n"),
+    ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]

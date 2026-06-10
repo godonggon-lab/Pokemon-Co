@@ -23,5 +23,12 @@ def _solve(data: str) -> str:
     return "\n".join(out)
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    cases = [edge("1\n0\n"), edge("1\n3\nhat headgear\nsunglasses eyewear\nturban headgear\n"), edge("2\n2\na x\nb x\n3\na x\nb y\nc z\n"), stress("1\n10\n" + "\n".join(f"item{i} kind{i%3}" for i in range(10)) + "\n")]
+    cases = [
+        edge("1\n0\n"),
+        edge("1\n1\na x\n"),
+        edge("1\n3\nhat headgear\nsunglasses eyewear\nturban headgear\n"),
+        edge("2\n2\na x\nb x\n3\na x\nb y\nc z\n"),
+        edge("1\n4\na x\nb x\nc y\nd y\n"),
+        stress("1\n10\n" + "\n".join(f"item{i} kind{i%3}" for i in range(10)) + "\n"),
+    ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]

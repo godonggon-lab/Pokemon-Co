@@ -28,8 +28,10 @@ def _solve(data: str) -> str:
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
     cases = [
         edge("1\n0\n"),
+        edge("1\n-1\n"),
         edge("3\n1 1 1\n1 1 1\n1 1 1\n"),
         edge("3\n-1 0 1\n-1 0 1\n-1 0 1\n"),
+        edge("3\n0 0 0\n0 1 0\n0 0 0\n"),
         stress("9\n" + "\n".join(" ".join(str((r + c) % 3 - 1) for c in range(9)) for r in range(9)) + "\n"),
     ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]

@@ -23,5 +23,12 @@ def _solve(data: str) -> str:
     return str(sum(1 for i in range(n) for j in range(m) if dfs(i, j) == 2))
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    cases = [edge("1 1\nU\n"), edge("2 2\nRD\nUL\n"), stress("3 4\nRRRD\nULLD\nUUUL\n")]
+    cases = [
+        edge("1 1\nU\n"),
+        edge("1 3\nRRR\n"),
+        edge("2 2\nRD\nUL\n"),
+        edge("2 2\nUU\nDD\n"),
+        edge("3 3\nRRD\nULL\nUUU\n"),
+        stress("3 4\nRRRD\nULLD\nUUUL\n"),
+    ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]

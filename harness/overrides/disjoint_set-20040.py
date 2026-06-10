@@ -22,5 +22,12 @@ def _solve(data: str) -> str:
     return "0"
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    cases = [edge("3 2\n0 1\n1 2\n"), edge("3 3\n0 1\n1 2\n2 0\n"), stress("5 5\n0 1\n1 2\n3 4\n2 3\n4 0\n")]
+    cases = [
+        edge("2 1\n0 1\n"),
+        edge("3 2\n0 1\n1 2\n"),
+        edge("3 3\n0 1\n1 2\n2 0\n"),
+        edge("4 4\n0 1\n2 3\n1 2\n0 3\n"),
+        edge("5 4\n0 1\n1 2\n2 3\n3 4\n"),
+        stress("5 5\n0 1\n1 2\n3 4\n2 3\n4 0\n"),
+    ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]

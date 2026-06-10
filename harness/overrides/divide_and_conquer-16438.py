@@ -3,7 +3,14 @@ from typing import List
 from harness.cases import GeneratedCase, edge, stress
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    cases = [edge("2\n"), edge("7\n"), stress("99\n")]
+    cases = [
+        edge("2\n"),
+        edge("3\n"),
+        edge("7\n"),
+        edge("8\n"),
+        edge("64\n"),
+        stress("99\n"),
+    ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]
 
 def _solve(data: str) -> str:

@@ -49,7 +49,10 @@ def _solve(data: str) -> str:
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
     cases = [
         edge("1\n1 1 2 2\n"),
+        edge("1\n-1 -1 1 1\n"),
         edge("2\n-1 -1 1 1\n2 2 3 3\n"),
+        edge("2\n1 1 5 5\n2 2 4 4\n"),
+        edge("3\n1 1 3 3\n3 1 5 3\n10 10 12 12\n"),
         stress("4\n-2 -2 2 2\n2 -1 4 1\n5 5 6 6\n-6 5 -5 6\n"),
     ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]
