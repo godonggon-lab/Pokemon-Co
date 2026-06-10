@@ -15,5 +15,12 @@ def _solve(data: str) -> str:
     return "\n".join(str(dp[n]) for n in queries)
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    cases = [edge("3\n1\n2\n3\n"), edge("4\n4\n7\n10\n100\n"), stress("5\n1000\n10000\n100000\n500000\n1000000\n")]
+    cases = [
+        edge("1\n1\n"),
+        edge("3\n1\n2\n3\n"),
+        edge("4\n4\n7\n10\n100\n"),
+        edge("5\n5\n6\n7\n8\n9\n"),
+        edge("3\n10\n10\n10\n"),
+        stress("5\n1000\n10000\n100000\n500000\n1000000\n"),
+    ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]

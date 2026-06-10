@@ -23,5 +23,16 @@ def _solve(data: str) -> str:
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
     base = "\n".join(f"{i} {31-i}" for i in range(1, 31)) + "\n"
-    cases = [edge(base), stress("\n".join(f"{(i*7)%100} {(i*11)%100}" for i in range(35)) + "\n")]
+    equal = "\n".join("10 10" for _ in range(30)) + "\n"
+    white_heavy = "\n".join(f"{100-i} {i}" for i in range(30)) + "\n"
+    black_heavy = "\n".join(f"{i} {100-i}" for i in range(30)) + "\n"
+    mixed = "\n".join(f"{(i % 5) * 20} {((i + 2) % 5) * 20}" for i in range(32)) + "\n"
+    cases = [
+        edge(base),
+        edge(equal),
+        edge(white_heavy),
+        edge(black_heavy),
+        edge(mixed),
+        stress("\n".join(f"{(i*7)%100} {(i*11)%100}" for i in range(35)) + "\n"),
+    ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]
