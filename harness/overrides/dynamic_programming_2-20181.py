@@ -28,5 +28,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
     return _with_expected([
         edge("5 5\n1 2 3 4 5\n"),
         edge("6 7\n2 2 2 2 2 2\n"),
+        edge("1 10\n9\n"),
+        edge("4 5\n5 5 5 5\n"),
+        edge("7 8\n1 7 1 7 1 7 1\n"),
         stress("8 10\n5 1 3 7 2 6 4 8\n"),
     ])

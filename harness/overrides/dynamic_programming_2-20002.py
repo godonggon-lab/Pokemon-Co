@@ -22,7 +22,7 @@ def _solve(stdin: str) -> str:
 
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    inputs = ["1\n-5\n", "2\n1 2\n3 4\n", "3\n-1 -2 -3\n4 5 6\n-7 8 9\n"]
+    inputs = ["1\n-5\n", "2\n1 2\n3 4\n", "3\n-1 -2 -3\n4 5 6\n-7 8 9\n", "2\n-1 -2\n-3 -4\n", "3\n5 -100 5\n5 -100 5\n5 5 5\n"]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     rows = "\n".join(" ".join(str((i * j) % 11 - 5) for j in range(20)) for i in range(20))
     stdin = f"20\n{rows}\n"
