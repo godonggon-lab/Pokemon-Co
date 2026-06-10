@@ -18,5 +18,12 @@ def _solve(data: str) -> str:
     return str(dp[-1] if dp[-1] != inf else -1)
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    cases = [edge("1\n0\n"), edge("5\n1 1 1 1 0\n"), edge("5\n0 1 1 1 1\n"), stress("100\n" + " ".join(str(i%5) for i in range(100)) + "\n")]
+    cases = [
+        edge("1\n0\n"),
+        edge("2\n1 0\n"),
+        edge("5\n1 1 1 1 0\n"),
+        edge("5\n0 1 1 1 1\n"),
+        edge("6\n5 0 0 0 0 0\n"),
+        stress("100\n" + " ".join(str(i%5) for i in range(100)) + "\n"),
+    ]
     return [{**case, "expected": _solve(case["input"])} for case in cases]

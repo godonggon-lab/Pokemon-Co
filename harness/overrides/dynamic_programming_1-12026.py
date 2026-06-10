@@ -28,6 +28,7 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "3\nBOJ\n",
         "3\nBBB\n",
         "6\nBJOBOJ\n",
+        "1\nB\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     s = "BOJ" * 40

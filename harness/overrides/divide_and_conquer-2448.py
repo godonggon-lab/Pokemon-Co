@@ -30,5 +30,5 @@ def expected(stdin: str) -> str:
 
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    inputs = ["3\n", "6\n", "12\n", "24\n"]
+    inputs = ["3\n", "6\n", "12\n", "24\n", "48\n", "96\n"]
     return [edge(stdin, expected(stdin)) for stdin in inputs[:-1]] + [stress(inputs[-1], expected(inputs[-1]))]
