@@ -31,4 +31,11 @@ def _with_expected(cases: List[GeneratedCase]) -> List[GeneratedCase]:
 
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    return _with_expected([edge("3 2\n1 2 3\n1 2\n2 3\n"), edge("4 3\n5 1 10 2\n1 3\n2 3\n3 4\n"), stress("5 5\n1 4 2 8 3\n1 2\n1 3\n2 4\n3 4\n4 5\n")])
+    return _with_expected([
+        edge("3 2\n1 2 3\n1 2\n2 3\n"),
+        edge("4 3\n5 1 10 2\n1 3\n2 3\n3 4\n"),
+        edge("4 0\n5 10 15 20\n"),
+        edge("5 4\n10 1 1 1 10\n1 2\n2 3\n3 4\n4 5\n"),
+        edge("5 4\n1 100 2 100 3\n1 3\n2 3\n3 5\n4 5\n"),
+        stress("5 5\n1 4 2 8 3\n1 2\n1 3\n2 4\n3 4\n4 5\n"),
+    ])

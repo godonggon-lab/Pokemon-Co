@@ -28,5 +28,6 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         edge("1 1\n1\n"),
         edge("4 4\n1111\n1111\n1111\n1111\n"),
         edge("4 5\n10100\n10111\n11111\n10010\n"),
+        edge("3 4\n0111\n1111\n1110\n"),
         stress("20 20\n" + "\n".join(("10" * 10) if i % 2 else ("01" * 10) for i in range(20)) + "\n"),
     ])
