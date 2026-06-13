@@ -9,5 +9,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
     return [
         edge('3 2\n1 2\n2 3\n3\n', '2\r\n'),
         edge('5 4\n1 3\n2 3\n3 4\n4 5\n5\n', '4\r\n'),
+        edge('1 0\n1\n', '0\r\n'),
+        edge('4 2\n1 2\n3 4\n2\n', '1\r\n'),
+        edge('4 4\n1 2\n2 3\n1 3\n3 4\n4\n', '3\r\n'),
         stress('7 7\n1 4\n2 4\n3 5\n4 6\n5 6\n6 7\n2 5\n7\n', '6\r\n'),
     ]

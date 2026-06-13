@@ -73,6 +73,17 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
             [0, 0, 1, 0, 0],
             [0, 0, 0, 0, 0],
         ]),
+        _case([
+            [0, 0, 0],
+            [0, 1, 0],
+            [0, 0, 0],
+        ]),
+        _case([
+            [0, 0, 0, 0],
+            [0, 1, 1, 0],
+            [0, 1, 1, 0],
+            [0, 0, 0, 0],
+        ]),
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
 
