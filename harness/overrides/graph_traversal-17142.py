@@ -50,6 +50,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "4 1\n2 0 0 0\n1 1 1 0\n0 0 0 0\n0 1 1 2\n",
         "3 2\n2 2 2\n2 2 2\n2 2 2\n",
         "5 2\n2 0 1 0 2\n0 0 1 0 0\n1 1 1 1 1\n0 0 1 0 0\n2 0 1 0 2\n",
+        "1 1\n2\n",
+        "2 1\n2 0\n0 0\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     hard = "\n".join([
