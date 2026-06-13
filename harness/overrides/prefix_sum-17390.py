@@ -19,7 +19,13 @@ def _solve(stdin: str) -> str:
 
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    inputs = ["5 3\n5 4 3 2 1\n1 3\n2 5\n4 4\n", "1 1\n7\n1 1\n"]
+    inputs = [
+        "5 3\n5 4 3 2 1\n1 3\n2 5\n4 4\n",
+        "1 1\n7\n1 1\n",
+        "4 2\n5 5 5 5\n1 4\n2 3\n",
+        "5 3\n-1 -5 3 0 2\n1 1\n1 5\n3 4\n",
+        "3 2\n100 1 50\n1 2\n3 3\n",
+    ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     arr = " ".join(str(1000 - i) for i in range(1000))
     queries = "\n".join(f"{i} {1000 - i}" for i in range(1, 500, 10))

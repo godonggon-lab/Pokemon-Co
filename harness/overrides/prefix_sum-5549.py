@@ -28,6 +28,9 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
     inputs = [
         "2 3\n3\nJOI\nIOJ\n1 1 2 3\n1 1 1 1\n2 2 2 3\n",
         "1 1\n1\nJ\n1 1 1 1\n",
+        "1 3\n2\nJOI\n1 1 1 3\n1 2 1 2\n",
+        "3 1\n2\nJ\nO\nI\n1 1 3 1\n2 1 3 1\n",
+        "2 2\n3\nJJ\nJJ\n1 1 2 2\n1 2 2 2\n2 1 2 1\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     rows = ["".join("JOI"[(i + j) % 3] for j in range(30)) for i in range(30)]

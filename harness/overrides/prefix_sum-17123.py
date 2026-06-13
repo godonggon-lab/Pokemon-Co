@@ -37,6 +37,9 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
     inputs = [
         "1\n2 1\n1 2\n3 4\n1 1 2 2 1\n",
         "1\n3 2\n1 1 1\n2 2 2\n3 3 3\n1 1 1 3 5\n2 2 3 3 -1\n",
+        "1\n1 1\n5\n1 1 1 1 -3\n",
+        "1\n2 2\n0 0\n0 0\n1 1 1 2 4\n2 1 2 2 7\n",
+        "2\n1 0\n9\n2 1\n1 2\n3 4\n1 2 2 2 -2\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     n = 8
