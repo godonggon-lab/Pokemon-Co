@@ -28,7 +28,7 @@ def _solve(stdin: str) -> str:
 
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    inputs = ["1\n", "10\n", "100\n"]
+    inputs = ["1\n", "10\n", "100\n", "2\n", "50\n"]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     cases.append(stress("10000\n", _solve("10000\n")))
     return cases

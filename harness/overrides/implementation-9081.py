@@ -30,6 +30,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "3\nHELLO\nDRINK\nSHUTTLE\n",
         "4\nABC\nCBA\nAAB\nABA\n",
         "2\nZ\nAZBY\n",
+        "3\nA\nAA\nAB\n",
+        "4\nBA\nBB\nBBA\nFEDCBA\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     words = ["ABCDE", "EDCBA", "AABBCC", "ABDC", "ZYXWV"] * 10

@@ -73,6 +73,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "3 1\n0 0 0\n0 0 0\n0 0 0\n1 1\n",
         "5 1\n1 1 1 1 1\n1 1 1 1 1\n1 1 0 1 1\n1 1 1 1 1\n1 1 1 1 1\n1 1\n",
         "5 2\n1 2 3 2 1\n2 2 2 2 2\n3 3 0 3 3\n1 1 1 1 1\n2 3 2 3 2\n1 2\n3 1\n",
+        "3 2\n1 1 1\n1 0 1\n1 1 1\n1 1\n2 1\n",
+        "5 1\n0 0 0 0 0\n0 2 2 2 0\n0 2 0 2 0\n0 2 2 2 0\n0 0 0 0 0\n4 2\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     board = "\n".join(" ".join(str((i + j) % 3 + 1) if (i, j) != (3, 3) else "0" for j in range(7)) for i in range(7))

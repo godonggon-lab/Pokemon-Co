@@ -31,6 +31,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "2 2 1\n1 2\n3 4\n",
         "4 4 2\n1 2 3 4\n5 6 7 8\n9 10 11 12\n13 14 15 16\n",
         "3 5 7\n1 2 3 4 5\n6 7 8 9 10\n11 12 13 14 15\n",
+        "2 4 0\n1 2 3 4\n5 6 7 8\n",
+        "4 6 16\n1 2 3 4 5 6\n7 8 9 10 11 12\n13 14 15 16 17 18\n19 20 21 22 23 24\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     row = 1

@@ -23,6 +23,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "5 1\n4 1 3 5 2\n4 3 1 2 5\n",
         "5 2\n4 1 3 5 2\n4 3 1 2 5\n",
         "4 3\n1 2 3 4\n2 3 4 1\n",
+        "1 100\n7\n1\n",
+        "5 0\n5 4 3 2 1\n2 1 4 5 3\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     s = " ".join(str(i) for i in range(1, 11))

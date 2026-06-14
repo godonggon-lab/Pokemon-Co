@@ -32,6 +32,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "1\n3 45\n1 2 3\n4 5 6\n7 8 9\n",
         "1\n3 -45\n1 2 3\n4 5 6\n7 8 9\n",
         "2\n1 270\n7\n5 90\n1 2 3 4 5\n6 7 8 9 10\n11 12 13 14 15\n16 17 18 19 20\n21 22 23 24 25\n",
+        "1\n3 0\n1 2 3\n4 5 6\n7 8 9\n",
+        "1\n3 360\n1 2 3\n4 5 6\n7 8 9\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     grid = "\n".join(" ".join(str(i * 7 + j + 1) for j in range(7)) for i in range(7))

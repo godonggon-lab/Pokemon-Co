@@ -43,6 +43,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "5 6 2\n1 2 3 2 5 6\n3 8 7 2 1 3\n8 2 3 1 4 5\n3 4 5 1 1 1\n9 3 2 1 4 3\n3 4 2\n4 2 1\n",
         "3 3 1\n1 2 3\n4 5 6\n7 8 9\n2 2 1\n",
         "4 4 2\n1 1 1 1\n2 2 2 2\n3 3 3 3\n4 4 4 4\n2 2 1\n3 3 1\n",
+        "3 3 1\n1 1 1\n1 1 1\n1 1 1\n2 2 1\n",
+        "5 5 2\n1 2 3 4 5\n6 7 8 9 10\n11 12 13 14 15\n16 17 18 19 20\n21 22 23 24 25\n3 3 2\n3 3 1\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     grid = "\n".join(" ".join(str((i + j) % 9 + 1) for j in range(6)) for i in range(6))

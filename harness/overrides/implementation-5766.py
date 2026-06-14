@@ -27,6 +27,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "2 3\n1 2 3\n2 3 4\n0 0\n",
         "3 2\n1 1\n2 2\n3 4\n0 0\n",
         "2 3\n5 5 4\n3 2 1\n0 0\n",
+        "2 2\n1 1\n1 2\n0 0\n",
+        "2 3\n1 1 1\n2 2 3\n0 0\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     block = "5 5\n" + "\n".join(" ".join(str((i + j) % 8 + 1) for j in range(5)) for i in range(5)) + "\n0 0\n"

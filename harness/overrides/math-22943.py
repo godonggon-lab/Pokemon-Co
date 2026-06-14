@@ -47,7 +47,7 @@ def _solve(stdin: str) -> str:
 
 
 def gen_inputs(_seed: int) -> List[GeneratedCase]:
-    inputs = ["1 2\n", "2 2\n", "3 3\n"]
+    inputs = ["1 2\n", "2 2\n", "3 3\n", "2 3\n", "3 2\n"]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     hard = "4 7\n"
     cases.append(stress(hard, _solve(hard)))

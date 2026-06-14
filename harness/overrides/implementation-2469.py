@@ -45,6 +45,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "4\n3\nBACD\n***\n???\n***\n",
         "5\n5\nACBED\n*-**\n****\n????\n-***\n**-*\n",
         "3\n2\nCBA\n??\n**\n",
+        "2\n1\nAB\n?\n",
+        "4\n2\nABCD\n???\n***\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     hard = "6\n6\nFABCDE\n-****\n*-***\n?????\n**-**\n***-*\n****-\n"

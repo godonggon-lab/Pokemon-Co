@@ -41,6 +41,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "2 3\nmain FolderA 1\nFolderA file1 0\nmain file2 0\nFolderA file1 0\nFolderA file3 0\n2\nmain\nmain/FolderA\n",
         "1 2\nmain docs 1\ndocs a 0\ndocs b 0\n1\nmain/docs\n",
         "0 2\nmain a 0\nmain a 0\n1\nmain\n",
+        "0 1\nmain only 0\n1\nmain\n",
+        "2 2\nmain a 1\na b 1\nb x 0\nb x 0\n3\nmain\nmain/a\nmain/a/b\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     lines = [

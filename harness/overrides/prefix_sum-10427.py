@@ -31,6 +31,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "1\n3 1 2 3\n",
         "2\n4 10 10 10 10\n5 1 3 6 10 15\n",
         "1\n6 8 1 4 9 2 7\n",
+        "1\n1 42\n",
+        "1\n5 5 4 3 2 1\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     arr = [str((i * 37) % 1000) for i in range(1, 41)]

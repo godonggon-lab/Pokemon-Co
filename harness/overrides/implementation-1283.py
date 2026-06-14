@@ -35,6 +35,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "5\nNew\nOpen\nSave\nSave As\nSave All\n",
         "4\nAdd Folder\nApple Pie\nopen file\ncopy paste\n",
         "3\na b c\nA B C\nzzz\n",
+        "1\nSingle Command\n",
+        "4\nAlpha\nBeta\nalpha beta\n!!!\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     hard = "10\n" + "\n".join([
