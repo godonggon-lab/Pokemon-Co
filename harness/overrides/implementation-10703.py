@@ -36,6 +36,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "5 5\n..X..\n.XXX.\n.....\n.....\n#####\n",
         "4 3\nX..\n...\n...\n###\n",
         "6 6\n.XX...\n..X...\n......\n...#..\n...#..\n######\n",
+        "3 1\nX\n.\n#\n",
+        "4 4\n.XX.\n....\n....\n####\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     stdin = "8 8\n" + "\n".join(["XX......", ".X......", "........", "........", "........", "........", "........", "########"]) + "\n"

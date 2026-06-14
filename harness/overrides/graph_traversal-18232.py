@@ -38,6 +38,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "10 1\n1 10\n1 10\n",
         "10 0\n2 9\n",
         "7 2\n1 7\n2 6\n3 7\n",
+        "5 0\n3 3\n",
+        "6 2\n1 6\n1 4\n4 6\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     teleports = "\n".join(f"{i} {1000 - i + 1}" for i in range(1, 101))

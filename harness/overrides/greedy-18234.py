@@ -19,6 +19,8 @@ def gen_inputs(_seed: int) -> List[GeneratedCase]:
         "3 5\n1 3\n2 2\n3 1\n",
         "1 10\n5 7\n",
         "4 4\n10 1\n10 2\n10 3\n10 4\n",
+        "2 2\n0 0\n0 0\n",
+        "3 100\n5 1\n5 1\n5 1\n",
     ]
     cases = [edge(stdin, _solve(stdin)) for stdin in inputs]
     rows = "\n".join(f"{i} {101 - i}" for i in range(1, 101))
